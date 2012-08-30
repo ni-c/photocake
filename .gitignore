@@ -1,3 +1,5 @@
 tmp/*
 Config/database.php
 !empty
+.project
+*~
