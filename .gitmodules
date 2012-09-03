@@ -1,0 +1,3 @@
+[submodule "Vendor/pel"]
+	path = Vendor/pel
+	url = git://github.com/ni-c/pel.git
