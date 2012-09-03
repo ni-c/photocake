@@ -13,20 +13,38 @@ class Meteringmode extends AppModel {
  * @var array
  */
 	public $validate = array(
+		'id' => array(
+		    'numeric' => array(
+		        'rule'    => 'numeric',
+		        'message' => 'Numbers only'
+		    ),
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'required' => true,
+				'message' => 'Name should not be empty',
+				'allowEmpty' => false,
+			),
+		    'unique' => array(
+		        'rule' => 'isUnique',
+				'message' => 'Id should be unique',
+		        'required' => true,
+		        'on' => 'create',
+		    ),
+   		),
 		'name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true,
+				'message' => 'Name should not be empty',
+				'allowEmpty' => false,
 			),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 32),
+		        'message' => 'Name must be no larger than 32 characters long.'
+		    ),
 		),
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
+	
 /**
  * hasMany associations
  *

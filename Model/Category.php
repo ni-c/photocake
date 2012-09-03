@@ -16,26 +16,45 @@ class Category extends AppModel {
 		'name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true,
+				'message' => 'Name should not be empty',
+				'allowEmpty' => false,
 			),
+		    'unique' => array(
+		        'rule' => 'isUnique',
+				'message' => 'Id should be unique',
+		        'required' => true,
+		        'on' => 'create',
+		    ),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 16),
+		        'message' => 'Name must be no larger than 16 characters long.'
+		    ),
 		),
 		'slug' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true,
+				'message' => 'Name should not be empty',
+				'allowEmpty' => false,
 			),
+		    'unique' => array(
+		        'rule' => 'isUnique',
+				'message' => 'Id should be unique',
+		        'required' => true,
+		        'on' => 'create',
+		    ),
+            'alphaNumeric' => array(
+                'rule'     => 'alphaNumeric',
+                'required' => true,
+                'message'  => 'Alphabets and numbers only'
+            ),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 16),
+		        'message' => 'Slug must be no larger than 16 characters long.'
+		    ),
 		),
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * hasMany associations

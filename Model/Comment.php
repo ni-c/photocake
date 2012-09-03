@@ -26,46 +26,62 @@ class Comment extends AppModel {
 		'name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true,
+				'message' => 'Name should not be empty',
+				'allowEmpty' => false,
 			),
+		    'unique' => array(
+		        'rule' => 'isUnique',
+				'message' => 'Id should be unique',
+		        'required' => true,
+		        'on' => 'create',
+		    ),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 32),
+		        'message' => 'Name must be no larger than 32 characters long.'
+		    ),
 		),
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Email should be valid',
+				'allowEmpty' => false,
+				'required' => true,
 			),
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'required' => true,
+				'message' => 'Name should not be empty',
+				'allowEmpty' => false,
+			),
+		    'unique' => array(
+		        'rule' => 'isUnique',
+				'message' => 'Id should be unique',
+		        'required' => true,
+		        'on' => 'create',
+		    ),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 32),
+		        'message' => 'Email must be no larger than 32 characters long.'
+		    ),
 		),
 		'website' => array(
 			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+ 				'rule' => 'url',
+				'message' => 'Website should be a valid URL',
+				'allowEmpty' => false,
+				'required' => true,
 			),
 		),
 		'comment' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true,
+				'message' => 'Name should not be empty',
+				'allowEmpty' => false,
 			),
 		),
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations
