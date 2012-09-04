@@ -32,4 +32,21 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+    public $uses = array('Options');
+
+    /**
+     * Returns the option value of the given key or null if not set
+     *
+     * @param $key The key to get the option for
+     * @return The option value of the given key or null if not set
+     */
+    public function getOption($key) {
+        $r = $this->Options->findByKey($key);
+		if (isset($r['Options'])) {
+			return $r['Options']['value'];
+		}
+		return null;
+    }
+
 }

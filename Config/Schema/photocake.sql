@@ -46,15 +46,15 @@ CREATE TABLE `exposureprograms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `exposureprograms` (`id`, `name`, `created`, `modified`) VALUES
-(0, 'Not defined', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(1, 'Manual', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(2, 'Normal program', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(3, 'Aperture priority', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(4, 'Shutter priority', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(5, 'Creative program', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(6, 'Action program', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(7, 'Portrait mode', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(8, 'Landscape mode', '2012-09-03 21:11:57', '2012-09-03 21:11:57');
+(0, 'Not defined', now(), now()),
+(1, 'Manual', now(), now()),
+(2, 'Normal program', now(), now()),
+(3, 'Aperture priority', now(), now()),
+(4, 'Shutter priority', now(), now()),
+(5, 'Creative program', now(), now()),
+(6, 'Action program', now(), now()),
+(7, 'Portrait mode', now(), now()),
+(8, 'Landscape mode', now(), now());
 
 DROP TABLE IF EXISTS `flashes`;
 CREATE TABLE `flashes` (
@@ -67,28 +67,28 @@ CREATE TABLE `flashes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `flashes` (`id`, `name`, `created`, `modified`) VALUES
-(0, 'Flash did not fire', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(1, 'Flash fired', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(5, 'Strobe return light not detected', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(7, 'Strobe return light detected', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(9, 'Flash fired, compulsory flash mode', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(13, 'Flash fired, compulsory flash mode, return light not detected', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(15, 'Flash fired, compulsory flash mode, return light detected', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(16, 'Flash did not fire, compulsory flash mode', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(24, 'Flash did not fire, auto mode', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(25, 'Flash fired, auto mode', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(29, 'Flash fired, auto mode, return light not detected', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(31, 'Flash fired, auto mode, return light detected', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(32, 'No flash function', '2012-09-03 21:11:57', '2012-09-03 21:11:57'),
-(65, 'Flash fired, red-eye reduction mode', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(69, 'Flash fired, red-eye reduction mode, return light not detected', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(71, 'Flash fired, red-eye reduction mode, return light detected', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(73, 'Flash fired, compulsory flash mode, red-eye reduction mode', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(77, 'Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(79, 'Flash fired, compulsory flash mode, red-eye reduction mode, return light detected', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(89, 'Flash fired, auto mode, red-eye reduction mode', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(93, 'Flash fired, auto mode, return light not detected, red-eye reduction mode', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(95, 'Flash fired, auto mode, return light detected, red-eye reduction mode ', '2012-09-03 21:11:58', '2012-09-03 21:11:58');
+(0, 'Flash did not fire', now(), now()),
+(1, 'Flash fired', now(), now()),
+(5, 'Strobe return light not detected', now(), now()),
+(7, 'Strobe return light detected', now(), now()),
+(9, 'Flash fired, compulsory flash mode', now(), now()),
+(13, 'Flash fired, compulsory flash mode, return light not detected', now(), now()),
+(15, 'Flash fired, compulsory flash mode, return light detected', now(), now()),
+(16, 'Flash did not fire, compulsory flash mode', now(), now()),
+(24, 'Flash did not fire, auto mode', now(), now()),
+(25, 'Flash fired, auto mode', now(), now()),
+(29, 'Flash fired, auto mode, return light not detected', now(), now()),
+(31, 'Flash fired, auto mode, return light detected', now(), now()),
+(32, 'No flash function', now(), now()),
+(65, 'Flash fired, red-eye reduction mode', now(), now()),
+(69, 'Flash fired, red-eye reduction mode, return light not detected', now(), now()),
+(71, 'Flash fired, red-eye reduction mode, return light detected', now(), now()),
+(73, 'Flash fired, compulsory flash mode, red-eye reduction mode', now(), now()),
+(77, 'Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected', now(), now()),
+(79, 'Flash fired, compulsory flash mode, red-eye reduction mode, return light detected', now(), now()),
+(89, 'Flash fired, auto mode, red-eye reduction mode', now(), now()),
+(93, 'Flash fired, auto mode, return light not detected, red-eye reduction mode', now(), now()),
+(95, 'Flash fired, auto mode, return light detected, red-eye reduction mode ', now(), now());
 
 DROP TABLE IF EXISTS `lenses`;
 CREATE TABLE `lenses` (
@@ -101,10 +101,10 @@ CREATE TABLE `lenses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `lenses` (`id`, `name`, `created`, `modified`) VALUES
-(0, 'walimex Pro 8mm f/3.5 Fish-Eye', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(29, 'Canon EF 50mm 1.8 II', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(153, 'Tamron 18-200mm f/3,5-6,3 XR Di ', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(156, 'Tamron 70-300mm f/4-5.6 Di VC US', '2012-09-03 21:11:58', '2012-09-03 21:11:58');
+(0, 'walimex Pro 8mm f/3.5 Fish-Eye', now(), now()),
+(29, 'Canon EF 50mm 1.8 II', now(), now()),
+(153, 'Tamron 18-200mm f/3,5-6,3 XR Di ', now(), now()),
+(156, 'Tamron 70-300mm f/4-5.6 Di VC US', now(), now());
 
 DROP TABLE IF EXISTS `meteringmodes`;
 CREATE TABLE `meteringmodes` (
@@ -117,14 +117,14 @@ CREATE TABLE `meteringmodes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `meteringmodes` (`id`, `name`, `created`, `modified`) VALUES
-(0, 'Unknown', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(1, 'Average', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(2, 'Center-weighted average', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(3, 'Spot', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(4, 'Multi-spot', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(5, 'Pattern', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(6, 'Partial', '2012-09-03 21:11:58', '2012-09-03 21:11:58'),
-(255, 'Other', '2012-09-03 21:11:58', '2012-09-03 21:11:58');
+(0, 'Unknown', now(), now()),
+(1, 'Average', now(), now()),
+(2, 'Center-weighted average', now(), now()),
+(3, 'Spot', now(), now()),
+(4, 'Multi-spot', now(), now()),
+(5, 'Pattern', now(), now()),
+(6, 'Partial', now(), now()),
+(255, 'Other', now(), now());
 
 DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
@@ -135,7 +135,10 @@ CREATE TABLE `options` (
   `modified` int(11) NOT NULL COMMENT 'Modified timestamp',
   PRIMARY KEY (`id`),
   UNIQUE KEY `key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+INSERT INTO `options` (`id`, `key`, `value`, `created`, `modified`) VALUES
+(1, 'photo_dir', 'Images/', 2012, 2012);
 
 DROP TABLE IF EXISTS `photos`;
 CREATE TABLE `photos` (
@@ -146,12 +149,13 @@ CREATE TABLE `photos` (
   `lens_id` int(11) unsigned DEFAULT NULL COMMENT 'EXIF fot the Lens',
   `exposureprogram_id` int(11) unsigned DEFAULT NULL COMMENT 'EXIF for the Exposure Program',
   `meteringmode_id` int(11) unsigned DEFAULT NULL COMMENT 'EXIF for Metering Mode',
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The filename of the photo',
   `title` varchar(80) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The title of the photo',
   `description` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'The description of the photo',
   `datecreated` datetime NOT NULL COMMENT 'EXIF for Date Created',
   `focallength` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for Focal Length',
-  `aperturevalue` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for Aperture Value',
-  `shutterspeedvalue` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for Shutter Speed Value',
+  `fnumber` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for Aperture Value',
+  `exposuretime` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for Shutter Speed Value',
   `iso` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for ISO',
   `gpslatituderef` enum('N','S') COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for GPS Latitude Ref',
   `gpslatitude` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'EXIF for GPS Latitude',
@@ -160,7 +164,8 @@ CREATE TABLE `photos` (
   `status` enum('Draft','Published') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Draft' COMMENT 'Status of the Photo',
   `created` datetime NOT NULL COMMENT 'Created timestamp',
   `modified` datetime NOT NULL COMMENT 'Modified timestamp',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `filename` (`filename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `photos_tags`;
