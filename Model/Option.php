@@ -15,22 +15,26 @@ class Option extends AppModel {
 		'key' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true,
+				'message' => 'Key should not be empty',
+				'allowEmpty' => false,
 			),
+		    'unique' => array(
+		        'rule' => 'isUnique',
+				'message' => 'Key should be unique',
+		        'required' => true,
+		        'on' => 'create',
+		    ),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 32),
+		        'message' => 'Key must be no larger than 32 characters long.'
+		    ),
 		),
 		'value' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 255),
+		        'message' => 'Value must be no larger than 255 characters long.'
+		    ),
 		),
 	);
 }

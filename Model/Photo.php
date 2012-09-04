@@ -2,9 +2,7 @@
 App::uses('AppModel', 'Model');
 /**
  * Photo Model
- *
- * @property Category $Category
- * @property Cameramodelname $Cameramodelname
+ *iCameramodelname $Cameramodelname
  * @property Flash $Flash
  * @property Lens $Lens
  * @property Exposureprogram $Exposureprogram
@@ -23,46 +21,73 @@ class Photo extends AppModel {
 		'category_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'category_id should be numeric',
+				'allowEmpty' => false,
+				'required' => true,
+			),
+		),
+		'cameramodelname_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'cameramodel_id should be numeric',
+				'allowEmpty' => true,
+			),
+		),
+		'flash_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'flash_id should be numeric',
+				'allowEmpty' => true,
+			),
+		),
+		'lens_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'lens_id should be numeric',
+				'allowEmpty' => true,
+			),
+		),
+		'exposureprogram_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'exposureprogram_id should be numeric',
+				'allowEmpty' => true,
+			),
+		),
+		'meteringmode_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'meteringmode_id should be numeric',
+				'allowEmpty' => true,
 			),
 		),
 		'title' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true,
+				'message' => 'Title should not be empty',
+				'allowEmpty' => false,
 			),
-		),
-		'description' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+		    'unique' => array(
+		        'rule' => 'isUnique',
+				'message' => 'Title should be unique',
+		        'required' => true,
+		        'on' => 'create',
+		    ),
+		    'maxLength' => array(
+		        'rule'    => array('maxLength', 80),
+		        'message' => 'Title must be no larger than 80 characters long.'
+		    ),
 		),
 		'datecreated' => array(
 			'datetime' => array(
 				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Datecreated should be a datetime',
+				'allowEmpty' => false,
+				'required' => true,
 			),
 		),
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations

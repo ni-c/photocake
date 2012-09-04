@@ -21,7 +21,7 @@ class Meteringmode extends AppModel {
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'required' => true,
-				'message' => 'Name should not be empty',
+				'message' => 'Id should not be empty',
 				'allowEmpty' => false,
 			),
 		    'unique' => array(
