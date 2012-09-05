@@ -9,12 +9,13 @@
 			<th><?php echo $this->Paginator->sort('lens_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('exposureprogram_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('meteringmode_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('filename'); ?></th>
 			<th><?php echo $this->Paginator->sort('title'); ?></th>
 			<th><?php echo $this->Paginator->sort('description'); ?></th>
 			<th><?php echo $this->Paginator->sort('datecreated'); ?></th>
 			<th><?php echo $this->Paginator->sort('focallength'); ?></th>
-			<th><?php echo $this->Paginator->sort('aperturevalue'); ?></th>
-			<th><?php echo $this->Paginator->sort('shutterspeedvalue'); ?></th>
+			<th><?php echo $this->Paginator->sort('fnumber'); ?></th>
+			<th><?php echo $this->Paginator->sort('exposuretime'); ?></th>
 			<th><?php echo $this->Paginator->sort('iso'); ?></th>
 			<th><?php echo $this->Paginator->sort('gpslatituderef'); ?></th>
 			<th><?php echo $this->Paginator->sort('gpslatitude'); ?></th>
@@ -45,12 +46,13 @@
 		<td>
 			<?php echo $this->Html->link($photo['Meteringmode']['name'], array('controller' => 'meteringmodes', 'action' => 'view', $photo['Meteringmode']['id'])); ?>
 		</td>
+		<td><?php echo h($photo['Photo']['filename']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['title']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['description']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['datecreated']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['focallength']); ?>&nbsp;</td>
-		<td><?php echo h($photo['Photo']['aperturevalue']); ?>&nbsp;</td>
-		<td><?php echo h($photo['Photo']['shutterspeedvalue']); ?>&nbsp;</td>
+		<td><?php echo h($photo['Photo']['fnumber']); ?>&nbsp;</td>
+		<td><?php echo h($photo['Photo']['exposuretime']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['iso']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['gpslatituderef']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['gpslatitude']); ?>&nbsp;</td>

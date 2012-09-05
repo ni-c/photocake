@@ -1,5 +1,4 @@
 tmp/*
 Config/database.php
 !empty
-.project
-*~
+webroot/img/m/*.jpg

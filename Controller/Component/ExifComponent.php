@@ -34,7 +34,7 @@ class ExifComponent extends Component {
             'id' => $this->getDescriptionPart($exif, 'id'),
             'Model' => $this->getValue($exif[PelIfd::IFD0]->getEntry(PelTag::MODEL)),
             'Flash' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::FLASH)),
-            'LensID' => $this->parseXmpData($filename, 'aux:LensID'),
+            'LensID' => $this->parseXmpData($filename, 'aux:LensID')!='' ? $this->parseXmpData($filename, 'aux:LensID') : '0',
             'Lens' => $this->parseXmpData($filename, 'aux:Lens'),
             'ExposureProgram' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::EXPOSURE_PROGRAM)),
             'MeteringMode' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::METERING_MODE)),
@@ -237,7 +237,10 @@ class ExifComponent extends Component {
     private function parseXmpData($filename, $tag) {
         unset($result);
         preg_match('/<' . $tag . '>.+<\/' . $tag . '>/', $this->loadXmpData($filename), $result);
-        return str_replace('<' . $tag . '>', '', str_replace('</' . $tag . '>', '', $result[0]));
+		if (isset($result[0])) {
+	        return str_replace('<' . $tag . '>', '', str_replace('</' . $tag . '>', '', $result[0]));
+		}
+		return '';
     }
 
 }

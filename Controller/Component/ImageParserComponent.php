@@ -8,7 +8,7 @@ App::uses('Component', 'Controller');
 class ImageParserComponent extends Component {
 
     public $components = array('Exif');
-	
+
     private $dbMapping = array(
         'id' => 'id',
         'Flash' => 'flash_id',
@@ -33,36 +33,38 @@ class ImageParserComponent extends Component {
     #	8 	filename 	varchar(255) 	utf8_unicode_ci 		No 	None 		Change Change 	Drop Drop 	More Show more actions
     #	20 	status 	enum('Draft', 'Published') 	utf8_unicode_ci 		No 	Draft 		Change Change 	Drop Drop 	More Show more actions
 
-	/**
-	 * Parses the given directory for images, extracts exif data and resamples the image to $dest_directory with the given $max_width
-	 *
-	 * @param $directory The directory to parse
-	 * @param $dest_directory The destination directory
-	 * @param $max_width The max width of the destination images
-	 */
+    /**
+     * Parses the given directory for images, extracts exif data and resamples the image to $dest_directory with the given $max_width
+     *
+     * @param $directory The directory to parse
+     * @param $dest_directory The destination directory
+     * @param $max_width The max width of the destination images
+     */
     public function parse($directory, $dest_directory, $max_width) {
-		$result = array();
+        $result = array();
         $files = $this->dirToArray($directory, false, false, true);
         foreach ($files as $id => $filename) {
-            $exif = $this->Exif->load($filename);
-            $data = array(
-                'Photo' => array(),
-                'Cameramodelname' => array()
-            );
-			$data['Cameramodelname']['name'] = $exif['Model'];
-			$data['Category']['name'] = $exif['Category'];
-			$data['Category']['slug'] = $this->strToAscii($data['Category']['name']);
-            foreach ($this->dbMapping as $key => $value) {
-                $data['Photo'][$value] = $exif[$key];
+            if ((substr($filename, strlen($filename) - 4, 4) == '.jpg') || (substr($filename, strlen($filename) - 5, 5) == '.jpeg')) {
+                $exif = $this->Exif->load($filename);
+                $data = array(
+                    'Photo' => array(),
+                    'Cameramodelname' => array()
+                );
+                $data['Cameramodelname']['name'] = $exif['Model'];
+                $data['Category']['name'] = $exif['Category'];
+                $data['Category']['slug'] = $this->strToAscii($data['Category']['name']);
+                foreach ($this->dbMapping as $key => $value) {
+                    $data['Photo'][$value] = $exif[$key];
+                }
+                $data['Photo']['status'] = 'Draft';
+                $dest_filename = str_replace($directory, $dest_directory, $filename);
+                $this->resize($filename, $dest_filename, $max_width);
+                $data['Photo']['filename'] = str_replace($dest_directory, '', $dest_filename);
+                $result[] = $data;
+                unset($data);
             }
-            $data['Photo']['status'] = 'Draft';
-			$dest_filename = str_replace($directory, $dest_directory, $filename);
-			$this->resize($filename, $dest_filename, $max_width);
-            $data['Photo']['filename'] = str_replace($dest_directory, '', $dest_filename);
-			$result[] = $data;
-			unset($data);
         }
-		return $result;
+        return $result;
     }
 
     /**
@@ -109,14 +111,14 @@ class ImageParserComponent extends Component {
         return $array_items;
     }
 
-	/**
-	 * Converts a string to ASCII
-	 * 
-	 * @param $str The string to convert to ASCII
-	 * @param $replace Optional replace array
-	 * @param $delimiter The delimiter to use for whitespaces
-	 * @return The string as ASCII
-	 */
+    /**
+     * Converts a string to ASCII
+     *
+     * @param $str The string to convert to ASCII
+     * @param $replace Optional replace array
+     * @param $delimiter The delimiter to use for whitespaces
+     * @return The string as ASCII
+     */
     private function strToAscii($str, $replace = array(), $delimiter = '-') {
         if (!empty($replace)) {
             $str = str_replace((array)$replace, ' ', $str);
@@ -130,15 +132,15 @@ class ImageParserComponent extends Component {
         return $clean;
     }
 
-	/**
-	 * Resample the image given as $src and save it to $dst
-	 * 
-	 * @param $src Filename of the source image
-	 * @param $dst Filename of the destination image
-	 * @param $width The width of the new image
-	 */
-	private static function resize($src, $dst, $max_width) {
-  		return exec('convert ' . $src . ' -resize ' . $max_width . 'x ' . $dst);
-	}
+    /**
+     * Resample the image given as $src and save it to $dst
+     *
+     * @param $src Filename of the source image
+     * @param $dst Filename of the destination image
+     * @param $width The width of the new image
+     */
+    private static function resize($src, $dst, $max_width) {
+        return exec('convert ' . $src . ' -resize ' . $max_width . 'x ' . $dst);
+    }
 
 }

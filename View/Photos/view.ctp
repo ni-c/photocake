@@ -1,24 +1,24 @@
 <div id="img-nav-links">
-	<?php if ($next_photo!=null):
+	<?php if (isset($next_photo)):
 	?>
-	<div id="img-nav-nextlink" class="left hidden">
+	<div id="img-nav-nextlink" class="right">
 		<?php
         /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
-        echo $this->Html->link('&larr;&nbsp;' . __('Previous'), '/p/' . $next_photo['Photo']['id'], array(
-            'title' => __('Previous Photo'),
+        echo $this->Html->link(__('Next') . '&nbsp;&rarr;', '/p/' . $next_photo['Photo']['id'], array(
+            'title' => __('Next Photo'),
             'escape' => false
         ));
 		?>
 	</div>
 	<?php
     endif;
-    if ($prev_photo!=null):
+    if (isset($prev_photo)):
 	?>
-	<div id="img-nav-prevlink" class="right hidden">
+	<div id="img-nav-prevlink" class="left">
 		<?php
         /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
-        echo $this->Html->link(__('Next') . '&nbsp;&rarr;', '/p/' . $prev_photo['Photo']['id'], array(
-            'title' => __('Next Photo'),
+        echo $this->Html->link('&larr;&nbsp;' . __('Previous'), '/p/' . $prev_photo['Photo']['id'], array(
+            'title' => __('Previous Photo'),
             'escape' => false
         ));
 		?>
@@ -28,22 +28,22 @@
 </div>
 <div id="img-wrapper">
 	<?php
-    if ($prev_photo != null) {
+    if (isset($prev_photo)) {
         /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
         echo $this->Html->link($this->Html->image('prev.gif', array(
             'id' => 'img-nav-prevarrow',
-            'class' => 'hidden',
+//          	'class' => 'hidden',
             'alt' => _('Previous Photo'),
         )), '/p/' . $prev_photo['Photo']['id'], array(
             'title' => __('Previous'),
             'escape' => false
         ));
     }
-    if ($next_photo != null) {
+    if (isset($next_photo)) {
         /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
         echo $this->Html->link($this->Html->image('next.gif', array(
             'id' => 'img-nav-nextarrow',
-            //        'class' => 'hidden',
+//        	'class' => 'hidden',
             'alt' => _('Next Photo'),
         )), '/p/' . $next_photo['Photo']['id'], array(
             'title' => __('Next'),
@@ -62,14 +62,14 @@
         ));
 		?>
 		<map name="img-photo-map" id="img-photo-map">
-			<?php if ($next_photo!=null):
+			<?php if (isset($next_photo)):
 			?>
-			<area title="<?php echo __('Next Photo');?>" id="img-map-next" shape="rect" coords="9998,9998,9999,9999" href="p/38" alt="<?php echo __('Next Photo');?>" onmouseover="return navMouseEvent('img-nav-nextarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-nextarrow', 'hidden');" />
+			<area title="<?php echo __('Next Photo');?>" id="img-map-next" shape="rect" coords="400,0,800,600" href="p/<?php echo $next_photo['Photo']['id'];?>" alt="<?php echo __('Next Photo');?>" onmouseover="return navMouseEvent('img-nav-nextarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-nextarrow', 'hidden');" />
 			<?php
             endif;
-            if ($prev_photo!=null):
+            if (isset($prev_photo)):
 			?>
-			<area title="<?php echo __('Previous Photo');?>" id="img-map-prev" shape="rect" coords="400,0,800,533" href="p/41" alt="<?php echo __('Previous Photo');?>" onmouseover="return navMouseEvent('img-nav-prevarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-prevarrow', 'hidden');" />
+			<area title="<?php echo __('Previous Photo');?>" id="img-map-prev" shape="rect" coords="0,0,400,600" href="p/<?php echo $prev_photo['Photo']['id'];?>" alt="<?php echo __('Previous Photo');?>" onmouseover="return navMouseEvent('img-nav-prevarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-prevarrow', 'hidden');" />
 			<?php
             endif;
 			?>

@@ -58,7 +58,7 @@
 								&#183;
 							</li>
 							<li>
-								<?php echo $this->html->link(__('Archive'), '/browser/1', array('title' => __('Show photo archive'))); ?>
+								<?php echo $this->html->link(__('Archive'), '/browse/1', array('title' => __('Show photo archive'))); ?>
 							</li>
 							<li>
 								&#183;
@@ -84,7 +84,7 @@
 		        </ul>
 				</div>
 			</div>
-			<?php //echo $this->element('sql_dump'); ?>
+			<?php echo $this->element('sql_dump'); ?>
 		</div>
 	</body>
 </html>

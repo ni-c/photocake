@@ -21,8 +21,6 @@ class PhotosController extends AppController {
         $this->ImageParser = $this->Components->load('ImageParser');
 
         $photo_dir = $this->getOption('photo_dir');
-        //        $this->Exif = $this->Components->load('Exif');
-        //        $this->Exif->updateDescription(ROOT . DIRECTORY_SEPARATOR . APP_DIR . DIRECTORY_SEPARATOR . $photo_dir . DIRECTORY_SEPARATOR . 'herbst.jpg', '1', 'Herbst', 'Description', 'Natur', array('digital', 'natur'));
 
         // absolute or relative path
         if ($photo_dir[0] != DIRECTORY_SEPARATOR) {
@@ -32,8 +30,18 @@ class PhotosController extends AppController {
 
         $data = $this->ImageParser->parse($photo_dir, $dest_dir, 800);
 
+		$this->Photo->Cameramodelname->recursive = -1;
+       	$this->Photo->Category->recursive = -1;
+
         foreach ($data as $key => $value) {
-            // TODO: category and tags in exif
+        	$cameramodelname = $this->Photo->Cameramodelname->findByName($value['Cameramodelname']['name']);
+			if ($cameramodelname!==false) {
+				$value['Cameramodelname']['id'] = $cameramodelname['Cameramodelname']['id'];
+			}
+        	$category = $this->Photo->Category->findByName($value['Category']['name']);
+			if ($category!==false) {
+				$value['Category']['id'] = $category['Category']['id'];
+			}
             $this->Photo->saveAll($value);
             if (count($this->Photo->validationErrors) > 0) {
                 debug($this->Photo->validationErrors);
@@ -72,8 +80,9 @@ class PhotosController extends AppController {
         $neighbors = $this->Photo->find('neighbors', array(
             'field' => 'id',
             'value' => $id,
-            'order' => array('Photo.datecreated DESC'),
+            'order' => array('Photo.datecreated ASC'),
         ));
+		
         $this->set('photo', $photo);
         $this->set('next_photo', $neighbors['next']);
         $this->set('prev_photo', $neighbors['prev']);
