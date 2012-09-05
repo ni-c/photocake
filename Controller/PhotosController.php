@@ -21,15 +21,15 @@ class PhotosController extends AppController {
         $this->ImageParser = $this->Components->load('ImageParser');
 
         $photo_dir = $this->getOption('photo_dir');
-//        $this->Exif = $this->Components->load('Exif');
-//        $this->Exif->updateDescription(ROOT . DIRECTORY_SEPARATOR . APP_DIR . DIRECTORY_SEPARATOR . $photo_dir . DIRECTORY_SEPARATOR . 'herbst.jpg', '1', 'Herbst', 'Description', 'Natur', array('digital', 'natur'));
+        //        $this->Exif = $this->Components->load('Exif');
+        //        $this->Exif->updateDescription(ROOT . DIRECTORY_SEPARATOR . APP_DIR . DIRECTORY_SEPARATOR . $photo_dir . DIRECTORY_SEPARATOR . 'herbst.jpg', '1', 'Herbst', 'Description', 'Natur', array('digital', 'natur'));
 
         // absolute or relative path
         if ($photo_dir[0] != DIRECTORY_SEPARATOR) {
             $photo_dir = ROOT . DIRECTORY_SEPARATOR . APP_DIR . DIRECTORY_SEPARATOR . $photo_dir;
         }
-		$dest_dir = ROOT . DIRECTORY_SEPARATOR . APP_DIR . DIRECTORY_SEPARATOR . 'webroot' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR. 'm' . DIRECTORY_SEPARATOR;
-		
+        $dest_dir = ROOT . DIRECTORY_SEPARATOR . APP_DIR . DIRECTORY_SEPARATOR . 'webroot' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'm' . DIRECTORY_SEPARATOR;
+
         $data = $this->ImageParser->parse($photo_dir, $dest_dir, 800);
 
         foreach ($data as $key => $value) {
@@ -59,15 +59,24 @@ class PhotosController extends AppController {
      * @return void
      */
     public function view($id = null) {
-    	if ($id == 'last') {
-    		$last = $this->Photo->query('SELECT `id` FROM `photos` WHERE `datecreated`=(SELECT max(`datecreated`) FROM `photos` WHERE 1=1);');
-			$id = $last[0]['photos']['id'];
-    	}
-        $this->Photo->id = $id;
-        if (!$this->Photo->exists()) {
-            throw new NotFoundException(__('Invalid photo'));
+        if (($id == null) || ($id == 'last')) {
+        	$photo = $this->Photo->find('first', array('order' => array('Photo.datecreated DESC')));
+            $id = $photo['Photo']['id'];
+        } else {
+	        $this->Photo->id = $id;
+	        if (!$this->Photo->exists()) {
+	            throw new NotFoundException(__('Invalid photo'));
+	        }
+			$photo = $this->Photo->read(null, $id);
         }
-        $this->set('photo', $this->Photo->read(null, $id));
+        $neighbors = $this->Photo->find('neighbors', array(
+            'field' => 'id',
+            'value' => $id,
+            'order' => array('Photo.datecreated DESC'),
+        ));
+        $this->set('photo', $photo);
+        $this->set('next_photo', $neighbors['next']);
+        $this->set('prev_photo', $neighbors['prev']);
     }
 
     /**

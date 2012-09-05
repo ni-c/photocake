@@ -1,40 +1,55 @@
 <div id="img-nav-links">
+	<?php if ($next_photo!=null):
+	?>
 	<div id="img-nav-nextlink" class="left hidden">
-		<?php echo $this->Html->link('&larr;&nbsp;' . __('Previous'), '/p/38', array(
+		<?php
+        /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
+        echo $this->Html->link('&larr;&nbsp;' . __('Previous'), '/p/' . $next_photo['Photo']['id'], array(
             'title' => __('Previous Photo'),
             'escape' => false
         ));
 		?>
 	</div>
+	<?php
+    endif;
+    if ($prev_photo!=null):
+	?>
 	<div id="img-nav-prevlink" class="right hidden">
-		<?php echo $this->Html->link(__('Next') . '&nbsp;&rarr;', '/p/41', array(
+		<?php
+        /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
+        echo $this->Html->link(__('Next') . '&nbsp;&rarr;', '/p/' . $prev_photo['Photo']['id'], array(
             'title' => __('Next Photo'),
             'escape' => false
         ));
 		?>
 	</div>
+	<?php endif;?>
 	<div class="clear"></div>
 </div>
 <div id="img-wrapper">
 	<?php
-    /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
-    echo $this->Html->link($this->Html->image('prev.gif', array(
-        'id' => 'img-nav-prevarrow',
-        //        'class' => 'hidden',
-        'alt' => _('Previous Photo'),
-    )), '/p/38', array(
-        'title' => __('Previous'),
-        'escape' => false
-    ));
-    /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
-    echo $this->Html->link($this->Html->image('next.gif', array(
-        'id' => 'img-nav-nextarrow',
-        //        'class' => 'hidden',
-        'alt' => _('Next Photo'),
-    )), '/p/38', array(
-        'title' => __('Next'),
-        'escape' => false
-    ));
+    if ($prev_photo != null) {
+        /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
+        echo $this->Html->link($this->Html->image('prev.gif', array(
+            'id' => 'img-nav-prevarrow',
+            'class' => 'hidden',
+            'alt' => _('Previous Photo'),
+        )), '/p/' . $prev_photo['Photo']['id'], array(
+            'title' => __('Previous'),
+            'escape' => false
+        ));
+    }
+    if ($next_photo != null) {
+        /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
+        echo $this->Html->link($this->Html->image('next.gif', array(
+            'id' => 'img-nav-nextarrow',
+            //        'class' => 'hidden',
+            'alt' => _('Next Photo'),
+        )), '/p/' . $next_photo['Photo']['id'], array(
+            'title' => __('Next'),
+            'escape' => false
+        ));
+    }
 	?>
 
 	<div id="img-border" class="border-frame">
@@ -47,14 +62,23 @@
         ));
 		?>
 		<map name="img-photo-map" id="img-photo-map">
+			<?php if ($next_photo!=null):
+			?>
 			<area title="<?php echo __('Next Photo');?>" id="img-map-next" shape="rect" coords="9998,9998,9999,9999" href="p/38" alt="<?php echo __('Next Photo');?>" onmouseover="return navMouseEvent('img-nav-nextarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-nextarrow', 'hidden');" />
+			<?php
+            endif;
+            if ($prev_photo!=null):
+			?>
 			<area title="<?php echo __('Previous Photo');?>" id="img-map-prev" shape="rect" coords="400,0,800,533" href="p/41" alt="<?php echo __('Previous Photo');?>" onmouseover="return navMouseEvent('img-nav-prevarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-prevarrow', 'hidden');" />
+			<?php
+            endif;
+			?>
 		</map>
 	</div>
 </div>
 <div id="img-title-date-comments">
 	<div id="img-title">
-		<?php echo $this->Html->link(h($photo['Photo']['title']), '/p/38', array('title' => __('Permalink for ') . h($photo['Photo']['title'])));?>
+		<?php echo $this->Html->link(h($photo['Photo']['title']), '/p/' . $photo['Photo']['id'], array('title' => __('Permalink for ') . h($photo['Photo']['title'])));?>
 	</div>
 	<div id="img-info-comment">
 		<a id="info-toggle" href="javascript:void(0);" title="<?php echo __('Comments &amp; EXIF for ') . h($photo['Photo']['title']);?>"> <?php
@@ -77,7 +101,10 @@
 	<div id="img-notes">
 		<div class="notes-cmts-inner-wrapper">
 			<h3><?php echo __('Description');?></h3>
-			<?php echo $this->Html->link(h($photo['Photo']['title']), '/p/38', array('title' => __('Permalink for ') . h($photo['Photo']['title'])));?>
+			<div class="description">
+				<?php echo $this->Markdown->transform($photo['Photo']['description']);?>
+			</div>
+			<?php echo $this->Html->link(__('Permalink'), '/p/' . $photo['Photo']['id'], array('title' => __('Permalink for ') . h($photo['Photo']['title'])));?>
 			<h3><?php echo __('EXIF Data');?></h3>
 			<table id="exif">
 				<tbody>
@@ -147,36 +174,31 @@
 			<div class="bubbles">
 				<div>
 					<?php
-					if (count($photo['Comment'])==0):
-					echo __('No comments.');
-					else:
-						foreach ($photo['Comment'] as $key => $comment):
+if (count($photo['Comment'])==0):
+echo __('No comments.');
+else:
+foreach ($photo['Comment'] as $key => $comment):
 					?>
 					<div class="bubble">
 						<blockquote>
 							<p>
-								<?php echo h($comment['comment']); ?>
+								<?php echo h($comment['comment']);?>
 							</p>
 						</blockquote>
 						<div class="tip"></div>
 						<p>
-							<strong>
-								<?php
-									if ($comment['website']!=''):
-								?>
-								<a rel="nofollow" title="Visit Homepage" href="<?php echo h($comment['website']); ?>">
-									<?php echo h($comment['name']); ?>
-								</a>
-								<?php
-									else:
-									echo h($comment['name']); 
-									endif;
-								?>
-							</strong>
+							<strong> <?php
+if ($comment['website']!=''):
+							?>
+							<a rel="nofollow" title="Visit Homepage" href="<?php echo h($comment['website']);?>"> <?php echo h($comment['name']);?></a> <?php
+                            else:
+                            echo h($comment['name']);
+                            endif;
+							?></strong>
 							<?php echo __('on') . ' ' . $this->Time->format(__('Y-m-d H:i:s'), $comment['created']);?>
 						</p>
 					</div>
-					<?php endforeach; endif; ?>
+					<?php endforeach; endif;?>
 				</div>
 			</div>
 			<h3><?php echo __('Leave a Comment');?></h3>
