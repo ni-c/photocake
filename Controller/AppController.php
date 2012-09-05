@@ -43,10 +43,37 @@ class AppController extends Controller {
      */
     public function getOption($key) {
         $r = $this->Options->findByKey($key);
-		if (isset($r['Options'])) {
-			return $r['Options']['value'];
-		}
-		return null;
+        if (isset($r['Options'])) {
+            return $r['Options']['value'];
+        }
+        return '';
     }
+	
+	/**
+	 * Set the default vars
+	 */
+    public function beforeRender() {
+        $this->set('keywords', $this->isEmpty($this->getOption('keywords'), 'photocake,foto,blog'));
+        $this->set('site_title', $this->isEmpty($this->getOption('site_title'), 'Photocake'));
+        $this->set('site_subtitle', $this->isEmpty($this->getOption('site_subtitle'), 'Markdown Photo Blog'));
+        $this->set('copyright', $this->isEmpty($this->getOption('copyright'), '&copy; 2011-2012 Willi Thiel'));
+        $this->set('author', $this->isEmpty($this->getOption('author'), 'Willi Thiel'));
+        $this->set('license', $this->isEmpty($this->getOption('license'), 'MIT License'));
+        $this->set('lang', 'de');
+    }
+
+	/**
+	 * If string is empty, the method returns default. Otherwise it returns string
+	 * 
+	 * @param $string The string to check
+	 * @param $default The default value
+	 * @return If string is empty, the method returns default. Otherwise it returns string
+	 */
+	private function isEmpty($string, $default) {
+		if ($string == '') {
+			return $default;
+		}
+		return $string;
+	}
 
 }

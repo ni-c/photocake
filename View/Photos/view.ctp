@@ -1,215 +1,214 @@
-<div class="photos view">
-<h2><?php  echo __('Photo'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Category'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($photo['Category']['name'], array('controller' => 'categories', 'action' => 'view', $photo['Category']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Cameramodelname'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($photo['Cameramodelname']['name'], array('controller' => 'cameramodelnames', 'action' => 'view', $photo['Cameramodelname']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Flash'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($photo['Flash']['name'], array('controller' => 'flashes', 'action' => 'view', $photo['Flash']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Lens Id'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['lens_id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Exposureprogram'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($photo['Exposureprogram']['name'], array('controller' => 'exposureprograms', 'action' => 'view', $photo['Exposureprogram']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Meteringmode'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($photo['Meteringmode']['name'], array('controller' => 'meteringmodes', 'action' => 'view', $photo['Meteringmode']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Title'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['title']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Description'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['description']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Datecreated'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['datecreated']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Focallength'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['focallength']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Aperturevalue'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['aperturevalue']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Shutterspeedvalue'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['shutterspeedvalue']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Iso'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['iso']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Gpslatituderef'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['gpslatituderef']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Gpslatitude'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['gpslatitude']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Gpslongituderef'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['gpslongituderef']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Gpslongitude'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['gpslongitude']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Status'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['status']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['created']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Modified'); ?></dt>
-		<dd>
-			<?php echo h($photo['Photo']['modified']); ?>
-			&nbsp;
-		</dd>
-	</dl>
+<div id="img-nav-links">
+	<div id="img-nav-nextlink" class="left hidden">
+		<?php echo $this->Html->link('&larr;&nbsp;' . __('Previous'), '/p/38', array(
+            'title' => __('Previous Photo'),
+            'escape' => false
+        ));
+		?>
+	</div>
+	<div id="img-nav-prevlink" class="right hidden">
+		<?php echo $this->Html->link(__('Next') . '&nbsp;&rarr;', '/p/41', array(
+            'title' => __('Next Photo'),
+            'escape' => false
+        ));
+		?>
+	</div>
+	<div class="clear"></div>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Photo'), array('action' => 'edit', $photo['Photo']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Photo'), array('action' => 'delete', $photo['Photo']['id']), null, __('Are you sure you want to delete # %s?', $photo['Photo']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Photos'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Photo'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Categories'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Category'), array('controller' => 'categories', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cameramodelnames'), array('controller' => 'cameramodelnames', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cameramodelname'), array('controller' => 'cameramodelnames', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Flashes'), array('controller' => 'flashes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Flash'), array('controller' => 'flashes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Lenses'), array('controller' => 'lenses', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Lense'), array('controller' => 'lenses', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Exposureprograms'), array('controller' => 'exposureprograms', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Exposureprogram'), array('controller' => 'exposureprograms', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Meteringmodes'), array('controller' => 'meteringmodes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Meteringmode'), array('controller' => 'meteringmodes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comments'), array('controller' => 'comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Tags'), array('controller' => 'tags', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tag'), array('controller' => 'tags', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Comments'); ?></h3>
-	<?php if (!empty($photo['Comment'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Photo Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Email'); ?></th>
-		<th><?php echo __('Website'); ?></th>
-		<th><?php echo __('Comment'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Modified'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
+<div id="img-wrapper">
 	<?php
-		$i = 0;
-		foreach ($photo['Comment'] as $comment): ?>
-		<tr>
-			<td><?php echo $comment['id']; ?></td>
-			<td><?php echo $comment['photo_id']; ?></td>
-			<td><?php echo $comment['name']; ?></td>
-			<td><?php echo $comment['email']; ?></td>
-			<td><?php echo $comment['website']; ?></td>
-			<td><?php echo $comment['comment']; ?></td>
-			<td><?php echo $comment['created']; ?></td>
-			<td><?php echo $comment['modified']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'comments', 'action' => 'view', $comment['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'comments', 'action' => 'edit', $comment['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'comments', 'action' => 'delete', $comment['id']), null, __('Are you sure you want to delete # %s?', $comment['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
+    /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
+    echo $this->Html->link($this->Html->image('prev.gif', array(
+        'id' => 'img-nav-prevarrow',
+        //        'class' => 'hidden',
+        'alt' => _('Previous Photo'),
+    )), '/p/38', array(
+        'title' => __('Previous'),
+        'escape' => false
+    ));
+    /* TODO: Javascript for onMouseOver / onMouseOut hidden/visible */
+    echo $this->Html->link($this->Html->image('next.gif', array(
+        'id' => 'img-nav-nextarrow',
+        //        'class' => 'hidden',
+        'alt' => _('Next Photo'),
+    )), '/p/38', array(
+        'title' => __('Next'),
+        'escape' => false
+    ));
+	?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
-		</ul>
+	<div id="img-border" class="border-frame">
+		<?php echo $this->Html->image('m/' . h($photo['Photo']['filename']), array(
+            'id' => 'img-photo',
+            'class' => 'border-matte',
+            'usemap' => '#img-photo-map',
+            'alt' => h($photo['Photo']['title']),
+            'title' => h($photo['Photo']['title']),
+        ));
+		?>
+		<map name="img-photo-map" id="img-photo-map">
+			<area title="<?php echo __('Next Photo');?>" id="img-map-next" shape="rect" coords="9998,9998,9999,9999" href="p/38" alt="<?php echo __('Next Photo');?>" onmouseover="return navMouseEvent('img-nav-nextarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-nextarrow', 'hidden');" />
+			<area title="<?php echo __('Previous Photo');?>" id="img-map-prev" shape="rect" coords="400,0,800,533" href="p/41" alt="<?php echo __('Previous Photo');?>" onmouseover="return navMouseEvent('img-nav-prevarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-prevarrow', 'hidden');" />
+		</map>
 	</div>
 </div>
-<div class="related">
-	<h3><?php echo __('Related Tags'); ?></h3>
-	<?php if (!empty($photo['Tag'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Slug'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Modified'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($photo['Tag'] as $tag): ?>
-		<tr>
-			<td><?php echo $tag['id']; ?></td>
-			<td><?php echo $tag['name']; ?></td>
-			<td><?php echo $tag['slug']; ?></td>
-			<td><?php echo $tag['created']; ?></td>
-			<td><?php echo $tag['modified']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'tags', 'action' => 'view', $tag['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'tags', 'action' => 'delete', $tag['id']), null, __('Are you sure you want to delete # %s?', $tag['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Tag'), array('controller' => 'tags', 'action' => 'add')); ?> </li>
-		</ul>
+<div id="img-title-date-comments">
+	<div id="img-title">
+		<?php echo $this->Html->link(h($photo['Photo']['title']), '/p/38', array('title' => __('Permalink for ') . h($photo['Photo']['title'])));?>
 	</div>
+	<div id="img-info-comment">
+		<a id="info-toggle" href="javascript:void(0);" title="<?php echo __('Comments &amp; EXIF for ') . h($photo['Photo']['title']);?>"> <?php
+        echo count($photo['Comment']) . '&nbsp;';
+        if (count($photo['Comment']) != 1) {
+            echo __('Comments');
+        } else {
+            echo __('Comment');
+        }
+		?></a>
+	</div>
+	<div class="clear"></div>
+	<div id="img-date">
+		<?php echo $this->Time->format(__('Y-m-d H:i:s'), $photo['Photo']['datecreated']);?>
+	</div>
+	<div class="clear"></div>
 </div>
+<div class="clear"></div>
+<div id="notes-cmts-container">
+	<div id="img-notes">
+		<div class="notes-cmts-inner-wrapper">
+			<h3><?php echo __('Description');?></h3>
+			<?php echo $this->Html->link(h($photo['Photo']['title']), '/p/38', array('title' => __('Permalink for ') . h($photo['Photo']['title'])));?>
+			<h3><?php echo __('EXIF Data');?></h3>
+			<table id="exif">
+				<tbody>
+					<tr>
+						<td><?php echo __('Camera') . ':';?></td>
+						<td><?php echo h($photo['Cameramodelname']['name']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('Focal Length') . ':';?></td>
+						<td><?php echo h($photo['Photo']['focallength']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('Aperture') . ':';?></td>
+						<td><?php echo h($photo['Photo']['fnumber']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('Exposure') . ':';?></td>
+						<td><?php echo h($photo['Photo']['exposuretime']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('ISO Speed') . ':';?></td>
+						<td><?php echo h($photo['Photo']['iso']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('Exposure Program') . ':';?></td>
+						<td><?php echo __($photo['Exposureprogram']['name']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('Flash') . ':';?></td>
+						<td><?php echo __($photo['Flash']['name']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('Lens') . ':';?></td>
+						<td><?php echo h($photo['Lens']['name']);?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('GPS') . ':';?></td>
+						<td><?php echo h($photo['Photo']['gpslatituderef']) . ' ' . substr(h($photo['Photo']['gpslatitude']), 0, 8) . '&deg;, ' . h($photo['Photo']['gpslongituderef']) . ' ' . substr(h($photo['Photo']['gpslongitude']), 0, 8) . '&deg;';?></td>
+					</tr>
+					<tr>
+						<td><?php echo __('Metering Mode') . ':';?></td>
+						<td><?php echo __($photo['Meteringmode']['name']);?></td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<b><?php echo __('Category') . ':';?></b>&nbsp;<?php echo $this->Html->link(__($photo['Category']['name']), '/browse/category/' . $photo['Category']['slug'], array('title' => __($photo['Category']['name'])));?>
+				&nbsp;
+			</p>
+			<p>
+				<b><?php echo __('Tags') . ':';?></b>&nbsp;
+				<tr>
+					<?php
+                    if (!empty($photo['Tag'])) {
+                        foreach ($photo['Tag'] as $tag) {
+                            echo '<td>' . $this->Html->link(__($tag['name']), '/browse/tag/' . $tag['slug'], array('title' => __($tag['name']))) . '&nbsp;</td>';
+                        }
+                    }
+					?>
+				</tr>
+			</p>
+		</div>
+	</div>
+	<div id="img-comments">
+		<div class="notes-cmts-inner-wrapper">
+			<h3><?php echo __('Comments');?></h3>
+			<div class="bubbles">
+				<div>
+					<?php
+					if (count($photo['Comment'])==0):
+					echo __('No comments.');
+					else:
+						foreach ($photo['Comment'] as $key => $comment):
+					?>
+					<div class="bubble">
+						<blockquote>
+							<p>
+								<?php echo h($comment['comment']); ?>
+							</p>
+						</blockquote>
+						<div class="tip"></div>
+						<p>
+							<strong>
+								<?php
+									if ($comment['website']!=''):
+								?>
+								<a rel="nofollow" title="Visit Homepage" href="<?php echo h($comment['website']); ?>">
+									<?php echo h($comment['name']); ?>
+								</a>
+								<?php
+									else:
+									echo h($comment['name']); 
+									endif;
+								?>
+							</strong>
+							<?php echo __('on') . ' ' . $this->Time->format(__('Y-m-d H:i:s'), $comment['created']);?>
+						</p>
+					</div>
+					<?php endforeach; endif; ?>
+				</div>
+			</div>
+			<h3><?php echo __('Leave a Comment');?></h3>
+			<?php
+            echo $this->Form->create('Comment', array('action' => 'add'));
+            echo $this->Form->hidden('Comment.photo_id', array('value' => $photo['Photo']['id']));
+            echo $this->Form->input('name', array(
+                'label' => __('Name (required)'),
+                'size' => '40',
+                'maxLength' => '32',
+                'required' => true,
+            ));
+            echo $this->Form->input('email', array(
+                'label' => __('Email (required, not shown)'),
+                'size' => '40',
+                'maxLength' => '32',
+                'type' => 'email',
+                'required' => true,
+            ));
+            echo $this->Form->input('website', array(
+                'label' => __('Website (optional)'),
+                'size' => '40',
+                'maxLength' => '255',
+                'type' => 'url',
+            ));
+            echo $this->Form->input('comment', array(
+                'label' => __('Comment (required)'),
+                'size' => '40',
+                'required' => true,
+            ));
+            echo $this->Form->end(__('submit'));
+			?>
+		</div>
+	</div>
+	<!--[if IE 8]><br class="clear" /><![endif]-->

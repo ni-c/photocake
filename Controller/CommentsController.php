@@ -42,13 +42,12 @@ class CommentsController extends AppController {
             $this->Comment->create();
             if ($this->Comment->save($this->request->data)) {
                 $this->Session->setFlash(__('The comment has been saved'));
-                $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The comment could not be saved. Please, try again.'));
+				debug($this->Comment->validationErrors); die();
             }
         }
-        $posts = $this->Comment->Post->find('list');
-        $this->set(compact('posts'));
+    	$this->redirect($this->referer());
     }
 
     /**

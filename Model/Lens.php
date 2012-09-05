@@ -6,6 +6,8 @@ App::uses('AppModel', 'Model');
  */
 class Lens extends AppModel {
 
+	public $useTable = 'lenses';
+
     /**
      * Validation rules
      *

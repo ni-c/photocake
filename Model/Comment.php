@@ -14,24 +14,16 @@ class Comment extends AppModel {
      */
     public $validate = array(
         'photo_id' => array('numeric' => array('rule' => array('numeric'),
-                //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+                'message' => 'Your custom message here',
+                'allowEmpty' => false,
+                'required' => true,
             ), ),
         'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                'required' => true,
-                'message' => 'Name should not be empty',
                 'allowEmpty' => false,
-            ),
-            'unique' => array(
-                'rule' => 'isUnique',
-                'message' => 'Id should be unique',
                 'required' => true,
-                'on' => 'create',
+                'message' => 'Please enter a name',
             ),
             'maxLength' => array(
                 'rule' => array(
@@ -44,21 +36,15 @@ class Comment extends AppModel {
         'email' => array(
             'email' => array(
                 'rule' => array('email'),
-                'message' => 'Email should be valid',
+                'message' => 'Please enter a valid Email',
                 'allowEmpty' => false,
                 'required' => true,
             ),
             'notempty' => array(
                 'rule' => array('notempty'),
                 'required' => true,
-                'message' => 'Name should not be empty',
+                'message' => 'Email required',
                 'allowEmpty' => false,
-            ),
-            'unique' => array(
-                'rule' => 'isUnique',
-                'message' => 'Id should be unique',
-                'required' => true,
-                'on' => 'create',
             ),
             'maxLength' => array(
                 'rule' => array(
@@ -71,8 +57,7 @@ class Comment extends AppModel {
         'website' => array('notempty' => array(
                 'rule' => 'url',
                 'message' => 'Website should be a valid URL',
-                'allowEmpty' => false,
-                'required' => true,
+                'allowEmpty' => true,
             ), ),
         'comment' => array('notempty' => array(
                 'rule' => array('notempty'),

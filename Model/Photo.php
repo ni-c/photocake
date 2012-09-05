@@ -21,8 +21,7 @@ class Photo extends AppModel {
         'category_id' => array('numeric' => array(
                 'rule' => array('numeric'),
                 'message' => 'category_id should be numeric',
-                'allowEmpty' => false,
-                'required' => true,
+                'allowEmpty' => true,
             ), ),
         'cameramodelname_id' => array('numeric' => array(
                 'rule' => array('numeric'),

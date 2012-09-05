@@ -40,8 +40,10 @@ class ExifComponent extends Component {
             'MeteringMode' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::METERING_MODE)),
             'Title' => $this->getDescriptionPart($exif, 'Title'),
             'Description' => $this->getDescriptionPart($exif, 'Description'),
+            'Category' => $this->getDescriptionPart($exif, 'Category'),
+            'Tags' => explode(',', $this->getDescriptionPart($exif, 'Tags')),
             'DateCreated' => date('Y-m-d H:i:s', $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL))),
-            'FocalLength' => $this->getFocalLength($exif),
+            'FocalLength' => $this->getFocalLength($exif) . 'mm',
             'FNumber' => $this->getFNumber($exif),
             'ExposureTime' => $this->getExposureTime($exif),
             'ISO' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::ISO_SPEED_RATINGS)),
@@ -60,8 +62,10 @@ class ExifComponent extends Component {
      * @param $id The internal id of the image
      * @param $title The title of the image
      * @param $description The description of the image
-     */
-    public function updateDescription($filename, $id, $title, $description) {
+     * @param $category The category of the image
+     * @param $tags An array of tags of the image
+	 */
+    public function updateDescription($filename, $id, $title, $description, $category, $tags) {
 
         $data = new PelDataWindow(file_get_contents($filename));
 
@@ -97,6 +101,8 @@ class ExifComponent extends Component {
             'id' => $id,
             'Title' => $title,
             'Description' => $description,
+            'Category' => $category,
+            'Tags' => implode(',', $tags)
         ));
 
         if ($desc == null) {
