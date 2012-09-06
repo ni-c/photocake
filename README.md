@@ -8,7 +8,11 @@
 
 *photocake* needs the [CakePHP](http://cakephp.org/) framework to run. You can find version 2.3 of CakePHP on [GitHub](https://github.com/cakephp/cakephp/tree/2.3).
 
-### Photocake
+### Database
+
+The database schema can be found in **Config/Schema/database.sql**.
+
+### Files
 
 Configure the database in **Config/database.php**. There is an example file (**Config/database.example.php**)
 
