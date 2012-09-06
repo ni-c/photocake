@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  */
 class Cameramodelname extends AppModel {
 
+	public $recursive = -1;
+
     /**
      * Validation rules
      *
@@ -46,5 +48,18 @@ class Cameramodelname extends AppModel {
             'finderQuery' => '',
             'counterQuery' => ''
         ));
+
+	/**
+	 * Check if an entry with the name already exists and set id
+	 * 
+	 * @param $options The options
+	 */
+	public function beforeValidate(array $options = array()) {
+		$cameramodelname = $this->findByName($this->data['Cameramodelname']['name']);
+		if ($cameramodelname!==false) {
+			$this->data['Cameramodelname']['id'] = $cameramodelname['Cameramodelname']['id'];
+		}
+		return true;
+	}
 
 }

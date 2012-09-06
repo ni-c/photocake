@@ -3,9 +3,13 @@ App::uses('AppModel', 'Model');
 /**
  * Tag Model
  *
- * @property Photo $Photo
+ * @property Tag $Tag
  */
 class Tag extends AppModel {
+
+	public $order = array("Tag.name" => "ASC");
+
+	public $recursive = -1;
 
     /**
      * Validation rules
@@ -19,12 +23,6 @@ class Tag extends AppModel {
                 'required' => true,
                 'message' => 'Name should not be empty',
                 'allowEmpty' => false,
-            ),
-            'unique' => array(
-                'rule' => 'isUnique',
-                'message' => 'Name should be unique',
-                'required' => true,
-                'on' => 'create',
             ),
             'maxLength' => array(
                 'rule' => array(
@@ -40,12 +38,6 @@ class Tag extends AppModel {
                 'required' => true,
                 'message' => 'Slug should not be empty',
                 'allowEmpty' => false,
-            ),
-            'unique' => array(
-                'rule' => 'isUnique',
-                'message' => 'Slug should be unique',
-                'required' => true,
-                'on' => 'create',
             ),
             'maxLength' => array(
                 'rule' => array(
@@ -67,7 +59,7 @@ class Tag extends AppModel {
             'joinTable' => 'photos_tags',
             'foreignKey' => 'tag_id',
             'associationForeignKey' => 'photo_id',
-            'unique' => 'keepExisting',
+            'unique' => false,
             'conditions' => '',
             'fields' => '',
             'order' => '',
@@ -77,5 +69,18 @@ class Tag extends AppModel {
             'deleteQuery' => '',
             'insertQuery' => ''
         ));
+
+	/**
+	 * Check if an entry with the slug already exists and set id
+	 * 
+	 * @param $options The options
+	 */
+	public function beforeValidate(array $options = array()) {
+		$tag = $this->findBySlug($this->data['Tag']['slug']);
+		if ($tag!==false) {
+			$this->data['Tag']['id'] = $tag['Tag']['id'];
+		}
+		return true;
+	}
 
 }

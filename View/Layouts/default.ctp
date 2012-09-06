@@ -58,7 +58,7 @@
 								&#183;
 							</li>
 							<li>
-								<?php echo $this->html->link(__('Archive'), '/browse/1', array('title' => __('Show photo archive'))); ?>
+								<?php echo $this->html->link(__('Archive'), '/browse', array('title' => __('Show photo archive'))); ?>
 							</li>
 							<li>
 								&#183;

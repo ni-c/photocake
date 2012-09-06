@@ -32,7 +32,7 @@ class ExifComponent extends Component {
 
         $result = array(
             'id' => $this->getDescriptionPart($exif, 'id'),
-            'Model' => $this->getValue($exif[PelIfd::IFD0]->getEntry(PelTag::MODEL)),
+            'Model' => str_replace('\0', '', $this->getValue($exif[PelIfd::IFD0]->getEntry(PelTag::MODEL))),
             'Flash' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::FLASH)),
             'LensID' => $this->parseXmpData($filename, 'aux:LensID')!='' ? $this->parseXmpData($filename, 'aux:LensID') : '0',
             'Lens' => $this->parseXmpData($filename, 'aux:Lens'),
@@ -42,15 +42,15 @@ class ExifComponent extends Component {
             'Description' => $this->getDescriptionPart($exif, 'Description'),
             'Category' => $this->getDescriptionPart($exif, 'Category'),
             'Tags' => explode(',', $this->getDescriptionPart($exif, 'Tags')),
-            'DateCreated' => date('Y-m-d H:i:s', $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL))),
-            'FocalLength' => $this->getFocalLength($exif) . 'mm',
+            'DateCreated' => date('Y-m-d H:i:s', $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL))!="" ? $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL)) : $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_DIGITIZED))),
+            'FocalLength' => $this->getFocalLength($exif),
             'FNumber' => $this->getFNumber($exif),
             'ExposureTime' => $this->getExposureTime($exif),
             'ISO' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::ISO_SPEED_RATINGS)),
-            'GpsLatitudeRef' => $this->getValue($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LATITUDE_REF)),
-            'GpsLatitude' => $this->gpsExtract($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LATITUDE)->getValue()),
-            'GpsLongitudeRef' => $this->getValue($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LONGITUDE_REF)),
-            'GpsLongitude' => $this->gpsExtract($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LONGITUDE)->getValue()),
+            'GpsLatitudeRef' => isset($exif[PelIfd::GPS]) ? $this->getValue($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LATITUDE_REF)) : '',
+            'GpsLatitude' => isset($exif[PelIfd::GPS]) ? $this->gpsExtract($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LATITUDE)->getValue()) : '',
+            'GpsLongitudeRef' => isset($exif[PelIfd::GPS]) ? $this->getValue($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LONGITUDE_REF)) : '',
+            'GpsLongitude' => isset($exif[PelIfd::GPS]) ? $this->gpsExtract($exif[PelIfd::GPS]->getEntry(PelTag::GPS_LONGITUDE)->getValue()) : '',
         );
 
         return $result;

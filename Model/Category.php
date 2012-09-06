@@ -7,6 +7,10 @@ App::uses('AppModel', 'Model');
  */
 class Category extends AppModel {
 
+	public $order = array("Category.name" => "ASC");
+
+	public $recursive = -1;
+
     /**
      * Validation rules
      *
@@ -19,12 +23,6 @@ class Category extends AppModel {
                 'required' => true,
                 'message' => 'Name should not be empty',
                 'allowEmpty' => false,
-            ),
-            'unique' => array(
-                'rule' => 'isUnique',
-                'message' => 'Name should be unique',
-                'required' => true,
-                'on' => 'create',
             ),
             'maxLength' => array(
                 'rule' => array(
@@ -40,12 +38,6 @@ class Category extends AppModel {
                 'required' => true,
                 'message' => 'Slug should not be empty',
                 'allowEmpty' => false,
-            ),
-            'unique' => array(
-                'rule' => 'isUnique',
-                'message' => 'Slug should be unique',
-                'required' => true,
-                'on' => 'create',
             ),
             'alphaNumeric' => array(
                 'rule' => 'alphaNumeric',
@@ -80,5 +72,18 @@ class Category extends AppModel {
             'finderQuery' => '',
             'counterQuery' => ''
         ));
+
+	/**
+	 * Check if an entry with the slug already exists and set id
+	 * 
+	 * @param $options The options
+	 */
+	public function beforeValidate(array $options = array()) {
+		$category = $this->findBySlug($this->data['Category']['slug']);
+		if ($category!==false) {
+			$this->data['Category']['id'] = $category['Category']['id'];
+		}
+		return true;
+	}
 
 }

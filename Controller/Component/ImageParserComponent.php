@@ -40,28 +40,41 @@ class ImageParserComponent extends Component {
      * @param $dest_directory The destination directory
      * @param $max_width The max width of the destination images
      */
-    public function parse($directory, $dest_directory, $max_width) {
+    public function parse($directory, $dest_directory, $max_width, $max_thumbnail_width) {
+		if (!is_writable($dest_directory)) {
+			echo 'ERROR: ' . $dest_directory . ' is not writeable!<br />';
+			return array();
+		}
         $result = array();
         $files = $this->dirToArray($directory, false, false, true);
         foreach ($files as $id => $filename) {
+            $dest_filename = str_replace($directory, $dest_directory, $filename);
+            $this->resize($filename, $dest_filename, $max_width);
+            $this->resize($filename, str_replace('.jpg', '_thumb.jpg', $dest_filename), $max_thumbnail_width);
             if ((substr($filename, strlen($filename) - 4, 4) == '.jpg') || (substr($filename, strlen($filename) - 5, 5) == '.jpeg')) {
-                $exif = $this->Exif->load($filename);
-                $data = array(
-                    'Photo' => array(),
-                    'Cameramodelname' => array()
-                );
-                $data['Cameramodelname']['name'] = $exif['Model'];
-                $data['Category']['name'] = $exif['Category'];
-                $data['Category']['slug'] = $this->strToAscii($data['Category']['name']);
-                foreach ($this->dbMapping as $key => $value) {
-                    $data['Photo'][$value] = $exif[$key];
-                }
-                $data['Photo']['status'] = 'Draft';
-                $dest_filename = str_replace($directory, $dest_directory, $filename);
-                $this->resize($filename, $dest_filename, $max_width);
-                $data['Photo']['filename'] = str_replace($dest_directory, '', $dest_filename);
-                $result[] = $data;
-                unset($data);
+				if (substr($filename, strlen($filename) - 9, 9)!='about.jpg') {
+	                $exif = $this->Exif->load($filename);
+	                $data = array(
+	                    'Photo' => array(),
+	                    'Cameramodelname' => array()
+	                );
+	                $data['Cameramodelname']['name'] = $exif['Model'];
+	                $data['Category']['name'] = $exif['Category'];
+	                $data['Category']['slug'] = $this->strToAscii($data['Category']['name']);
+	                foreach ($this->dbMapping as $key => $value) {
+	                    $data['Photo'][$value] = $exif[$key];
+	                }
+					$data['Tag'] = array();
+					foreach ($exif['Tags'] as $key => $tag) {
+						$data['Tag'][] = array(
+							'name' => $tag,
+							'slug' => $this->strToAscii($tag)
+						);
+					}
+	                $data['Photo']['filename'] = str_replace($dest_directory, '', $dest_filename);
+	                $result[] = $data;
+	                unset($data);
+				}
             }
         }
         return $result;
@@ -79,7 +92,7 @@ class ImageParserComponent extends Component {
     private function dirToArray($directory, $recursive = false, $listDirs = true, $listFiles = false, $exclude = '') {
         $array_items = array();
         $skip_by_exclude = false;
-        if ($directory[strlen($directory) - 1] == DIRECTORY_SEPARATOR) {
+        if ($directory[strlen($directory) - 1] == DS) {
             $directory = substr($directory, 0, strlen($directory) - 1);
         }
         $handle = opendir($directory);
@@ -90,17 +103,17 @@ class ImageParserComponent extends Component {
                     preg_match($exclude, $file, $skip_by_exclude);
                 }
                 if (!$skip && !$skip_by_exclude) {
-                    if (is_dir($directory . DIRECTORY_SEPARATOR . $file)) {
+                    if (is_dir($directory . DS . $file)) {
                         if ($recursive) {
-                            $array_items = array_merge($array_items, dir_to_array($directory . DIRECTORY_SEPARATOR . $file, $recursive, $listDirs, $listFiles, $exclude));
+                            $array_items = array_merge($array_items, dir_to_array($directory . DS . $file, $recursive, $listDirs, $listFiles, $exclude));
                         }
                         if ($listDirs) {
-                            $file = $directory . DIRECTORY_SEPARATOR . $file;
+                            $file = $directory . DS . $file;
                             $array_items[] = $file;
                         }
                     } else {
                         if ($listFiles) {
-                            $file = $directory . DIRECTORY_SEPARATOR . $file;
+                            $file = $directory . DS . $file;
                             $array_items[] = $file;
                         }
                     }

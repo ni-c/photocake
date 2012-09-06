@@ -23,7 +23,10 @@
 
  	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
 	Router::connect('/p/*', array('controller' => 'photos', 'action' => 'view'));
-	Router::connect('/browse/*', array('controller' => 'photos', 'action' => 'index'));
+	Router::connect('/browse/category/*', array('controller' => 'photos', 'action' => 'category'));
+	Router::connect('/browse/archivedate/*', array('controller' => 'photos', 'action' => 'archivedate'));
+	Router::connect('/browse/tag/*', array('controller' => 'photos', 'action' => 'tag'));
+	Router::connect('/browse/*', array('controller' => 'photos', 'action' => 'browse'));
 	Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about'));
 
 /**

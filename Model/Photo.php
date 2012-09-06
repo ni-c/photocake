@@ -12,6 +12,8 @@ App::uses('AppModel', 'Model');
  */
 class Photo extends AppModel {
 
+	public $order = array("Photo.datecreated" => "DESC");
+    
     /**
      * Validation rules
      *
@@ -177,7 +179,7 @@ class Photo extends AppModel {
             'joinTable' => 'photos_tags',
             'foreignKey' => 'photo_id',
             'associationForeignKey' => 'tag_id',
-            'unique' => 'keepExisting',
+            'unique' => false,
             'conditions' => '',
             'fields' => '',
             'order' => '',

@@ -70,6 +70,17 @@ class PagesController extends AppController {
             $title_for_layout = Inflector::humanize($path[$count - 1]);
         }
         $this->set(compact('page', 'subpage', 'title_for_layout'));
+		
+		if ($path[0]=='about') {
+			$this->set('about', $this->getOption('about'));
+			$this->set('email', $this->getOption('email'));
+			$this->set('twitter', $this->getOption('twitter'));
+			$this->set('facebook', $this->getOption('facebook'));
+			
+			$this->TagCloud = $this->Components->load('TagCloud');
+			$this->set('cloud',$this->TagCloud->generateCloud()); 
+		}
+		
         $this->render(implode('/', $path));
     }
 

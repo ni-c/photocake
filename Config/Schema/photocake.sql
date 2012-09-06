@@ -126,8 +126,7 @@ INSERT INTO `meteringmodes` (`id`, `name`, `created`, `modified`) VALUES
 (6, 'Partial', now(), now()),
 (255, 'Other', now(), now());
 
-DROP TABLE IF EXISTS `options`;
-CREATE TABLE `options` (
+CREATE TABLE IF NOT EXISTS `options` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The primary key',
   `key` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The key',
   `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The value',
@@ -137,7 +136,7 @@ CREATE TABLE `options` (
   UNIQUE KEY `key` (`key`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
-INSERT INTO `options` (`id`, `key`, `value`, `created`, `modified`) VALUES
+INSERT IGNORE INTO `options` (`id`, `key`, `value`, `created`, `modified`) VALUES
 (1, 'photo_dir', 'Images/', 2012, 2012);
 
 DROP TABLE IF EXISTS `photos`;

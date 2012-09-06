@@ -2,3 +2,4 @@ tmp/*
 Config/database.php
 !empty
 webroot/img/m/*.jpg
+Images/*.jpg

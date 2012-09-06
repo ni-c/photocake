@@ -8,6 +8,8 @@ App::uses('AppModel', 'Model');
  */
 class PhotosTag extends AppModel {
 
+	public $recursive = -1;
+
     /**
      * Validation rules
      *
@@ -21,7 +23,6 @@ class PhotosTag extends AppModel {
                 'required' => true,
             ), ),
         'tag_id' => array('numeric' => array(
-                'rule' => array('numeric'),
                 'message' => 'tag_id should be numeric.',
                 'allowEmpty' => false,
                 'required' => true,

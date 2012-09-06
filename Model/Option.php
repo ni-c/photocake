@@ -6,6 +6,8 @@ App::uses('AppModel', 'Model');
  */
 class Option extends AppModel {
 
+    public $recursive = -1;
+
     /**
      * Validation rules
      *
@@ -18,12 +20,6 @@ class Option extends AppModel {
                 'required' => true,
                 'message' => 'Key should not be empty',
                 'allowEmpty' => false,
-            ),
-            'unique' => array(
-                'rule' => 'isUnique',
-                'message' => 'Key should be unique',
-                'required' => true,
-                'on' => 'create',
             ),
             'maxLength' => array(
                 'rule' => array(
@@ -39,6 +35,21 @@ class Option extends AppModel {
                     255
                 ),
                 'message' => 'Value must be no larger than 255 characters long.'
-            ), ),
+            ), 
+		),
     );
+
+    /**
+     * Check if an entry with the slug already exists and set id
+     *
+     * @param $options The options
+     */
+    public function beforeValidate(array $options = array()) {
+        $option = $this->findByKey($this->data['Option']['key']);
+        if ($option !== false) {
+            $this->data['Option']['id'] = $option['Option']['id'];
+        }
+        return true;
+    }
+
 }

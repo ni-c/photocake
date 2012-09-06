@@ -59,6 +59,7 @@ class AppController extends Controller {
         $this->set('copyright', $this->isEmpty($this->getOption('copyright'), '&copy; 2011-2012 Willi Thiel'));
         $this->set('author', $this->isEmpty($this->getOption('author'), 'Willi Thiel'));
         $this->set('license', $this->isEmpty($this->getOption('license'), 'MIT License'));
+        $this->set('na', '-');
         $this->set('lang', 'de');
     }
 
