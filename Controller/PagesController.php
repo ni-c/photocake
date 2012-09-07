@@ -80,7 +80,7 @@ class PagesController extends AppController {
 			$this->TagCloud = $this->Components->load('TagCloud');
 			$this->set('cloud',$this->TagCloud->generateCloud()); 
 		}
-		
+
         $this->render(implode('/', $path));
     }
 

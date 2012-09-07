@@ -37,7 +37,7 @@
 /**
  * Configure default language
  */
-	Configure::write('Config.default_language', 'de');
+	Configure::write('Config.default_language', 'en');
 	
 /**
  * Configure the Error handler used to handle errors for your application.  By default

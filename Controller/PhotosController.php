@@ -80,6 +80,7 @@ class PhotosController extends AppController {
         $this->set('pages', ceil($photocount/$this->paginate['limit']));
         $this->set('current', __('all'));
 		$this->set('cururl', '/browse/');
+		$this->set('title_for_layout', __('Archive'));
         $this->setBrowseVars();
     }
 
@@ -106,6 +107,7 @@ class PhotosController extends AppController {
         $this->set('current', $C['Category']['name']);
         $this->setBrowseVars();
 		$this->set('cururl', '/browse/category/' . $category . '/');
+		$this->set('title_for_layout', __('Archive') . ': ' . $C['Category']['name']);
         $this->render('browse');
     }
 
@@ -134,6 +136,7 @@ class PhotosController extends AppController {
         $this->set('archivedate', $date);
         $this->setBrowseVars();
 		$this->set('cururl', '/browse/archivedate/' . $date . '/');
+		$this->set('title_for_layout', __('Archive') . ': ' . __(date('F', strtotime($date_start))) . date(', Y', strtotime($date_start)));
         $this->render('browse');
     }
 
@@ -168,6 +171,7 @@ class PhotosController extends AppController {
         $this->set('current', $T['Tag']['name']);
         $this->setBrowseVars();
 		$this->set('cururl', '/browse/tag/' . $tag . '/');
+		$this->set('title_for_layout', __('Archive') . ': ' . $T['Tag']['name']);
         $this->render('browse');
     }
 
@@ -229,6 +233,7 @@ class PhotosController extends AppController {
             'value' => $photo['Photo']['datecreated'],
         ));
 
+		$this->set('title_for_layout', $photo['Photo']['title']);
         $this->set('photo', $photo);
         $this->set('next_photo', $neighbors['prev']);
         $this->set('prev_photo', $neighbors['next']);

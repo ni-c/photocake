@@ -40,7 +40,7 @@ foreach ($month as $m):
 		<li>
 			<?php
 
-            echo $this->Html->link(__($this->Time->format('F', $m['month'])) . $this->Time->format(', Y', $m['month']) . ' (' . $m['count'] . ')', '/browse/archivedate/' . $m['month'], array('title' => $m['month']));
+            echo $this->Html->link(__($this->Time->format('F', $m['month'])) . $this->Time->format(', Y', $m['month']) . ' (' . $m['count'] . ')', '/browse/archivedate/' . $m['month'], array('title' => $m['month'], 'escape' => false));
 			?>
 		</li>
 		<?php
