@@ -43,7 +43,7 @@ class PhotosController extends AppController {
         foreach ($data as $key => $value) {
 
             if ($this->getOption('publish_immediately') == '1') {
-                $data['Photo']['status'] = 'Published';
+                $value['Photo']['status'] = 'Published';
             }
 
             // Save Photo
@@ -192,10 +192,10 @@ class PhotosController extends AppController {
         $this->set('categories', $this->Photo->Category->find('all'));
 
         // by Month
-        $all_month = $this->Photo->query('SELECT DISTINCT DATE_FORMAT(`datecreated`, "%Y-%m") as `month` FROM `photos` ORDER BY `datecreated` DESC;');
+        $all_month = $this->Photo->query('SELECT DISTINCT DATE_FORMAT(`datecreated`, "%Y-%m") as `month` FROM `photos` WHERE `status` = "Published" ORDER BY `datecreated` DESC;');
         $month_archive = array();
         foreach ($all_month as $key => $month) {
-            $count = $this->Photo->query('SELECT count(*) AS `count` FROM `photos` WHERE DATE_FORMAT(`datecreated`, "%Y-%m")="' . $month[0]['month'] . '";');
+            $count = $this->Photo->query('SELECT count(*) AS `count` FROM `photos` WHERE DATE_FORMAT(`datecreated`, "%Y-%m")="' . $month[0]['month'] . '" AND `status` = "Published";');
             $month_archive[] = array(
                 'month' => $month[0]['month'],
                 'count' => $count[0][0]['count']

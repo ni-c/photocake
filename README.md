@@ -29,6 +29,9 @@ Options are saved in the table 'options', the following Options can be used:
 - 'email' eMail-Address of the blog owner
 - 'twitter' Twitter nickname of the blog owner
 - 'facebook' Facebook id of the blog owner
+- 'facebook' Facebook id of the blog owner
+- 'ga_code' Google Analytics ID
+- 'defensio_apikey' [Defensio](http://www.defensio.com/api/) API Key (Comment Spam)
 
 ## Creating Posts
 
@@ -37,10 +40,10 @@ You can add a post to your *photocake* blog by copying a JPG-Image into a direct
 For title, description, categories and tags of the new post, a JSON-String is expected in the EXIF data for 'ImageDescription':
 
     {
-        "title":"A Title",
-        "description":"Some *markdown* discription",
-        "category":"Nice images",
-        "tags":"some,comma,separated,tags
+        "Title":"A Title",
+        "Description":"Some *markdown* discription",
+        "Category":"Nice images",
+        "Tags":"some,comma,separated,tags"
     }
 
 The URL **http://[photocake-url]/photos/refresh** will parse the images in the Images/ folder and update the database.

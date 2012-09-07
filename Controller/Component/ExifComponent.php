@@ -123,6 +123,7 @@ class ExifComponent extends Component {
      */
     private function getDescriptionPart($exif, $key) {
         if ($exif[PelIfd::IFD0]->getEntry(PelTag::IMAGE_DESCRIPTION) == null) {
+        	echo "ERROR: Image Description not set.";
             return '';
         }
         $json = json_decode($exif[PelIfd::IFD0]->getEntry(PelTag::IMAGE_DESCRIPTION)->getValue(), true);
