@@ -53,7 +53,7 @@
 	?>
 
 	<div id="img-border" class="border-frame">
-		<?php echo $this->Html->image('m/' . h($photo['Photo']['filename']), array(
+		<?php echo $this->Html->image('m/' . $photo['Photo']['filename'], array(
             'id' => 'img-photo',
             'class' => 'border-matte',
             'usemap' => '#img-photo-map',

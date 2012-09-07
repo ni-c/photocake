@@ -32,6 +32,7 @@
 	
 	/* Default routes */
 	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
+	Router::connect('/feed', array('controller' => 'photos', 'action' => 'rss'));
 	Router::connect('/p/*', array('controller' => 'photos', 'action' => 'view'));
 	Router::connect('/browse/category/*', array('controller' => 'photos', 'action' => 'category'));
 	Router::connect('/browse/archivedate/*', array('controller' => 'photos', 'action' => 'archivedate'));

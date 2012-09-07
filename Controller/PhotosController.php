@@ -7,6 +7,8 @@ App::uses('AppController', 'Controller');
  */
 class PhotosController extends AppController {
 
+	public $helpers = array('Text');
+
     public $paginate = array(
         'limit' => 40,
         'conditions' => array('Photo.status' => 'Published')
@@ -213,7 +215,7 @@ class PhotosController extends AppController {
      * @return void
      */
     public function view($id = null) {
-
+    	
         // Get first photo if no id is given
         if (($id == null) || ($id == 'last')) {
             $photo = $this->Photo->find('first');
@@ -238,4 +240,10 @@ class PhotosController extends AppController {
         $this->set('next_photo', $neighbors['prev']);
         $this->set('prev_photo', $neighbors['next']);
     }
+	
+	public function rss() {
+        $photos = $this->Photo->find('all', array('limit' => 20, 'order' => 'Photo.datecreated DESC', 'Photo.status' => 'Published'));
+		$this->layout = 'rss/default';
+        $this->set(compact('photos'));
+	}
 }
