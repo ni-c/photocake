@@ -21,14 +21,24 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
- 	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
+ 	/* Language routes */
+ 	Router::connect('/:language', array('controller' => 'photos', 'action' => 'view', 'last'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/p/*', array('controller' => 'photos', 'action' => 'view'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/browse/category/*', array('controller' => 'photos', 'action' => 'category'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/browse/archivedate/*', array('controller' => 'photos', 'action' => 'archivedate'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/browse/tag/*', array('controller' => 'photos', 'action' => 'tag'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/browse/*', array('controller' => 'photos', 'action' => 'browse'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/about', array('controller' => 'pages', 'action' => 'display', 'about'), array('language' => '[a-z]{2}'));
+	
+	/* Default routes */
+	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
 	Router::connect('/p/*', array('controller' => 'photos', 'action' => 'view'));
 	Router::connect('/browse/category/*', array('controller' => 'photos', 'action' => 'category'));
 	Router::connect('/browse/archivedate/*', array('controller' => 'photos', 'action' => 'archivedate'));
 	Router::connect('/browse/tag/*', array('controller' => 'photos', 'action' => 'tag'));
 	Router::connect('/browse/*', array('controller' => 'photos', 'action' => 'browse'));
 	Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about'));
-
+	
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.

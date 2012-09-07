@@ -359,39 +359,6 @@ div.bubble p {
 	margin: 0px;
 	padding: 2px 4px;
 }
-.tags00 {
-	font-size: 12px;
-}
-.tags01 {
-	font-size: 14px;
-}
-.tags02 {
-	font-size: 16px;
-}
-.tags03 {
-	font-size: 18px;
-}
-.tags04 {
-	font-size: 20px;
-}
-.tags05 {
-	font-size: 22px;
-}
-.tags06 {
-	font-size: 24px;
-}
-.tags07 {
-	font-size: 26px;
-}
-.tags08 {
-	font-size: 28px;
-}
-.tags09 {
-	font-size: 30px;
-}
-.tags10 {
-	font-size: 32px;
-}
 #exif {
 	font: 14px 'Open Sans Condensed', sans-serif;
 	margin: 0;
@@ -403,4 +370,9 @@ div.bubble p {
 	font: 14px 'Open Sans Condensed', sans-serif;
 	margin: 0;
 	padding: 0;
+}
+.flag {
+    position: relative;
+    top: 2px;
+    padding-left: 3px;
 }

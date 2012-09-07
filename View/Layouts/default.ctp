@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//DE" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $lang;?>">
 	<head>
-		<title><?php echo __($title_for_layout); ?></title>
-		<base href="<?php echo $this->Html->url('/', true); ?>" />
-		<meta http-equiv="Content-language" content="<?php echo $lang; ?>" />
+		<title><?php echo __($title_for_layout);?></title>
+		<base href="<?php echo $this->Html->url('/', true);?>" />
+		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />
 		<?php
         echo $this->Html->charset();
         echo $this->Html->meta('icon');
@@ -40,51 +40,68 @@
         echo $this->fetch('script');
 		?>
 	</head>
-
 	<body>
 		<div id="wrapper">
 			<div id="container">
 				<div id="header">
 					<div id="site-title">
-					    <?php echo $this->html->link($site_title, '/'); ?>
+						<?php echo $this->Html->link($site_title, '/');?>
 					</div>
-		
 					<div id="menu">
 						<ul>
 							<li>
-								<?php echo $this->html->link(__('Latest'), '/', array('title' => __('Latest Photo'))); ?>
+								<?php echo $this->Html->link(__('Latest'), '/', array('title' => __('Latest Photo')));?>
 							</li>
 							<li>
 								&#183;
 							</li>
 							<li>
-								<?php echo $this->html->link(__('Archive'), '/browse', array('title' => __('Show photo archive'))); ?>
+								<?php echo $this->Html->link(__('Archive'), '/browse', array('title' => __('Show photo archive')));?>
 							</li>
 							<li>
 								&#183;
 							</li>
 							<li>
-								<?php echo $this->html->link(__('About'), '/about', array('title' => __('About'))); ?>
+								<?php echo $this->Html->link(__('About'), '/about', array('title' => __('About')));?>
+							</li>
+							<li>
+								<?php
+                                if ($lang != 'en') {
+                                    echo $this->Html->link($this->Html->image('flag/en.png', array('alt' => 'Switch to english', 'class' => 'flag')), array_merge(array('language' => 'en'), $this->params['pass']), array(
+                                        'title' => 'Switch to english',
+                                        'escape' => false
+                                    ));
+                                }
+                                if ($lang != 'de') {
+                                    echo $this->Html->link($this->Html->image('flag/de.png', array('alt' => 'Webseite auf Deutsch umschalten', 'class' => 'flag')), array_merge(array('language' => 'de'), $this->params['pass']), array(
+                                        'title' => 'Webseite auf Deutsch umschalten',
+                                        'escape' => false
+                                    ));
+                                }
+								?>
 							</li>
 						</ul>
 						<div id="sub-title">
-							<?php echo $site_subtitle ?>
+							<?php echo $site_subtitle
+							?>
 						</div>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<div id="content">
-					<?php echo $this->Session->flash(); ?>
-					<?php echo $this->fetch('content'); ?>
-			        <div class="clear"></div>
+					<?php echo $this->Session->flash();?>
+					<?php echo $this->fetch('content');?>
+					<div class="clear"></div>
 				</div>
 				<div id="footer">
-		        <ul>
-					<li>All photos on <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type"><?php echo __($site_title); ?></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="<?php echo $this->Html->url('/', true); ?>" property="cc:attributionName" rel="cc:attributionURL"><?php echo __($author); ?></a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</li>
-		        </ul>
+					<ul>
+						<li>
+							All photos on <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type"><?php echo __($site_title);?></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="<?php echo $this->Html->url('/', true);?>" property="cc:attributionName" rel="cc:attributionURL"><?php echo __($author);?></a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+						</li>
+					</ul>
 				</div>
 			</div>
-			<?php /*echo $this->element('sql_dump');*/ ?>
+			<?php /*echo $this->element('sql_dump');*/?>
 		</div>
 	</body>
 </html>

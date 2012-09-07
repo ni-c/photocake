@@ -108,7 +108,7 @@
 			<div class="description">
 				<?php echo $this->Markdown->transform($photo['Photo']['description']); ?>
 			</div>
-			<?php echo $this->Html->link(__('Permalink'), '/p/' . $photo['Photo']['id'], array('title' => __('Permalink for ') . $photo['Photo']['title']), array('escape' => false)); ?>
+			<?php echo $this->Html->link(__('Permalink'), '/p/' . $photo['Photo']['id'], array('title' => __('Permalink for ') . $photo['Photo']['title'], 'escape' => false)); ?>
 			<h3><?php echo __('EXIF Data'); ?></h3>
 			<table id="exif">
 				<tbody>
@@ -134,7 +134,7 @@
 					</tr>
 					<tr>
 						<td><?php echo __('Exposure Program') . ':'; ?></td>
-						<td><?php echo $photo['Exposureprogram']['name'] != '' ? __($photo['Exposureprogram']['name']) : $na; ?></td>
+						<td><?php echo $photo['Exposureprogram']['name'] != '' ? __(trim($photo['Exposureprogram']['name'])) : $na; ?></td>
 					</tr>
 					<tr>
 						<td><?php echo __('Flash') . ':'; ?></td>
