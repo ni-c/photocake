@@ -83,8 +83,7 @@ function initCommentArea() {
 
 function initThumbnails() {
 	$$('.thumbnails').each(function(thumbnail) {
-		
-		
+
 		thumbnail.addEvent('mouseover', function() {
 			thumbnail.setStyle('opacity', '0.6');
 		});
@@ -106,6 +105,6 @@ window.addEvent('domready', function() {
 	if($('notes-cmts-container') != null) {
 		initCommentArea();
 	}
-	
+
 	initThumbnails();
 });

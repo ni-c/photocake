@@ -40,7 +40,10 @@ class AppController extends Controller {
         'Session'
     );
 
-    public $helpers = array('Html' => array('className' => 'LanguageHtml'));
+    public $helpers = array(
+        'Html' => array('className' => 'LanguageHtml'),
+        'GoogleAnalytics'
+    );
 
     /**
      * Returns the option value of the given key or null if not set
@@ -60,7 +63,7 @@ class AppController extends Controller {
      * Set the language
      */
     public function beforeFilter() {
-		Configure::write('Config.language', Configure::read('Config.default_language'));
+        Configure::write('Config.language', Configure::read('Config.default_language'));
         $this->_setLanguage();
     }
 
@@ -74,8 +77,9 @@ class AppController extends Controller {
         $this->set('copyright', $this->isEmpty($this->getOption('copyright'), '&copy; 2011-2012 Willi Thiel'));
         $this->set('author', $this->isEmpty($this->getOption('author'), 'Willi Thiel'));
         $this->set('license', $this->isEmpty($this->getOption('license'), 'MIT License'));
+		$this->set('ga_code', $this->isEmpty($this->getOption('ga_code'), ''));
         $this->set('na', '-');
-		$this->set('lang', $this->Session->read('Config.language'));
+        $this->set('lang', $this->Session->read('Config.language'));
     }
 
     /**
@@ -96,11 +100,11 @@ class AppController extends Controller {
      * Set the language
      */
     private function _setLanguage() {
-		if (isset($this->params['language'])) {
-			$this->Session->write('Config.language', $this->params['language']);
-		} else {
-			$this->Session->write('Config.language', Configure::read('Config.default_language'));
-		}
+        if (isset($this->params['language'])) {
+            $this->Session->write('Config.language', $this->params['language']);
+        } else {
+            $this->Session->write('Config.language', Configure::read('Config.default_language'));
+        }
     }
 
     /*

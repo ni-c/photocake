@@ -5,31 +5,27 @@
 		<title><?php echo $title_for_layout . ' | ' . $site_title;?></title>
 		<base href="<?php echo $this->Html->url('/', true);?>" />
 		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />
+		<meta name="generator" content="photocake (http://github.com/ni-c/photocake)" />
+		<meta name="copyright" content="<?php echo $copyright?>" />
+		<meta name="DC.rights" content="<?php echo $copyright?>" />
+		<meta name="author" content="<?php echo $author?>" />
+		<meta name="owner" content="<?php echo $author?>" />
+		<meta name="publisher" content="<?php echo $author?>" />
+		<meta name="version" content="0.2b" />
+		<meta name="robots" content="all" />
+
 		<?php
         echo $this->Html->charset();
         echo $this->Html->meta('icon');
-        echo $this->Html->meta('generator', 'photocake (http://github.com/ni-c/photocake)');
+		
         echo $this->Html->meta('keywords', $keywords);
         echo $this->Html->meta('description', $site_subtitle);
-        echo $this->Html->meta('copyright', $copyright);
-        echo $this->Html->meta('DC.rights', $copyright);
-        echo $this->Html->meta('author', $author);
-        echo $this->Html->meta('owner', $author);
-        echo $this->Html->meta('publisher', $author);
-        echo $this->Html->meta('version', '1.0');
-        echo $this->Html->meta('robots', 'all');
         echo $this->Html->meta(array(
             'name' => 'DC.rights',
             'scheme' => 'DCTERMS.URI',
             'content' => $license
         ));
         echo $this->Html->meta('RSS Feed', '/feed', array('type' => 'rss'));
-
-        /* Facebook OpenGraph */
-        echo $this->Html->meta('og:title', __($title_for_layout));
-        echo $this->Html->meta('og:site_name', __($site_title));
-        echo $this->Html->meta('og:type', 'blog');
-
         /* Google Webfonts */#
         echo $this->Html->css('http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300&amp;subset=latin,latin-ext');
 
@@ -42,6 +38,16 @@
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
+		?>
+		
+		<meta name="og:title" content="<?php echo $title_for_layout; ?>" />
+		<meta name="og:site_name" content="<?php echo $site_title; ?>" />
+		<meta name="og:type" content="blog" />
+
+		<?php
+		if ($ga_code!='') {
+			echo $this->GoogleAnalytics->trackingCode($ga_code);
+		}
 		?>
 	</head>
 	<body>
