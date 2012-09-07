@@ -93,7 +93,7 @@ div.bubble div.tip {
 	background: url(../img/loader-32x32.gif) no-repeat 50% 50%;
 }
 .thumbnail-border-frame {
-	background: #f5f5f5 url(../img/loader-16x16.gif) no-repeat 50% 50%;
+	background: #f5f5f5 no-repeat 50% 50%;
 }
 img.border-matte {
 	border-width: 1px;

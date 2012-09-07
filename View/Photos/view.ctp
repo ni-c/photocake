@@ -64,12 +64,12 @@
 		<map name="img-photo-map" id="img-photo-map">
 			<?php if (isset($next_photo)):
 			?>
-			<area title="<?php echo __('Next Photo'); ?>" id="img-map-next" shape="rect" coords="400,0,800,600" href="p/<?php echo $next_photo['Photo']['id']; ?>" alt="<?php echo __('Next Photo'); ?>" onmouseover="return navMouseEvent('img-nav-nextarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-nextarrow', 'hidden');" />
+			<area title="<?php echo __('Next Photo'); ?>" id="img-map-next" shape="rect" coords="400,0,800,600" href="p/<?php echo $next_photo['Photo']['id']; ?>" alt="<?php echo __('Next Photo'); ?>" />
 			<?php
             endif;
             if (isset($prev_photo)):
 			?>
-			<area title="<?php echo __('Previous Photo'); ?>" id="img-map-prev" shape="rect" coords="0,0,400,600" href="p/<?php echo $prev_photo['Photo']['id']; ?>" alt="<?php echo __('Previous Photo'); ?>" onmouseover="return navMouseEvent('img-nav-prevarrow', 'visible');" onmouseout="return navMouseEvent('img-nav-prevarrow', 'hidden');" />
+			<area title="<?php echo __('Previous Photo'); ?>" id="img-map-prev" shape="rect" coords="0,0,400,600" href="p/<?php echo $prev_photo['Photo']['id']; ?>" alt="<?php echo __('Previous Photo'); ?>" />
 			<?php
             endif;
 			?>

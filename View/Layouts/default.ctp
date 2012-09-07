@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//DE" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $lang;?>">
 	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
 		<title><?php echo $title_for_layout . ' | ' . $site_title;?></title>
 		<base href="<?php echo $this->Html->url('/', true);?>" />
 		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />
@@ -34,7 +35,10 @@
 
         echo $this->Html->css('styles');
         echo $this->Html->css('light');
-
+		
+		echo $this->Html->script('mootools-more-1.4.0.1');
+		echo $this->Html->script('photocake');
+		
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');

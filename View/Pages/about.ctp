@@ -1,6 +1,8 @@
 <?php
 	$this->set('title_for_layout', __('About'));
 ?>
+<div id="img-nav-links">
+</div>
 <div id="img-border" class="border-frame">
 	<?php echo $this->Html->image('m/about.jpg', array(
         'id' => 'img-photo',
