@@ -7,47 +7,39 @@
 		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />
 		<meta name="generator" content="photocake (http://github.com/ni-c/photocake)" />
 		<meta name="copyright" content="<?php echo $copyright?>" />
-		<meta name="DC.rights" content="<?php echo $copyright?>" />
 		<meta name="author" content="<?php echo $author?>" />
 		<meta name="owner" content="<?php echo $author?>" />
 		<meta name="publisher" content="<?php echo $author?>" />
 		<meta name="version" content="0.2b" />
 		<meta name="robots" content="all" />
-
 		<?php
         echo $this->Html->charset();
         echo $this->Html->meta('icon');
-		
+
         echo $this->Html->meta('keywords', $keywords);
         echo $this->Html->meta('description', $site_subtitle);
-        echo $this->Html->meta(array(
-            'name' => 'DC.rights',
-            'scheme' => 'DCTERMS.URI',
-            'content' => $license
-        ));
         echo $this->Html->meta('RSS Feed', '/feed', array('type' => 'rss'));
         /* Google Webfonts */#
         echo $this->Html->css('http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300&amp;subset=latin,latin-ext');
 
         echo $this->Html->css('styles');
         echo $this->Html->css('light');
-		
-		echo $this->Html->script('mootools-more-1.4.0.1');
-		echo $this->Html->script('photocake');
-		
+
+        echo $this->Html->script('mootools-more-1.4.0.1');
+        echo $this->Html->script('photocake');
+
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
 		?>
-		
-		<meta name="og:title" content="<?php echo $title_for_layout; ?>" />
-		<meta name="og:site_name" content="<?php echo $site_title; ?>" />
-		<meta name="og:type" content="blog" />
 
+		<meta name="og:title" content="<?php echo $title_for_layout;?>" />
+		<meta name="og:site_name" content="<?php echo $site_title;?>" />
+		<meta name="og:type" content="blog" />
 		<?php
-		if ($ga_code!='') {
-			echo $this->GoogleAnalytics->trackingCode($ga_code);
-		}
+        if ($ga_code != '') {
+            echo $this->GoogleAnalytics->trackingCode($ga_code);
+        }
 		?>
 	</head>
 	<body>
@@ -77,13 +69,19 @@
 							<li>
 								<?php
                                 if ($lang != 'en') {
-                                    echo $this->Html->link($this->Html->image('flag/en.png', array('alt' => 'Switch to english', 'class' => 'flag')), array_merge(array('language' => 'en'), $this->params['pass']), array(
+                                    echo $this->Html->link($this->Html->image('flag/en.png', array(
+                                        'alt' => 'Switch to english',
+                                        'class' => 'flag'
+                                    )), array_merge(array('language' => 'en'), $this->params['pass']), array(
                                         'title' => 'Switch to english',
                                         'escape' => false
                                     ));
                                 }
                                 if ($lang != 'de') {
-                                    echo $this->Html->link($this->Html->image('flag/de.png', array('alt' => 'Webseite auf Deutsch umschalten', 'class' => 'flag')), array_merge(array('language' => 'de'), $this->params['pass']), array(
+                                    echo $this->Html->link($this->Html->image('flag/de.png', array(
+                                        'alt' => 'Webseite auf Deutsch umschalten',
+                                        'class' => 'flag'
+                                    )), array_merge(array('language' => 'de'), $this->params['pass']), array(
                                         'title' => 'Webseite auf Deutsch umschalten',
                                         'escape' => false
                                     ));
