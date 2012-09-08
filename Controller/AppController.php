@@ -55,6 +55,11 @@ class AppController extends Controller {
 	 */
 	protected $description = '';
 
+	/**
+	 * Options array
+	 */
+	private $options = null;
+
     /**
      * Returns the option value of the given key or null if not set
      *
@@ -62,9 +67,16 @@ class AppController extends Controller {
      * @return The option value of the given key or null if not set
      */
     public function getOption($key) {
-        $r = $this->Options->findByKey($key);
-        if (isset($r['Options'])) {
-            return $r['Options']['value'];
+
+    	if ($this->options == null) {
+    		$tmp = $this->Options->find('all');
+			$this->options = array();
+			foreach ($tmp as $key => $value) {
+				$this->options[$value['Options']['key']] = $value['Options']['value'];
+			}
+    	}
+        if (isset($this->options[$key])) {
+            return $this->options[$key];
         }
         return '';
     }

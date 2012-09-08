@@ -144,7 +144,7 @@
 					</ul>
 				</div>
 			</div>
-			<?php /*echo $this->element('sql_dump');*/?>
 		</div>
+		<?php echo $this->element('sql_dump'); ?>
 	</body>
 </html>

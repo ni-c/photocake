@@ -33,6 +33,7 @@ class PhotosController extends AppController {
         }
 
         // Get prev and next photo
+        $this->Photo->recursive = -1;
         $neighbors = $this->Photo->find('neighbors', array(
             'field' => 'datecreated',
             'value' => $photo['Photo']['datecreated'],
