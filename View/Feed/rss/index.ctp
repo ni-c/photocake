@@ -14,7 +14,7 @@ foreach ($photos as $photo) {
     $postLink = array(
         'controller' => 'photos',
         'action' => 'view',
-        $photo['Photo']['id']
+        $photo['Photo']['slug']
     );
 
     // This is the part where we clean the body text for output as the description

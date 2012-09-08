@@ -121,7 +121,7 @@ $i = 0;
             )), array(
                 'controller' => 'photos',
                 'action' => 'view',
-                $photo['Photo']['id'],
+                $photo['Photo']['slug'],
                 'full_base' => true
             ), array(
                 'title' => $photo['Photo']['title'],

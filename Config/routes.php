@@ -21,6 +21,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+ 	Router::parseExtensions('rss','xml','txt'); 
+
  	/* Language routes */
  	Router::connect('/:language', array('controller' => 'photos', 'action' => 'view', 'last'), array('language' => '[a-z]{2}'));
 	Router::connect('/:language/photo/*', array('controller' => 'photos', 'action' => 'view'), array('language' => '[a-z]{2}'));
@@ -32,7 +34,6 @@
 	
 	/* Default routes */
 	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
-	Router::connect('/feed', array('controller' => 'photos', 'action' => 'rss'));
 	Router::connect('/photo/*', array('controller' => 'photos', 'action' => 'view'));
 	Router::connect('/archive/category/*', array('controller' => 'photos', 'action' => 'category'));
 	Router::connect('/archive/date/*', array('controller' => 'photos', 'action' => 'archivedate'));

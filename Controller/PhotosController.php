@@ -7,12 +7,182 @@ App::uses('AppController', 'Controller');
  */
 class PhotosController extends AppController {
 
-	public $helpers = array('Text');
-
     public $paginate = array(
         'limit' => 40,
         'conditions' => array('Photo.status' => 'Published')
     );
+
+    /**
+     * view method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function view($slug = null) {
+
+        // Get first photo if no id is given
+        if (($slug == null) || ($slug == 'last')) {
+            $photo = $this->Photo->find('first');
+            $id = $photo['Photo']['id'];
+        } else {
+            $photo = $this->Photo->findBySlug($slug);
+            if ($photo == false) {
+                throw new NotFoundException(__('Invalid photo'));
+            }
+        }
+
+        // Get prev and next photo
+        $neighbors = $this->Photo->find('neighbors', array(
+            'field' => 'datecreated',
+            'value' => $photo['Photo']['datecreated'],
+        ));
+
+        $this->set('title_for_layout', $photo['Photo']['title']);
+        $this->set('photo', $photo);
+        $this->set('next_photo', $neighbors['prev']);
+        $this->set('prev_photo', $neighbors['next']);
+    }
+
+    /**
+     * browse method
+     *
+     * @return void
+     */
+    public function archive($page = 1) {
+
+        $this->Photo->recursive = 0;
+        $this->paginate['page'] = $page;
+        $this->set('photos', $this->paginate());
+        $photocount = $this->Photo->find('count', array('conditions' => array('Photo.status' => 'Published')));
+        $this->set('photocount', $photocount);
+        $this->set('pages', ceil($photocount / $this->paginate['limit']));
+        $this->set('current', __('all'));
+        $this->set('cururl', '/browse/');
+        $this->set('title_for_layout', __('Archive'));
+        $this->setBrowseVars();
+    }
+
+    /**
+     * browse by category
+     */
+    public function category($category, $page = 1) {
+
+        $C = $this->Photo->Category->findBySlug($category);
+
+        if ($C == false) {
+            throw new NotFoundException(__('Invalid category'));
+        }
+
+        $this->Photo->recursive = 0;
+        $this->paginate['page'] = $page;
+        $this->set('photos', $this->paginate(array('Photo.category_id' => $C['Category']['id'])));
+        $photocount = $this->Photo->find('count', array('conditions' => array(
+                'Photo.category_id' => $C['Category']['id'],
+                'Photo.status' => 'Published'
+            )));
+        $this->set('photocount', $photocount);
+        $this->set('pages', ceil($photocount / $this->paginate['limit']));
+        $this->set('current', $C['Category']['name']);
+        $this->setBrowseVars();
+        $this->set('cururl', '/browse/category/' . $category . '/');
+        $this->set('title_for_layout', __('Archive') . ': ' . $C['Category']['name']);
+        $this->render('archive');
+    }
+
+    /**
+     * browse by archivedate
+     */
+    public function archivedate($date, $page = 1) {
+        $date = preg_replace('/[^0-9\-]/', '', $date);
+        $date_start = $date . "-01 00:00:00";
+        $date_end = $date . "-31 23:59:59";
+
+        $this->Photo->recursive = 0;
+        $this->paginate['page'] = $page;
+        $this->set('photos', $this->paginate(array(
+            'Photo.datecreated >=' => $date_start,
+            'Photo.datecreated <=' => $date_end,
+        )));
+        $photocount = $this->Photo->find('count', array('conditions' => array(
+                'Photo.status' => 'Published',
+                'Photo.datecreated >=' => $date_start,
+                'Photo.datecreated <=' => $date_end,
+            )));
+        $this->set('photocount', $photocount);
+        $this->set('pages', ceil($photocount / $this->paginate['limit']));
+        $this->set('current', 'archivedate');
+        $this->set('archivedate', $date);
+        $this->setBrowseVars();
+        $this->set('cururl', '/browse/archivedate/' . $date . '/');
+        $this->set('title_for_layout', __('Archive') . ': ' . __(date('F', strtotime($date_start))) . date(', Y', strtotime($date_start)));
+        $this->render('archive');
+    }
+
+    /**
+     * browse by tag
+     */
+    public function tag($tag, $page = 1) {
+
+        $this->Photo->Tag->recursive = 1;
+        $T = $this->Photo->Tag->findBySlug($tag);
+
+        if ($T == false) {
+            throw new NotFoundException(__('Invalid tag'));
+        }
+
+        // Lets create a list of IDs for pagination
+        $photoids = array();
+        foreach ($T['Photo'] as $key => $value) {
+            $photoids[] = $value['id'];
+        }
+
+        // Paginate
+        $this->Photo->recursive = 0;
+        $this->paginate['page'] = $page;
+        $this->set('photos', $this->paginate(array('Photo.id' => $photoids)));
+        $photocount = $this->Photo->find('count', array('conditions' => array(
+                'Photo.status' => 'Published',
+                'Photo.id' => $photoids,
+            )));
+        $this->set('photocount', $photocount);
+        $this->set('pages', ceil($photocount / $this->paginate['limit']));
+        $this->set('current', $T['Tag']['name']);
+        $this->setBrowseVars();
+        $this->set('cururl', '/browse/tag/' . $tag . '/');
+        $this->set('title_for_layout', __('Archive') . ': ' . $T['Tag']['name']);
+        $this->render('archive');
+    }
+
+    /**
+     * Set the browse variables
+     */
+    private function setBrowseVars() {
+        // photo count
+        $this->set('count', $this->Photo->find('count', array('conditions' => array('Photo.status' => 'Published'))));
+
+        // page
+        $this->set('curpage', $this->paginate['page']);
+
+        // by Category
+        $this->Photo->Category->recursive = 1;
+        $this->set('categories', $this->Photo->Category->find('all'));
+
+        // by Month
+        $all_month = $this->Photo->query('SELECT DISTINCT DATE_FORMAT(`datecreated`, "%Y-%m") as `month` FROM `photos` WHERE `status` = "Published" ORDER BY `datecreated` DESC;');
+        $month_archive = array();
+        foreach ($all_month as $key => $month) {
+            $count = $this->Photo->query('SELECT count(*) AS `count` FROM `photos` WHERE DATE_FORMAT(`datecreated`, "%Y-%m")="' . $month[0]['month'] . '" AND `status` = "Published";');
+            $month_archive[] = array(
+                'month' => $month[0]['month'],
+                'count' => $count[0][0]['count']
+            );
+        }
+        $this->set('month', $month_archive);
+
+        // by Tag
+        $this->set('tags', $this->Photo->Tag->find('all'));
+    }
 
     /**
      * Refreshes the photo tables with the files in the image folder
@@ -72,183 +242,4 @@ class PhotosController extends AppController {
         }
     }
 
-    /**
-     * browse method
-     *
-     * @return void
-     */
-    public function archive($page = 1) {
-
-        $this->Photo->recursive = 0;
-        $this->paginate['page'] = $page;
-        $this->set('photos', $this->paginate());
-		$photocount = $this->Photo->find('count', array('conditions' => array('Photo.status' => 'Published')));
-        $this->set('photocount', $photocount);
-        $this->set('pages', ceil($photocount/$this->paginate['limit']));
-        $this->set('current', __('all'));
-		$this->set('cururl', '/browse/');
-		$this->set('title_for_layout', __('Archive'));
-        $this->setBrowseVars();
-    }
-
-    /**
-     * browse by category
-     */
-    public function category($category, $page = 1) {
-
-        $C = $this->Photo->Category->findBySlug($category);
-
-        if ($C == false) {
-            throw new NotFoundException(__('Invalid category'));
-        }
-
-        $this->Photo->recursive = 0;
-        $this->paginate['page'] = $page;
-        $this->set('photos', $this->paginate(array('Photo.category_id' => $C['Category']['id'])));
-		$photocount = $this->Photo->find('count', array('conditions' => array(
-                'Photo.category_id' => $C['Category']['id'],
-                'Photo.status' => 'Published'
-            )));
-        $this->set('photocount', $photocount);
-        $this->set('pages', ceil($photocount/$this->paginate['limit']));
-        $this->set('current', $C['Category']['name']);
-        $this->setBrowseVars();
-		$this->set('cururl', '/browse/category/' . $category . '/');
-		$this->set('title_for_layout', __('Archive') . ': ' . $C['Category']['name']);
-        $this->render('archive');
-    }
-
-    /**
-     * browse by archivedate
-     */
-    public function archivedate($date, $page = 1) {
-        $date = preg_replace('/[^0-9\-]/', '', $date);
-        $date_start = $date . "-01 00:00:00";
-        $date_end = $date . "-31 23:59:59";
-
-        $this->Photo->recursive = 0;
-        $this->paginate['page'] = $page;
-        $this->set('photos', $this->paginate(array(
-            'Photo.datecreated >=' => $date_start,
-            'Photo.datecreated <=' => $date_end,
-        )));
-		$photocount = $this->Photo->find('count', array('conditions' => array(
-                'Photo.status' => 'Published',
-                'Photo.datecreated >=' => $date_start,
-                'Photo.datecreated <=' => $date_end,
-            )));
-        $this->set('photocount', $photocount);
-        $this->set('pages', ceil($photocount/$this->paginate['limit']));
-        $this->set('current', 'archivedate');
-        $this->set('archivedate', $date);
-        $this->setBrowseVars();
-		$this->set('cururl', '/browse/archivedate/' . $date . '/');
-		$this->set('title_for_layout', __('Archive') . ': ' . __(date('F', strtotime($date_start))) . date(', Y', strtotime($date_start)));
-        $this->render('archive');
-    }
-
-    /**
-     * browse by tag
-     */
-    public function tag($tag, $page = 1) {
-
-        $this->Photo->Tag->recursive = 1;
-        $T = $this->Photo->Tag->findBySlug($tag);
-
-        if ($T == false) {
-            throw new NotFoundException(__('Invalid tag'));
-        }
-
-        // Lets create a list of IDs for pagination
-        $photoids = array();
-        foreach ($T['Photo'] as $key => $value) {
-            $photoids[] = $value['id'];
-        }
-
-        // Paginate
-        $this->Photo->recursive = 0;
-        $this->paginate['page'] = $page;
-        $this->set('photos', $this->paginate(array('Photo.id' => $photoids)));
-		$photocount = $this->Photo->find('count', array('conditions' => array(
-                'Photo.status' => 'Published',
-                'Photo.id' => $photoids,
-            )));
-        $this->set('photocount', $photocount);
-        $this->set('pages', ceil($photocount/$this->paginate['limit']));
-        $this->set('current', $T['Tag']['name']);
-        $this->setBrowseVars();
-		$this->set('cururl', '/browse/tag/' . $tag . '/');
-		$this->set('title_for_layout', __('Archive') . ': ' . $T['Tag']['name']);
-        $this->render('archive');
-    }
-
-    /**
-     * Set the browse variables
-     */
-    private function setBrowseVars() {
-        // photo count
-        $this->set('count', $this->Photo->find('count', array('conditions' => array('Photo.status' => 'Published'))));
-		
-		// page
-		$this->set('curpage', $this->paginate['page']);
-
-        // by Category
-        $this->Photo->Category->recursive = 1;
-        $this->set('categories', $this->Photo->Category->find('all'));
-
-        // by Month
-        $all_month = $this->Photo->query('SELECT DISTINCT DATE_FORMAT(`datecreated`, "%Y-%m") as `month` FROM `photos` WHERE `status` = "Published" ORDER BY `datecreated` DESC;');
-        $month_archive = array();
-        foreach ($all_month as $key => $month) {
-            $count = $this->Photo->query('SELECT count(*) AS `count` FROM `photos` WHERE DATE_FORMAT(`datecreated`, "%Y-%m")="' . $month[0]['month'] . '" AND `status` = "Published";');
-            $month_archive[] = array(
-                'month' => $month[0]['month'],
-                'count' => $count[0][0]['count']
-            );
-        }
-        $this->set('month', $month_archive);
-
-        // by Tag
-        $this->set('tags', $this->Photo->Tag->find('all'));
-    }
-
-    /**
-     * view method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function view($id = null) {
-    	
-        // Get first photo if no id is given
-        if (($id == null) || ($id == 'last')) {
-            $photo = $this->Photo->find('first');
-            $id = $photo['Photo']['id'];
-        } else {
-            // Load the photo with the given id
-            $this->Photo->id = $id;
-            if (!$this->Photo->exists()) {
-                throw new NotFoundException(__('Invalid photo'));
-            }
-            $photo = $this->Photo->read(null, $id);
-        }
-
-        // Get prev and next photo
-        $neighbors = $this->Photo->find('neighbors', array(
-            'field' => 'datecreated',
-            'value' => $photo['Photo']['datecreated'],
-        ));
-
-		$this->set('title_for_layout', $photo['Photo']['title']);
-        $this->set('photo', $photo);
-        $this->set('next_photo', $neighbors['prev']);
-        $this->set('prev_photo', $neighbors['next']);
-    }
-	
-	public function rss() {
-        $photos = $this->Photo->find('all', array('limit' => 20, 'order' => 'Photo.datecreated DESC', 'Photo.status' => 'Published'));
-		$this->layout = 'rss/default';
-        $this->set(compact('photos'));
-	}
 }

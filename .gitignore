@@ -1,5 +1,8 @@
+!empty
 tmp/*
 Config/database.php
-!empty
+Config/email.php
 webroot/img/m/*.jpg
 Images/*.jpg
+webroot/css/*.gz
+webroot/js/*.gz

@@ -6,7 +6,7 @@
         echo $this->Html->link(__('Next') . '&nbsp;&rarr;', array(
             'controller' => 'photos',
             'action' => 'view',
-            $next_photo['Photo']['id'],
+            $next_photo['Photo']['slug'],
             'full_base' => true
         ), array(
             'title' => __('Next Photo'),
@@ -23,7 +23,7 @@
         echo $this->Html->link('&larr;&nbsp;' . __('Previous'), array(
             'controller' => 'photos',
             'action' => 'view',
-            $next_photo['Photo']['id'],
+            $prev_photo['Photo']['slug'],
             'full_base' => true
         ), array(
             'title' => __('Previous Photo'),
@@ -40,7 +40,12 @@
         echo $this->Html->link($this->Html->image('prev.gif', array(
             'id' => 'img-nav-prevarrow',
             'alt' => _('Previous Photo'),
-        )), '/p/' . $prev_photo['Photo']['id'], array(
+        )), array(
+            'controller' => 'photos',
+            'action' => 'view',
+            $prev_photo['Photo']['slug'],
+            'full_base' => true
+        ), array(
             'title' => __('Previous'),
             'escape' => false
         ));
@@ -49,7 +54,12 @@
         echo $this->Html->link($this->Html->image('next.gif', array(
             'id' => 'img-nav-nextarrow',
             'alt' => _('Next Photo'),
-        )), '/p/' . $next_photo['Photo']['id'], array(
+        )), array(
+            'controller' => 'photos',
+            'action' => 'view',
+            $next_photo['Photo']['slug'],
+            'full_base' => true
+        ), array(
             'title' => __('Next'),
             'escape' => false
         ));
@@ -71,7 +81,7 @@
 			<area title="<?php echo __('Next Photo');?>" id="img-map-next" shape="rect" coords="400,0,800,600" href="<?php echo $this->Html->url(array(
                     'controller' => 'photos',
                     'action' => 'view',
-                    $next_photo['Photo']['id'],
+                    $next_photo['Photo']['slug'],
                     'full_base' => true
                 ));
  ?>" alt="<?php echo __('Next Photo');?>" />
@@ -82,7 +92,7 @@
 			<area title="<?php echo __('Previous Photo');?>" id="img-map-prev" shape="rect" coords="0,0,400,600" href="<?php echo $this->Html->url(array(
                     'controller' => 'photos',
                     'action' => 'view',
-                    $prev_photo['Photo']['id'],
+                    $prev_photo['Photo']['slug'],
                     'full_base' => true
                 ));
  ?>" alt="<?php echo __('Previous Photo');?>" />
@@ -97,7 +107,7 @@
 		<?php echo $this->Html->link($photo['Photo']['title'], array(
             'controller' => 'photos',
             'action' => 'view',
-            $photo['Photo']['id'],
+            $photo['Photo']['slug'],
             'full_base' => true
         ), array(
             'title' => __('Permalink for ') . $photo['Photo']['title'],
@@ -132,7 +142,7 @@
 			<?php echo $this->Html->link(__('Permalink'), array(
                     'controller' => 'photos',
                     'action' => 'view',
-                    $photo['Photo']['id'],
+                    $photo['Photo']['slug'],
                     'full_base' => true
                 ), array(
                     'title' => __('Permalink for ') . $photo['Photo']['title'],
