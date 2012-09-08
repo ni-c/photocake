@@ -27,9 +27,9 @@ class Tag extends AppModel {
             'maxLength' => array(
                 'rule' => array(
                     'maxLength',
-                    16
+                    32
                 ),
-                'message' => 'Name must be no larger than 16 characters long.'
+                'message' => 'Name must be no larger than 32 characters long.'
             ),
         ),
         'slug' => array(
@@ -42,9 +42,9 @@ class Tag extends AppModel {
             'maxLength' => array(
                 'rule' => array(
                     'maxLength',
-                    16
+                    32
                 ),
-                'message' => 'Slug must be no larger than 16 characters long.'
+                'message' => 'Slug must be no larger than 32 characters long.'
             ),
         ),
     );

@@ -180,8 +180,8 @@ CREATE TABLE `photos_tags` (
 DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The primary key',
-  `name` varchar(16) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Name of the Tag',
-  `slug` varchar(16) COLLATE utf8_unicode_ci NOT NULL COMMENT 'URL-Slug of the Tag',
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Name of the Tag',
+  `slug` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'URL-Slug of the Tag',
   `created` datetime NOT NULL COMMENT 'Created timestamp',
   `modified` datetime NOT NULL COMMENT 'Modified timestamp',
   PRIMARY KEY (`id`),
