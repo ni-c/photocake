@@ -105,6 +105,11 @@ function initThumbnails() {
 	});
 }
 
+window.addEvent('load', function() {
+	$('img-photo').setStyle('opacity', 1.0);
+	$('img-nav-links').removeClass('hidden');
+});
+
 window.addEvent('domready', function() {
 	if($('img-photo') != null) {
 		initImage();
