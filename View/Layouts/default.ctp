@@ -5,6 +5,13 @@
 		<title><?php echo $title_for_layout . ' | ' . $site_title;?></title>
 		<base href="<?php echo $this->Html->url('/', true);?>" />
 		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />
+		<meta name="language" content="<?php
+            if ($lang == 'de') {
+                echo 'German';
+            } else {
+            	echo 'English';
+            }
+ ?>" />
 		<meta name="generator" content="photocake (http://github.com/ni-c/photocake)" />
 		<meta name="copyright" content="<?php echo $copyright?>" />
 		<meta name="author" content="<?php echo $author?>" />
@@ -32,7 +39,13 @@
         echo $this->fetch('css');
         echo $this->fetch('script');
 		?>
-
+		<meta name="DC.Title" content="<?php echo $title_for_layout; ?>" />
+		<meta name="DC.Subject" content="<?php echo $site_title; ?>" />
+		<meta name="DC.Creator" content="photocake" />
+		<meta name="DC.Subject" content="<?php echo $site_title; ?>" />
+		<meta name="DC.Publisher" content="<?php echo $author; ?>" />
+		<meta name="DC.Rights" content="<?php echo $author; ?>" />
+		<meta name="DC.Language" content="<?php echo $lang;?>" />
 		<meta name="og:title" content="<?php echo $title_for_layout;?>" />
 		<meta name="og:site_name" content="<?php echo $site_title;?>" />
 		<meta name="og:type" content="blog" />
@@ -46,15 +59,13 @@
 		<div id="wrapper">
 			<div id="container">
 				<div id="header">
-					<h1 id="site-title">
-						<?php echo $this->Html->link($site_title, array(
-                            'controller' => 'photos',
-                            'action' => 'view',
-                            'last',
-                            'full_base' => true
-                        ));
-						?>
-					</h1>
+					<h1 id="site-title"><?php echo $this->Html->link($site_title, array(
+                        'controller' => 'photos',
+                        'action' => 'view',
+                        'last',
+                        'full_base' => true
+                    ));
+					?></h1>
 					<div id="menu">
 						<ul>
 							<li>
@@ -112,10 +123,8 @@
 								?>
 							</li>
 						</ul>
-						<h2 id="sub-title">
-							<?php echo $site_subtitle
-							?>
-						</h2>
+						<h2 id="sub-title"><?php echo $site_subtitle
+						?></h2>
 					</div>
 					<div class="clear"></div>
 				</div>
