@@ -11,13 +11,18 @@ class RobotsController extends AppController {
 
     public $components = array('RequestHandler');
 
-    public $helpers = array('Text');
+    public $helpers = array(
+        'Html',
+        'Text'
+    );
 
     public function index() {
-    	$lines = array(
-			'User-agent: *',
-			'Disallow: /' . Configure::read('Config.default_language') . '/'
-		);
-		$this->set('lines', $lines);
+        $lines = array(
+            'User-agent: *',
+            'Disallow: /' . Configure::read('Config.default_language') . '/',
+            'Sitemap: [URL]sitemap.xml'
+        );
+        $this->set('lines', $lines);
     }
+
 }
