@@ -1,4 +1,4 @@
-<div itemscope itemtype="http://schema.org/CreativeWork">
+<div itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 	<div id="img-nav-links">
 		<?php if (isset($next_photo)):
 		?>
@@ -302,4 +302,5 @@
 			</div>
 		</div>
 		<!--[if IE 8]><br class="clear" /><![endif]-->
+	</div>
 </div>
