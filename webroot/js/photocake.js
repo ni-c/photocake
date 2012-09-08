@@ -25,7 +25,13 @@ function initNavigationArrows() {
 		$('img-map-next').addEvent('mouseover', function() {
 			$('img-nav-nextarrow').removeClass('hidden');
 		});
+		$('img-nav-nextarrow').addEvent('mouseover', function() {
+			$('img-nav-nextarrow').removeClass('hidden');
+		});
 		$('img-map-next').addEvent('mouseout', function() {
+			$('img-nav-nextarrow').addClass('hidden');
+		});
+		$('img-nav-nextarrow').addEvent('mouseout', function() {
 			$('img-nav-nextarrow').addClass('hidden');
 		});
 	}
@@ -34,7 +40,13 @@ function initNavigationArrows() {
 		$('img-map-prev').addEvent('mouseover', function() {
 			$('img-nav-prevarrow').removeClass('hidden');
 		});
+		$('img-nav-prevarrow').addEvent('mouseover', function() {
+			$('img-nav-prevarrow').removeClass('hidden');
+		});
 		$('img-map-prev').addEvent('mouseout', function() {
+			$('img-nav-prevarrow').addClass('hidden');
+		});
+		$('img-nav-prevarrow').addEvent('mouseout', function() {
 			$('img-nav-prevarrow').addClass('hidden');
 		});
 	}

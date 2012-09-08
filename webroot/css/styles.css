@@ -24,6 +24,9 @@ h1,h2,h3,h4 {
 	display: inline;
 	padding-right: 6px;
 }
+.description {
+	padding-bottom: 5px;
+}
 .description p {
 	margin: 0px;
 } 
@@ -118,7 +121,7 @@ img {
 	height: 533px;
 }
 .hidden {
-	visibility: hidden;
+	opacity: 0;
 }
 .left {
 	float: left;

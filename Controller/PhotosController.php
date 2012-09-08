@@ -38,11 +38,12 @@ class PhotosController extends AppController {
             'value' => $photo['Photo']['datecreated'],
         ));
 
-		// Keyword stuff
+		// Meta stuff
 		$this->keywords = $this->keywords . ',' . $photo['Category']['name'];
 		foreach ($photo['Tag'] as $tag) {
 			$this->keywords = $this->keywords . ',' .$tag['name'];
 		}
+		$this->description = $this->description . ': ' . $photo['Photo']['description'];
 
         $this->set('title_for_layout', $photo['Photo']['title']);
         $this->set('photo', $photo);

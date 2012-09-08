@@ -50,6 +50,11 @@ class AppController extends Controller {
 	 */
 	protected $keywords = '';
 
+	/**
+	 * The description for the meta description
+	 */
+	protected $description = '';
+
     /**
      * Returns the option value of the given key or null if not set
      *
@@ -71,6 +76,7 @@ class AppController extends Controller {
         Configure::write('Config.language', Configure::read('Config.default_language'));
         $this->_setLanguage();
 		$this->keywords = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
+		$this->description = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
     }
 
     /**
@@ -78,6 +84,7 @@ class AppController extends Controller {
      */
     public function beforeRender() {
         $this->set('keywords', $this->keywords);
+        $this->set('description', $this->description);
         $this->set('site_title', $this->isEmpty($this->getOption('site_title'), 'Photocake'));
         $this->set('site_subtitle', $this->isEmpty($this->getOption('site_subtitle'), 'Markdown Photo Blog'));
         $this->set('copyright', $this->isEmpty($this->getOption('copyright'), '&copy; 2011-2012 Willi Thiel'));

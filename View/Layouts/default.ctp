@@ -17,7 +17,7 @@
         echo $this->Html->meta('icon');
 
         echo $this->Html->meta('keywords', $keywords);
-        echo $this->Html->meta('description', $site_subtitle);
+        echo $this->Html->meta('description', $description);
         echo $this->Html->meta('RSS Feed', '/feed', array('type' => 'rss'));
         /* Google Webfonts */#
         echo $this->Html->css('http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300&amp;subset=latin,latin-ext');

@@ -46,7 +46,7 @@
             $prev_photo['Photo']['slug'],
             'full_base' => true
         ), array(
-            'title' => __('Previous'),
+            'title' => __('Previous Photo'),
             'escape' => false
         ));
     }
@@ -60,7 +60,7 @@
             $next_photo['Photo']['slug'],
             'full_base' => true
         ), array(
-            'title' => __('Next'),
+            'title' => __('Next Photo'),
             'escape' => false
         ));
     }
