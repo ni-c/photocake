@@ -69,7 +69,11 @@ class AppController extends Controller {
     public function getOption($key) {
 
     	if ($this->options == null) {
-    		$tmp = $this->Options->find('all');
+	        $tmp = Cache::read('options', 'longterm');
+	        if (!$tmp) {
+	            $tmp = $this->Options->find('all');
+	            Cache::write('options', $tmp, 'longterm');
+	        }    		
 			$this->options = array();
 			foreach ($tmp as $key => $value) {
 				$this->options[$value['Options']['key']] = $value['Options']['value'];
