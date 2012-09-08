@@ -57,12 +57,18 @@ class PhotosController extends AppController {
                         'Photo' => array('id' => $this->Photo->id)
                     );
                 }
+				debug($tagdata);
                 $this->Photo->Tag->saveAll($tagdata);
 
                 // Check for validation errors
-                if (count($this->Photo->validationErrors) > 0) {
-                    debug($this->Photo->validationErrors);
+                if (count($this->Photo->Tag->validationErrors) > 0) {
+                    debug($this->Photo->Tag->validationErrors);
                 }
+
+            }
+            // Check for validation errors
+            if (count($this->Photo->validationErrors) > 0) {
+                debug($this->Photo->validationErrors);
             }
         }
     }

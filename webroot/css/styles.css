@@ -376,3 +376,13 @@ div.bubble p {
     top: 2px;
     padding-left: 3px;
 }
+#taglist {
+	display: inline;
+    margin: 0;
+    padding: 0;
+}
+.tag {
+	display: inline;
+    margin: 0;
+    padding: 0;
+}

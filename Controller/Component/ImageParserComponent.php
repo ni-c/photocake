@@ -121,6 +121,7 @@ class ImageParserComponent extends Component {
             }
             closedir($handle);
         }
+        asort($array_items);
         return $array_items;
     }
 
