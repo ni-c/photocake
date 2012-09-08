@@ -57,7 +57,6 @@ class PhotosController extends AppController {
                         'Photo' => array('id' => $this->Photo->id)
                     );
                 }
-				debug($tagdata);
                 $this->Photo->Tag->saveAll($tagdata);
 
                 // Check for validation errors
@@ -78,7 +77,7 @@ class PhotosController extends AppController {
      *
      * @return void
      */
-    public function browse($page = 1) {
+    public function archive($page = 1) {
 
         $this->Photo->recursive = 0;
         $this->paginate['page'] = $page;
@@ -116,7 +115,7 @@ class PhotosController extends AppController {
         $this->setBrowseVars();
 		$this->set('cururl', '/browse/category/' . $category . '/');
 		$this->set('title_for_layout', __('Archive') . ': ' . $C['Category']['name']);
-        $this->render('browse');
+        $this->render('archive');
     }
 
     /**
@@ -145,7 +144,7 @@ class PhotosController extends AppController {
         $this->setBrowseVars();
 		$this->set('cururl', '/browse/archivedate/' . $date . '/');
 		$this->set('title_for_layout', __('Archive') . ': ' . __(date('F', strtotime($date_start))) . date(', Y', strtotime($date_start)));
-        $this->render('browse');
+        $this->render('archive');
     }
 
     /**
@@ -180,7 +179,7 @@ class PhotosController extends AppController {
         $this->setBrowseVars();
 		$this->set('cururl', '/browse/tag/' . $tag . '/');
 		$this->set('title_for_layout', __('Archive') . ': ' . $T['Tag']['name']);
-        $this->render('browse');
+        $this->render('archive');
     }
 
     /**

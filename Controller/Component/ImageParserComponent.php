@@ -68,10 +68,11 @@ class ImageParserComponent extends Component {
 					foreach ($exif['Tags'] as $key => $tag) {
 						$data['Tag'][] = array(
 							'name' => $tag,
-							'slug' => $this->strToAscii($tag)
+							'slug' => $this->strToAscii(html_entity_decode($tag, ENT_QUOTES,'UTF-8'))
 						);
 					}
 	                $data['Photo']['filename'] = str_replace($dest_directory, '', $dest_filename);
+	                $data['Photo']['slug'] = $this->strToAscii(html_entity_decode($data['Photo']['title'], ENT_QUOTES,'UTF-8'));
 	                $result[] = $data;
 	                unset($data);
 				}
@@ -137,7 +138,7 @@ class ImageParserComponent extends Component {
         if (!empty($replace)) {
             $str = str_replace((array)$replace, ' ', $str);
         }
-
+		
         $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
         $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
         $clean = strtolower(trim($clean, '-'));

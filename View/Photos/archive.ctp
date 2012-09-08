@@ -1,15 +1,19 @@
 <div id="browse-nav-container">
 	<h4><?php echo __('Archive');?>&nbsp;<span class="rsaquo">&#8250;</span>&nbsp;<?php
-        if ($current != 'archivedate') {
-            echo $current;
-        } else {
-            echo __($this->Time->format('F', $archivedate)) . $this->Time->format(', Y', $archivedate);
-        }
+    if ($current != 'archivedate') {
+        echo $current;
+    } else {
+        echo __($this->Time->format('F', $archivedate)) . $this->Time->format(', Y', $archivedate);
+    }
 	?></h4>
 	<ul id="categorylist">
 		<li>
 			<?php
-            echo $this->Html->link(__('all') . ' (' . $count . ')', '/browse', array('title' => __('all')));
+            echo $this->Html->link(__('all') . ' (' . $count . ')', array(
+                'controller' => 'photos',
+                'action' => 'archive',
+                'full_base' => true
+            ), array('title' => __('all')));
 			?>
 		</li>
 		<?php
@@ -17,7 +21,12 @@ foreach ($categories as $category):
 		?>
 		<li>
 			<?php
-            echo $this->Html->link($category['Category']['name'] . ' (' . count($category['Photo']) . ')', '/browse/category/' . $category['Category']['slug'], array(
+            echo $this->Html->link($category['Category']['name'] . ' (' . count($category['Photo']) . ')', array(
+                'controller' => 'photos',
+                'action' => 'category',
+                $category['Category']['slug'],
+                'full_base' => true
+            ), array(
                 'title' => $category['Category']['name'],
                 'escape' => false
             ));
@@ -31,7 +40,11 @@ foreach ($categories as $category):
 	<ul id="monthlist">
 		<li>
 			<?php
-            echo $this->Html->link(__('all') . ' (' . $count . ')', '/browse', array('title' => __('all')));
+            echo $this->Html->link(__('all') . ' (' . $count . ')', array(
+                'controller' => 'photos',
+                'action' => 'archive',
+                'full_base' => true
+            ), array('title' => __('all')));
 			?>
 		</li>
 		<?php
@@ -40,7 +53,15 @@ foreach ($month as $m):
 		<li>
 			<?php
 
-            echo $this->Html->link(__($this->Time->format('F', $m['month'])) . $this->Time->format(', Y', $m['month']) . ' (' . $m['count'] . ')', '/browse/archivedate/' . $m['month'], array('title' => $m['month'], 'escape' => false));
+            echo $this->Html->link(__($this->Time->format('F', $m['month'])) . $this->Time->format(', Y', $m['month']) . ' (' . $m['count'] . ')', array(
+                'controller' => 'photos',
+                'action' => 'archivedate',
+                $m['month'],
+                'full_base' => true
+            ), array(
+                'title' => $m['month'],
+                'escape' => false
+            ));
 			?>
 		</li>
 		<?php
@@ -51,7 +72,11 @@ foreach ($month as $m):
 	<ul id="taglist">
 		<li>
 			<?php
-            echo $this->Html->link(__('all') . ' (' . $count . ')', '/browse', array('title' => __('all')));
+            echo $this->Html->link(__('all') . ' (' . $count . ')', array(
+                'controller' => 'photos',
+                'action' => 'archive',
+                'full_base' => true
+            ), array('title' => __('all')));
 			?>
 		</li>
 		<?php
@@ -59,7 +84,12 @@ foreach ($tags as $tag):
 		?>
 		<li>
 			<?php
-            echo $this->Html->link($tag['Tag']['name'], '/browse/tag/' . $tag['Tag']['slug'], array(
+            echo $this->Html->link($tag['Tag']['name'],array(
+                'controller' => 'photos',
+                'action' => 'tag',
+                $tag['Tag']['slug'],
+                'full_base' => true
+            ),array(
                 'title' => $tag['Tag']['name'],
                 'escape' => false
             ));
@@ -88,7 +118,12 @@ $i = 0;
                 ),
                 'width' => '132',
                 'height' => '84'
-            )), '/p/' . $photo['Photo']['id'], array(
+            )), array(
+                'controller' => 'photos',
+                'action' => 'view',
+                $photo['Photo']['id'],
+                'full_base' => true
+            ), array(
                 'title' => $photo['Photo']['title'],
                 'escape' => false
             ));
@@ -121,7 +156,7 @@ $i = 0;
 				<?php endif;?>
 
 				<?php
-                for ($i = 1; $i < $pages+1; $i++) {
+                for ($i = 1; $i < $pages + 1; $i++) {
                     echo $this->Html->Link($i, $cururl . $i, array(
                         'class' => 'page',
                         'title' => __('Go To Page') . ' ' . $i,

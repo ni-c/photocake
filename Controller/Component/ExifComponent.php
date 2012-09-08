@@ -30,8 +30,6 @@ class ExifComponent extends Component {
             PelIfd::GPS => $jpeg->getExif()->getTiff()->getIfd()->getSubIfd(PelIfd::GPS),
         );
 
-		echo '<br />Filename:' . $filename . ' ';
-
         $result = array(
             'id' => $this->getDescriptionPart($exif, 'id'),
             'Model' => str_replace('\0', '', $this->getValue($exif[PelIfd::IFD0]->getEntry(PelTag::MODEL))),

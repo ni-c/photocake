@@ -148,6 +148,7 @@ CREATE TABLE `photos` (
   `lens_id` int(11) unsigned DEFAULT NULL COMMENT 'EXIF fot the Lens',
   `exposureprogram_id` int(11) unsigned DEFAULT NULL COMMENT 'EXIF for the Exposure Program',
   `meteringmode_id` int(11) unsigned DEFAULT NULL COMMENT 'EXIF for Metering Mode',
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The slug of the photo',
   `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The filename of the photo',
   `title` varchar(80) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The title of the photo',
   `description` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'The description of the photo',
@@ -164,7 +165,8 @@ CREATE TABLE `photos` (
   `created` datetime NOT NULL COMMENT 'Created timestamp',
   `modified` datetime NOT NULL COMMENT 'Modified timestamp',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `filename` (`filename`)
+  UNIQUE KEY `filename` (`filename`),
+  UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `photos_tags`;

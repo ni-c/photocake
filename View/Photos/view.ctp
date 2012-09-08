@@ -3,7 +3,12 @@
 	?>
 	<div id="img-nav-nextlink" class="right">
 		<?php
-        echo $this->Html->link(__('Next') . '&nbsp;&rarr;', '/p/' . $next_photo['Photo']['id'], array(
+        echo $this->Html->link(__('Next') . '&nbsp;&rarr;', array(
+            'controller' => 'photos',
+            'action' => 'view',
+            $next_photo['Photo']['id'],
+            'full_base' => true
+        ), array(
             'title' => __('Next Photo'),
             'escape' => false
         ));
@@ -15,7 +20,12 @@
 	?>
 	<div id="img-nav-prevlink" class="left">
 		<?php
-        echo $this->Html->link('&larr;&nbsp;' . __('Previous'), '/p/' . $prev_photo['Photo']['id'], array(
+        echo $this->Html->link('&larr;&nbsp;' . __('Previous'), array(
+            'controller' => 'photos',
+            'action' => 'view',
+            $next_photo['Photo']['id'],
+            'full_base' => true
+        ), array(
             'title' => __('Previous Photo'),
             'escape' => false
         ));
@@ -58,12 +68,24 @@
 		<map name="img-photo-map" id="img-photo-map">
 			<?php if (isset($next_photo)):
 			?>
-			<area title="<?php echo __('Next Photo');?>" id="img-map-next" shape="rect" coords="400,0,800,600" href="p/<?php echo $next_photo['Photo']['id'];?>" alt="<?php echo __('Next Photo');?>" />
+			<area title="<?php echo __('Next Photo');?>" id="img-map-next" shape="rect" coords="400,0,800,600" href="<?php echo $this->Html->url(array(
+                    'controller' => 'photos',
+                    'action' => 'view',
+                    $next_photo['Photo']['id'],
+                    'full_base' => true
+                ));
+ ?>" alt="<?php echo __('Next Photo');?>" />
 			<?php
             endif;
             if (isset($prev_photo)):
 			?>
-			<area title="<?php echo __('Previous Photo');?>" id="img-map-prev" shape="rect" coords="0,0,400,600" href="p/<?php echo $prev_photo['Photo']['id'];?>" alt="<?php echo __('Previous Photo');?>" />
+			<area title="<?php echo __('Previous Photo');?>" id="img-map-prev" shape="rect" coords="0,0,400,600" href="<?php echo $this->Html->url(array(
+                    'controller' => 'photos',
+                    'action' => 'view',
+                    $prev_photo['Photo']['id'],
+                    'full_base' => true
+                ));
+ ?>" alt="<?php echo __('Previous Photo');?>" />
 			<?php
             endif;
 			?>
@@ -72,7 +94,12 @@
 </div>
 <div id="img-title-date-comments">
 	<div id="img-title">
-		<?php echo $this->Html->link($photo['Photo']['title'], '/p/' . $photo['Photo']['id'], array(
+		<?php echo $this->Html->link($photo['Photo']['title'], array(
+            'controller' => 'photos',
+            'action' => 'view',
+            $photo['Photo']['id'],
+            'full_base' => true
+        ), array(
             'title' => __('Permalink for ') . $photo['Photo']['title'],
             'escape' => false
         ));
@@ -102,7 +129,12 @@
 			<div class="description">
 				<?php echo $this->Markdown->transform($photo['Photo']['description']);?>
 			</div>
-			<?php echo $this->Html->link(__('Permalink'), '/p/' . $photo['Photo']['id'], array(
+			<?php echo $this->Html->link(__('Permalink'), array(
+                    'controller' => 'photos',
+                    'action' => 'view',
+                    $photo['Photo']['id'],
+                    'full_base' => true
+                ), array(
                     'title' => __('Permalink for ') . $photo['Photo']['title'],
                     'escape' => false
                 ));
@@ -159,7 +191,12 @@
 				</tbody>
 			</table>
 			<p>
-				<b><?php echo __('Category') . ':';?></b>&nbsp;<?php echo $this->Html->link(__($photo['Category']['name']), '/browse/category/' . $photo['Category']['slug'], array(
+				<b><?php echo __('Category') . ':';?></b>&nbsp;<?php echo $this->Html->link(__($photo['Category']['name']), array(
+                        'controller' => 'photos',
+                        'action' => 'category',
+                        $photo['Category']['slug'],
+                        'full_base' => true
+                    ), array(
                         'title' => __($photo['Category']['name']),
                         'escape' => false
                     ));
@@ -171,7 +208,12 @@
 					<?php
                     if (!empty($photo['Tag'])) {
                         foreach ($photo['Tag'] as $tag) {
-                            echo '<li class="tag">' . $this->Html->link(__($tag['name']), '/browse/tag/' . $tag['slug'], array(
+                            echo '<li class="tag">' . $this->Html->link(__($tag['name']), array(
+                                'controller' => 'photos',
+                                'action' => 'tag',
+                                $tag['slug'],
+                                'full_base' => true
+                            ), array(
                                 'title' => __($tag['name']),
                                 'escape' => false
                             )) . '</li>&nbsp;';

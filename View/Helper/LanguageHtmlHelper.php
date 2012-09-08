@@ -8,7 +8,7 @@ class LanguageHtmlHelper extends HtmlHelper {
             if (!isset($url['language']) && isset($this->params['language'])) {
                 $url['language'] = $this->params['language'];
             }
-			if ($url['language'] == Configure::read('Config.default_language')) {
+			if ((isset($url['language'])) && ($url['language'] == Configure::read('Config.default_language'))) {
 				$url['language'] = null;
 			}
         } else {

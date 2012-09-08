@@ -47,24 +47,47 @@
 			<div id="container">
 				<div id="header">
 					<div id="site-title">
-						<?php echo $this->Html->link($site_title, '/');?>
+						<?php echo $this->Html->link($site_title, array(
+                            'controller' => 'photos',
+                            'action' => 'view',
+                            'last',
+                            'full_base' => true
+                        ));
+						?>
 					</div>
 					<div id="menu">
 						<ul>
 							<li>
-								<?php echo $this->Html->link(__('Latest'), '/', array('title' => __('Latest Photo')));?>
+								<?php echo $this->Html->link(__('Latest'), array(
+                                    'controller' => 'photos',
+                                    'action' => 'view',
+                                    'last',
+                                    'full_base' => true
+                                ), array('title' => __('Latest Photo')));
+								?>
 							</li>
 							<li>
 								&#183;
 							</li>
 							<li>
-								<?php echo $this->Html->link(__('Archive'), '/browse', array('title' => __('Show photo archive')));?>
+								<?php echo $this->Html->link(__('Archive'), array(
+                                    'controller' => 'photos',
+                                    'action' => 'archive',
+                                    'full_base' => true
+                                ), array('title' => __('Show photo archive')));
+								?>
 							</li>
 							<li>
 								&#183;
 							</li>
 							<li>
-								<?php echo $this->Html->link(__('About'), '/about', array('title' => __('About')));?>
+								<?php echo $this->Html->link(__('About'), array(
+                                    'controller' => 'pages',
+                                    'action' => 'display',
+                                    'about',
+                                    'full_base' => true
+                                ), array('title' => __('About')));
+								?>
 							</li>
 							<li>
 								<?php

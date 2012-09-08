@@ -23,21 +23,21 @@
 
  	/* Language routes */
  	Router::connect('/:language', array('controller' => 'photos', 'action' => 'view', 'last'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/p/*', array('controller' => 'photos', 'action' => 'view'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/browse/category/*', array('controller' => 'photos', 'action' => 'category'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/browse/archivedate/*', array('controller' => 'photos', 'action' => 'archivedate'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/browse/tag/*', array('controller' => 'photos', 'action' => 'tag'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/browse/*', array('controller' => 'photos', 'action' => 'browse'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/photo/*', array('controller' => 'photos', 'action' => 'view'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/archive/category/*', array('controller' => 'photos', 'action' => 'category'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/archive/date/*', array('controller' => 'photos', 'action' => 'archivedate'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/archive/tag/*', array('controller' => 'photos', 'action' => 'tag'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/archive/*', array('controller' => 'photos', 'action' => 'archive'), array('language' => '[a-z]{2}'));
 	Router::connect('/:language/about', array('controller' => 'pages', 'action' => 'display', 'about'), array('language' => '[a-z]{2}'));
 	
 	/* Default routes */
 	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
 	Router::connect('/feed', array('controller' => 'photos', 'action' => 'rss'));
-	Router::connect('/p/*', array('controller' => 'photos', 'action' => 'view'));
-	Router::connect('/browse/category/*', array('controller' => 'photos', 'action' => 'category'));
-	Router::connect('/browse/archivedate/*', array('controller' => 'photos', 'action' => 'archivedate'));
-	Router::connect('/browse/tag/*', array('controller' => 'photos', 'action' => 'tag'));
-	Router::connect('/browse/*', array('controller' => 'photos', 'action' => 'browse'));
+	Router::connect('/photo/*', array('controller' => 'photos', 'action' => 'view'));
+	Router::connect('/archive/category/*', array('controller' => 'photos', 'action' => 'category'));
+	Router::connect('/archive/date/*', array('controller' => 'photos', 'action' => 'archivedate'));
+	Router::connect('/archive/tag/*', array('controller' => 'photos', 'action' => 'tag'));
+	Router::connect('/archive/*', array('controller' => 'photos', 'action' => 'archive'));
 	Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about'));
 	
 /**

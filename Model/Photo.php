@@ -50,6 +50,27 @@ class Photo extends AppModel {
                 'message' => 'meteringmode_id should be numeric',
                 'allowEmpty' => true,
             ), ),
+        'slug' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required' => true,
+                'message' => 'Slug should not be empty',
+                'allowEmpty' => false,
+            ),
+            'unique' => array(
+                'rule' => 'isUnique',
+                'message' => 'Slug should be unique',
+                'required' => true,
+                'on' => 'create',
+            ),
+            'maxLength' => array(
+                'rule' => array(
+                    'maxLength',
+                    255
+                ),
+                'message' => 'Slug must be no larger than 255 characters long.'
+            ),
+        ),
         'filename' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
