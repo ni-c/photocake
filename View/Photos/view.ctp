@@ -103,7 +103,7 @@
 	</div>
 </div>
 <div id="img-title-date-comments">
-	<div id="img-title">
+	<h3 id="img-title">
 		<?php echo $this->Html->link($photo['Photo']['title'], array(
             'controller' => 'photos',
             'action' => 'view',
@@ -114,7 +114,7 @@
             'escape' => false
         ));
 		?>
-	</div>
+	</h3>
 	<div id="img-info-comment">
 		<a id="info-toggle" href="javascript:void(0);" title="<?php echo __('Comments &amp; EXIF for ') . $photo['Photo']['title'];?>"> <?php
         echo count($photo['Comment']) . '&nbsp;';
@@ -135,7 +135,7 @@
 <div id="notes-cmts-container">
 	<div id="img-notes">
 		<div class="notes-cmts-inner-wrapper">
-			<h3><?php echo __('Description');?></h3>
+			<h4><?php echo __('Description');?></h4>
 			<div class="description">
 				<?php echo $this->Markdown->transform($photo['Photo']['description']);?>
 			</div>
@@ -149,7 +149,7 @@
                     'escape' => false
                 ));
 			?>
-			<h3><?php echo __('EXIF Data');?></h3>
+			<h4><?php echo __('EXIF Data');?></h4>
 			<table id="exif">
 				<tbody>
 					<tr>
@@ -201,7 +201,7 @@
 				</tbody>
 			</table>
 			<p>
-				<b><?php echo __('Category') . ':';?></b>&nbsp;<?php echo $this->Html->link(__($photo['Category']['name']), array(
+				<h4 class="inline"><?php echo __('Category') . ':';?></h4>&nbsp;<?php echo $this->Html->link(__($photo['Category']['name']), array(
                         'controller' => 'photos',
                         'action' => 'category',
                         $photo['Category']['slug'],
@@ -213,7 +213,7 @@
 				?>
 				&nbsp;
 			</p>
-			<span> <b><?php echo __('Tags') . ':';?></b>&nbsp;
+			<span><h4 class="inline"><?php echo __('Tags') . ':';?></h4>&nbsp;
 				<ul id="taglist">
 					<?php
                     if (!empty($photo['Tag'])) {
@@ -235,7 +235,7 @@
 	</div>
 	<div id="img-comments">
 		<div class="notes-cmts-inner-wrapper">
-			<h3><?php echo __('Comments');?></h3>
+			<h4><?php echo __('Comments');?></h4>
 			<div class="bubbles">
 				<div>
 					<?php
@@ -266,7 +266,7 @@ if ($comment['website']!=''):
 					<?php endforeach; endif;?>
 				</div>
 			</div>
-			<h3><?php echo __('Leave a Comment');?></h3>
+			<h4><?php echo __('Leave a Comment');?></h4>
 			<?php
             echo $this->Form->create('Comment', array('action' => 'add'));
             echo $this->Form->hidden('Comment.photo_id', array('value' => $photo['Photo']['id']));

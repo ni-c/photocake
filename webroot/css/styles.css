@@ -16,14 +16,17 @@ ul,li {
 	margin: 0px;
 	padding: 0px;
 }
-h3 {
-	font-size: 18px;
-	line-height: 20px;
+h1,h2,h3,h4 {
+	margin: 0px;
+	padding: 0px;
 }
-h4 {
-	font-size: 16px;
-	line-height: 18px;
+.inline {
+	display: inline;
+	padding-right: 6px;
 }
+.description p {
+	margin: 0px;
+} 
 select {
 	margin-bottom: 4px;
 }
@@ -170,8 +173,8 @@ img {
 	margin: 8px;
 	padding: 10px;
 }
-#notes-cmts-container h3 {
-	margin: 6px 0px 12px 0px;
+#notes-cmts-container h4 {
+	margin: 10px 0px 12px 0px;
 	padding: 0px;
 }
 #notes-about-container {

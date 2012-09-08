@@ -19,25 +19,27 @@
 	</p>
 	<h3>Kontakt</h3>
 	<p>
-		<?php
-        if ($email != '') {
-            echo 'eMail: <a href="mailto:' . $email . '">' . $email . '</a>';
-        }
-		?>
-	</p>
-	<p>
-		<?php
-        if ($twitter != '') {
-            echo 'Twitter: <a href="http://twitter.com/' . $twitter . '">' . $twitter . '</a>';
-        }
-		?>
-	</p>
-	<p>
-		<?php
-        if ($facebook != '') {
-            echo 'Facebook: <a href="http://facebook.com/' . $facebook . '">' . $facebook . '</a>';
-        }
-		?>
+		<div>
+			<?php
+	        if ($email != '') {
+	            echo 'eMail: <a href="mailto:' . $email . '">' . $email . '</a>';
+	        }
+			?>
+		</div>
+		<div>
+			<?php
+	        if ($twitter != '') {
+	            echo 'Twitter: <a href="http://twitter.com/' . $twitter . '">' . $twitter . '</a>';
+	        }
+			?>
+		</div>
+		<div>
+			<?php
+	        if ($facebook != '') {
+	            echo 'Facebook: <a href="http://facebook.com/' . $facebook . '">' . $facebook . '</a>';
+	        }
+			?>
+		</div>
 	</p>
 	<h3><?php echo __('Tag Cloud');?></h3>
 	<div id="tag_cloud">

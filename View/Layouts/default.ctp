@@ -46,7 +46,7 @@
 		<div id="wrapper">
 			<div id="container">
 				<div id="header">
-					<div id="site-title">
+					<h1 id="site-title">
 						<?php echo $this->Html->link($site_title, array(
                             'controller' => 'photos',
                             'action' => 'view',
@@ -54,7 +54,7 @@
                             'full_base' => true
                         ));
 						?>
-					</div>
+					</h1>
 					<div id="menu">
 						<ul>
 							<li>
@@ -112,10 +112,10 @@
 								?>
 							</li>
 						</ul>
-						<div id="sub-title">
+						<h2 id="sub-title">
 							<?php echo $site_subtitle
 							?>
-						</div>
+						</h2>
 					</div>
 					<div class="clear"></div>
 				</div>
