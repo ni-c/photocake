@@ -14,12 +14,13 @@ foreach ($photos as $photo) {
     $postLink = array(
         'controller' => 'photos',
         'action' => 'view',
-        $photo['Photo']['slug']
+        $photo['Photo']['slug'],
+	'full_base' => true
     );
 
     // This is the part where we clean the body text for output as the description
     // of the rss item, this needs to have only text to make sure the feed validates
-    $bodyText = $this->Html->image('m/' . $photo['Photo']['filename']) . '<br />' . $this->Markdown->transform($photo['Photo']['description']);
+    $bodyText = $this->Html->image('m/' . $photo['Photo']['filename'], array('fullBase' => true)) . '<br />' . $this->Markdown->transform($photo['Photo']['description']);
 
     echo  $this->Rss->item(array(), array(
         'title' => $photo['Photo']['title'],
