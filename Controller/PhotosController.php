@@ -38,6 +38,12 @@ class PhotosController extends AppController {
             'value' => $photo['Photo']['datecreated'],
         ));
 
+		// Keyword stuff
+		$this->keywords = $this->keywords . ',' . $photo['Category']['name'];
+		foreach ($photo['Tag'] as $tag) {
+			$this->keywords = $this->keywords . ',' .$tag['name'];
+		}
+
         $this->set('title_for_layout', $photo['Photo']['title']);
         $this->set('photo', $photo);
         $this->set('next_photo', $neighbors['prev']);
@@ -60,6 +66,7 @@ class PhotosController extends AppController {
         $this->set('current', __('all'));
         $this->set('cururl', '/browse/');
         $this->set('title_for_layout', __('Archive'));
+		$this->keywords = $this->keywords . ',archiv,archive';
         $this->setBrowseVars();
     }
 
@@ -87,6 +94,7 @@ class PhotosController extends AppController {
         $this->setBrowseVars();
         $this->set('cururl', '/browse/category/' . $category . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . $C['Category']['name']);
+		$this->keywords = $this->keywords . ',archiv,archive,' . $C['Category']['name'];
         $this->render('archive');
     }
 
@@ -116,6 +124,7 @@ class PhotosController extends AppController {
         $this->setBrowseVars();
         $this->set('cururl', '/browse/archivedate/' . $date . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . __(date('F', strtotime($date_start))) . date(', Y', strtotime($date_start)));
+		$this->keywords = $this->keywords . ',archiv,archive';
         $this->render('archive');
     }
 
@@ -151,6 +160,7 @@ class PhotosController extends AppController {
         $this->setBrowseVars();
         $this->set('cururl', '/browse/tag/' . $tag . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . $T['Tag']['name']);
+ 		$this->keywords = $this->keywords . ',archiv,archive,' . $T['Tag']['name'];
         $this->render('archive');
     }
 

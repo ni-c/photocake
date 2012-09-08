@@ -45,6 +45,11 @@ class AppController extends Controller {
         'GoogleAnalytics'
     );
 
+	/**
+	 * The keywords for the meta description
+	 */
+	protected $keywords = '';
+
     /**
      * Returns the option value of the given key or null if not set
      *
@@ -65,13 +70,14 @@ class AppController extends Controller {
     public function beforeFilter() {
         Configure::write('Config.language', Configure::read('Config.default_language'));
         $this->_setLanguage();
+		$this->keywords = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
     }
 
     /**
      * Set the default vars
      */
     public function beforeRender() {
-        $this->set('keywords', $this->isEmpty($this->getOption('keywords'), 'photocake,foto,blog'));
+        $this->set('keywords', $this->keywords);
         $this->set('site_title', $this->isEmpty($this->getOption('site_title'), 'Photocake'));
         $this->set('site_subtitle', $this->isEmpty($this->getOption('site_subtitle'), 'Markdown Photo Blog'));
         $this->set('copyright', $this->isEmpty($this->getOption('copyright'), '&copy; 2011-2012 Willi Thiel'));
