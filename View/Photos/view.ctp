@@ -192,9 +192,11 @@
 								<td><?php echo __('GPS') . ':';?></td>
 								<td><?php
 		                        if (($photo['Photo']['gpslatituderef'] != '') && ($photo['Photo']['gpslatitude'] != '') && ($photo['Photo']['gpslongituderef'] != '') && ($photo['Photo']['gpslongitude'] != '')) {
-		                            echo '<abbr class="geo" title="' . str_replace('N', '', str_replace('S', '-', str_replace('E', '', str_replace('W', '-', $photo['Photo']['gpslatituderef'] . $photo['Photo']['gpslatitude'] . ';' . $photo['Photo']['gpslongituderef'] . $photo['Photo']['gpslongitude'])))) .'">';
+		                        	$geo = str_replace('N', '', str_replace('S', '-', str_replace('E', '', str_replace('W', '-', $photo['Photo']['gpslatituderef'] . $photo['Photo']['gpslatitude'] . ';' . $photo['Photo']['gpslongituderef'] . $photo['Photo']['gpslongitude']))));
+		                            echo '<abbr class="geo" title="' . $geo .'">';
 									echo h($photo['Photo']['gpslatituderef']) . ' ' . substr(h($photo['Photo']['gpslatitude']), 0, 8) . '&deg;, ' . h($photo['Photo']['gpslongituderef']) . ' ' . substr(h($photo['Photo']['gpslongitude']), 0, 8) . '&deg;';
 									echo '</abbr>';
+									$this->Html->meta(array('name' => 'geo.position', 'content' => $geo), false, array('inline' => false));
 		                        } else {
 		                            echo $na;
 		                        }
