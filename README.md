@@ -1,6 +1,8 @@
 # photocake
 
-*photocake* is a photoblog based on [CakePHP](http://cakephp.org/).
+*photocake* is a markdown photoblog based on [CakePHP](http://cakephp.org/). It will parse JPG images in a specific folder and create a blog post for each image.
+
+You can find a live demo at [willithiel.de](http://willithiel.de).
 
 ## Installation
 
@@ -11,6 +13,8 @@
 ### Database
 
 The database schema can be found in **Config/Schema/database.sql**.
+
+Run **./compress.sh** in the **Config** directory to gzip the .css and .js files (and enable gzip in your webserver).
 
 ### Files
 
@@ -29,9 +33,9 @@ Options are saved in the table 'options', the following Options can be used:
 - 'email' eMail-Address of the blog owner
 - 'twitter' Twitter nickname of the blog owner
 - 'facebook' Facebook id of the blog owner
-- 'facebook' Facebook id of the blog owner
 - 'ga_code' Google Analytics ID
 - 'defensio_apikey' [Defensio](http://www.defensio.com/api/) API Key (Comment Spam)
+- 'publish_immediately' Set to 1 if new photos should be published immediately (Otherwise they are saved as draft)
 
 ## Creating Posts
 
@@ -47,3 +51,7 @@ For title, description, categories and tags of the new post, a JSON-String is ex
     }
 
 The URL **http://[photocake-url]/photos/refresh** will parse the images in the Images/ folder and update the database.
+
+## Known problems
+
+Depending on your webservers speed and the size and number of JPGs you put in the Images/ folder, it may be a good idea to increase your *max_execution_time* in php.ini (Parsing 40 jpg-images (23 MB) took six minutes on my webserver).

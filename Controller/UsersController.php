@@ -19,9 +19,6 @@ class UsersController extends AppController {
 	 * User login
 	 */
     public function login() {
-//    	$this->User->create();
-//		$this->User->save(array('User' => array('username' => 'admin', 'password' => 'photocake')));
-		
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 $this->redirect($this->Auth->redirect());
