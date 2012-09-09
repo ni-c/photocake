@@ -1,28 +1,35 @@
 # photocake
 
-*photocake* is a markdown photoblog based on [CakePHP](http://cakephp.org/). It will parse JPG images in a specific folder and create a blog post for each image.
+*photocake* is a markdown photoblog based on [CakePHP](http://cakephp.org/). It is able to parse Jpeg-files and create blog posts using the EXIF data of the images.
 
-You can find a live demo at [willithiel.de](http://willithiel.de).
+You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de).
+
+## Features
+
+- Fast (Ultrafast with Nginx)
+- Multilingualized (Currently English and German)
+- Resizing of images (if necessary) with ImageMagick
+- Needs only (well-formated markdown) EXIF data to create photo posts
 
 ## Installation
 
 ### CakePHP
 
-*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. You can find version 2.3 of CakePHP on [GitHub](https://github.com/cakephp/cakephp/tree/2.3).
+*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. Version 2.3 of CakePHP can be found on [GitHub](https://github.com/cakephp/cakephp/tree/2.3). You should read the (CakePHP Cookbook)[http://book.cakephp.org/2.0/en/index.html] for a detailed installation guide.
 
 ### Database
 
-The database schema can be found in **Config/Schema/database.sql**.
-
-Run **./compress.sh** in the **Config** directory to gzip the .css and .js files (and enable gzip in your webserver).
+You can find a script to create the *photocake* database in **Config/Schema/database.sql**.
 
 ### Files
 
-Configure the database in **Config/database.php**. There is an example file (**Config/database.example.php**)
+Configure the database in **Config/database.php**. You can use the example file (**Config/database.example.php**) as template.
+
+Optional: Run **./compress.sh** in the **Config** directory to gzip the .css and .js files (and enable gzip in your webserver).
 
 ### Options
 
-Options are saved in the table 'options', the following Options can be used:
+Options are stored in the 'options'-table, the following keys are allowed:
 
 - 'photo_dir' The directory to parse for images (default: Images/)
 - 'keywords' Keywords for the HTML header
@@ -55,3 +62,7 @@ The URL **http://[photocake-url]/photos/refresh** will parse the images in the I
 ## Known problems
 
 Depending on your webservers speed and the size and number of JPGs you put in the Images/ folder, it may be a good idea to increase your *max_execution_time* in php.ini (Parsing 40 jpg-images (23 MB) took six minutes on my webserver).
+
+## License
+
+The license under which *photocake* is released is the [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) (or later) from the Free Software Foundation. 

@@ -31,7 +31,9 @@
 	Router::connect('/:language/archive/tag/*', array('controller' => 'photos', 'action' => 'tag'), array('language' => '[a-z]{2}'));
 	Router::connect('/:language/archive/*', array('controller' => 'photos', 'action' => 'archive'), array('language' => '[a-z]{2}'));
 	Router::connect('/:language/about', array('controller' => 'pages', 'action' => 'display', 'about'), array('language' => '[a-z]{2}'));
-	
+	Router::connect('/:language/login', array('controller' => 'users', 'action' => 'login'), array('language' => '[a-z]{2}'));
+	Router::connect('/:language/logout', array('controller' => 'users', 'action' => 'logout'), array('language' => '[a-z]{2}'));
+		
 	/* Default routes */
 	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
 	Router::connect('/photo/*', array('controller' => 'photos', 'action' => 'view'));
@@ -40,6 +42,8 @@
 	Router::connect('/archive/tag/*', array('controller' => 'photos', 'action' => 'tag'));
 	Router::connect('/archive/*', array('controller' => 'photos', 'action' => 'archive'));
 	Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about'));
+	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
+	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 	
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 

@@ -3615,3 +3615,12 @@ msgstr "Bitte gebe eine Email-Adresse an"
 
 msgid "Pattern"
 msgstr "Mehrfeldmessung"
+
+msgid "Login"
+msgstr "Einloggen"
+
+msgid "Username"
+msgstr "Benutzername"
+
+msgid "Password"
+msgstr "Passwort"
