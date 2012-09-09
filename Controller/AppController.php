@@ -40,25 +40,24 @@ class AppController extends Controller {
         'Session'
     );
 
-    public $helpers = array(
-        'Html' => array('className' => 'LanguageHtml'),
-        'GoogleAnalytics'
-    );
+    public $helpers = array('Html' => array('className' => 'LanguageHtml'));
 
-	/**
-	 * The keywords for the meta description
-	 */
-	protected $keywords = '';
+    public $cacheAction = true;
 
-	/**
-	 * The description for the meta description
-	 */
-	protected $description = '';
+    /**
+     * The keywords for the meta description
+     */
+    protected $keywords = '';
 
-	/**
-	 * Options array
-	 */
-	private $options = null;
+    /**
+     * The description for the meta description
+     */
+    protected $description = '';
+
+    /**
+     * Options array
+     */
+    private $options = null;
 
     /**
      * Returns the option value of the given key or null if not set
@@ -68,17 +67,17 @@ class AppController extends Controller {
      */
     public function getOption($key) {
 
-    	if ($this->options == null) {
-	        $tmp = Cache::read('options', 'longterm');
-	        if (!$tmp) {
-	            $tmp = $this->Options->find('all');
-	            Cache::write('options', $tmp, 'longterm');
-	        }    		
-			$this->options = array();
-			foreach ($tmp as $key => $value) {
-				$this->options[$value['Options']['key']] = $value['Options']['value'];
-			}
-    	}
+        if ($this->options == null) {
+            $tmp = Cache::read('options', 'longterm');
+            if (!$tmp) {
+                $tmp = $this->Options->find('all');
+                Cache::write('options', $tmp, 'longterm');
+            }
+            $this->options = array();
+            foreach ($tmp as $key => $value) {
+                $this->options[$value['Options']['key']] = $value['Options']['value'];
+            }
+        }
         if (isset($this->options[$key])) {
             return $this->options[$key];
         }
@@ -91,8 +90,8 @@ class AppController extends Controller {
     public function beforeFilter() {
         Configure::write('Config.language', Configure::read('Config.default_language'));
         $this->_setLanguage();
-		$this->keywords = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
-		$this->description = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
+        $this->keywords = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
+        $this->description = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
     }
 
     /**
@@ -106,7 +105,7 @@ class AppController extends Controller {
         $this->set('copyright', $this->isEmpty($this->getOption('copyright'), '&copy; 2011-2012 Willi Thiel'));
         $this->set('author', $this->isEmpty($this->getOption('author'), 'Willi Thiel'));
         $this->set('license', $this->isEmpty($this->getOption('license'), 'MIT License'));
-		$this->set('ga_code', $this->isEmpty($this->getOption('ga_code'), ''));
+        $this->set('ga_code', $this->isEmpty($this->getOption('ga_code'), ''));
         $this->set('na', '-');
         $this->set('lang', $this->Session->read('Config.language'));
     }

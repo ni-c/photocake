@@ -39,12 +39,12 @@ class PhotosController extends AppController {
             'value' => $photo['Photo']['datecreated'],
         ));
 
-		// Meta stuff
-		$this->keywords = $this->keywords . ',' . $photo['Category']['name'];
-		foreach ($photo['Tag'] as $tag) {
-			$this->keywords = $this->keywords . ',' .$tag['name'];
-		}
-		$this->description = $this->description . ': ' . $photo['Photo']['description'];
+        // Meta stuff
+        $this->keywords = $this->keywords . ',' . $photo['Category']['name'];
+        foreach ($photo['Tag'] as $tag) {
+            $this->keywords = $this->keywords . ',' . $tag['name'];
+        }
+        $this->description = $this->description . ': ' . $photo['Photo']['description'];
 
         $this->set('title_for_layout', $photo['Photo']['title']);
         $this->set('photo', $photo);
@@ -68,8 +68,8 @@ class PhotosController extends AppController {
         $this->set('current', __('all'));
         $this->set('cururl', '/browse/');
         $this->set('title_for_layout', __('Archive'));
-		$this->keywords = $this->keywords . ',archiv,archive';
-        $this->setBrowseVars();
+        $this->keywords = $this->keywords . ',archiv,archive';
+        $this->setArchiveVars();
     }
 
     /**
@@ -93,10 +93,10 @@ class PhotosController extends AppController {
         $this->set('photocount', $photocount);
         $this->set('pages', ceil($photocount / $this->paginate['limit']));
         $this->set('current', $C['Category']['name']);
-        $this->setBrowseVars();
+        $this->setArchiveVars();
         $this->set('cururl', '/browse/category/' . $category . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . $C['Category']['name']);
-		$this->keywords = $this->keywords . ',archiv,archive,' . $C['Category']['name'];
+        $this->keywords = $this->keywords . ',archiv,archive,' . $C['Category']['name'];
         $this->render('archive');
     }
 
@@ -123,10 +123,10 @@ class PhotosController extends AppController {
         $this->set('pages', ceil($photocount / $this->paginate['limit']));
         $this->set('current', 'archivedate');
         $this->set('archivedate', $date);
-        $this->setBrowseVars();
+        $this->setArchiveVars();
         $this->set('cururl', '/browse/archivedate/' . $date . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . __(date('F', strtotime($date_start))) . date(', Y', strtotime($date_start)));
-		$this->keywords = $this->keywords . ',archiv,archive';
+        $this->keywords = $this->keywords . ',archiv,archive';
         $this->render('archive');
     }
 
@@ -159,41 +159,61 @@ class PhotosController extends AppController {
         $this->set('photocount', $photocount);
         $this->set('pages', ceil($photocount / $this->paginate['limit']));
         $this->set('current', $T['Tag']['name']);
-        $this->setBrowseVars();
+        $this->setArchiveVars();
         $this->set('cururl', '/browse/tag/' . $tag . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . $T['Tag']['name']);
- 		$this->keywords = $this->keywords . ',archiv,archive,' . $T['Tag']['name'];
+        $this->keywords = $this->keywords . ',archiv,archive,' . $T['Tag']['name'];
         $this->render('archive');
     }
 
     /**
      * Set the browse variables
      */
-    private function setBrowseVars() {
+    private function setArchiveVars() {
+
+        $archiveVars = Cache::read('archive_vars', 'longterm');
+        if (!$archiveVars) {
+            $archiveVars = array();
+			
+			// Count
+            $archiveVars['count'] = $this->Photo->find('count', array('conditions' => array('Photo.status' => 'Published')));
+			
+			// Categories
+	        $this->Photo->Category->recursive = 1;
+            $archiveVars['categories'] = $this->Photo->Category->find('all');
+
+			// Month
+            $all_month = $this->Photo->query('SELECT DISTINCT DATE_FORMAT(`datecreated`, "%Y-%m") as `month` FROM `photos` WHERE `status` = "Published" ORDER BY `datecreated` DESC;');
+            $month_archive = array();
+            foreach ($all_month as $key => $month) {
+                $count = $this->Photo->query('SELECT count(*) AS `count` FROM `photos` WHERE DATE_FORMAT(`datecreated`, "%Y-%m")="' . $month[0]['month'] . '" AND `status` = "Published";');
+                $month_archive[] = array(
+                    'month' => $month[0]['month'],
+                    'count' => $count[0][0]['count']
+                );
+            }
+            $archiveVars['month'] = $month_archive;
+			
+			// Tags
+			$archiveVars['tags'] = $this->Photo->Tag->find('all');
+			
+            Cache::write('archive_vars', $archiveVars, 'longterm');
+        }
+
         // photo count
-        $this->set('count', $this->Photo->find('count', array('conditions' => array('Photo.status' => 'Published'))));
+        $this->set('count', $archiveVars['count']);
 
         // page
         $this->set('curpage', $this->paginate['page']);
 
         // by Category
-        $this->Photo->Category->recursive = 1;
-        $this->set('categories', $this->Photo->Category->find('all'));
+        $this->set('categories', $archiveVars['categories']);
 
         // by Month
-        $all_month = $this->Photo->query('SELECT DISTINCT DATE_FORMAT(`datecreated`, "%Y-%m") as `month` FROM `photos` WHERE `status` = "Published" ORDER BY `datecreated` DESC;');
-        $month_archive = array();
-        foreach ($all_month as $key => $month) {
-            $count = $this->Photo->query('SELECT count(*) AS `count` FROM `photos` WHERE DATE_FORMAT(`datecreated`, "%Y-%m")="' . $month[0]['month'] . '" AND `status` = "Published";');
-            $month_archive[] = array(
-                'month' => $month[0]['month'],
-                'count' => $count[0][0]['count']
-            );
-        }
-        $this->set('month', $month_archive);
+        $this->set('month', $archiveVars['month']);
 
         // by Tag
-        $this->set('tags', $this->Photo->Tag->find('all'));
+        $this->set('tags', $archiveVars['tags']);
     }
 
     /**

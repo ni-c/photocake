@@ -12,6 +12,8 @@
  * @attribute Based on MarkDown (c) 2003-2006 John Gruber <http://daringfireball.net/>
  */
 
+App::uses('HtmlHelper', 'View/Helper');
+ 
 /**
  * Change to ">" for HTML output
  * @var string
@@ -51,6 +53,9 @@ define('MARKDOWN_FN_LINK_CLASS', "");
  */
 define('MARKDOWN_FN_BACKLINK_CLASS', "");
 
+/**
+ * Helper to convert Markdown strings into HTML strings.
+ */
 class MarkdownHelper extends AppHelper {
 	/**
 	 * Needed to insert a maximum bracked depth while converting to PHP.

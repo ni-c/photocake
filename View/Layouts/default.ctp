@@ -12,13 +12,6 @@
             echo 'English';
         }
 		?>" />
-		<meta name="generator" content="photocake (http://github.com/ni-c/photocake)" />
-		<meta name="copyright" content="<?php echo $copyright?>" />
-		<meta name="author" content="<?php echo $author?>" />
-		<meta name="owner" content="<?php echo $author?>" />
-		<meta name="publisher" content="<?php echo $author?>" />
-		<meta name="version" content="0.2b" />
-		<meta name="robots" content="all" />
 		<?php
         echo $this->Html->charset();
         echo $this->Html->meta('icon');
@@ -26,19 +19,23 @@
         echo $this->Html->meta('keywords', $keywords);
         echo $this->Html->meta('description', $description);
         echo $this->Html->meta('RSS Feed', '/feed', array('type' => 'rss'));
-        /* Google Webfonts */#
+        /* Google Webfonts */
         echo $this->Html->css('http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300&amp;subset=latin,latin-ext');
 
-        echo $this->Html->css('styles');
-        echo $this->Html->css('light');
-
-        echo $this->Html->script('mootools-more-1.4.0.1');
+        echo $this->Html->css('photocake');
         echo $this->Html->script('photocake');
 
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
 		?>
+		<meta name="generator" content="photocake (http://github.com/ni-c/photocake)" />
+		<meta name="copyright" content="<?php echo $copyright?>" />
+		<meta name="author" content="<?php echo $author?>" />
+		<meta name="owner" content="<?php echo $author?>" />
+		<meta name="publisher" content="<?php echo $author?>" />
+		<meta name="version" content="0.2b" />
+		<meta name="robots" content="all" />
 		<meta name="DC.Title" content="<?php echo $title_for_layout;?>" />
 		<meta name="DC.Subject" content="<?php echo $site_title;?>" />
 		<meta name="DC.Creator" content="photocake" />
@@ -143,9 +140,8 @@
 		<?php
         echo $this->element('sql_dump');
 
-        if ($ga_code != '') {
-            echo $this->GoogleAnalytics->trackingCode($ga_code);
-        }
-		?>
+        if ($ga_code != ''): ?>
+			<input type="hidden" id="ga_code" value="<?php echo $ga_code; ?>" />        	
+        <?php endif; ?>
 	</body>
 </html>

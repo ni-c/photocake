@@ -1,6 +1,10 @@
 <?php
 
 App::uses('HtmlHelper', 'View/Helper');
+
+/**
+ * Extension of Html->url() that supports multilangueage
+ */
 class LanguageHtmlHelper extends HtmlHelper {
 
     public function url($url = null, $full = false) {
