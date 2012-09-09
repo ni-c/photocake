@@ -1,4 +1,27 @@
 <?php
+/**
+ * photocake - A markdown photo blog based on CakePHP.
+ * Copyright (C) 2012 Willi Thiel <mail@willithiel.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * @copyright     Copyright 2012, Willi Thiel <mail@willithiel.de>
+ * @link          https://github.com/ni-c/photocake
+ * @license       GNU General Public License, version 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ */
+
 App::uses('AppController', 'Controller');
 /**
  * Photos Controller
@@ -7,22 +30,21 @@ App::uses('AppController', 'Controller');
  */
 class PhotosController extends AppController {
 
-	/**
-	 * Pagination settings
-	 */
+    /**
+     * Pagination settings
+     */
     public $paginate = array(
         'limit' => 40,
         'conditions' => array('Photo.status' => 'Published')
     );
 
-	/**
-	 * Before filter
-	 */
+    /**
+     * Before filter
+     */
     public function beforeFilter() {
-    	parent::beforeFilter();
+        parent::beforeFilter();
         $this->Auth->allow('archive', 'category', 'archivedate', 'tag');
     }
-
 
     /**
      * view method
@@ -186,15 +208,15 @@ class PhotosController extends AppController {
         $archiveVars = Cache::read('archive_vars', 'longterm');
         if (!$archiveVars) {
             $archiveVars = array();
-			
-			// Count
+
+            // Count
             $archiveVars['count'] = $this->Photo->find('count', array('conditions' => array('Photo.status' => 'Published')));
-			
-			// Categories
-	        $this->Photo->Category->recursive = 1;
+
+            // Categories
+            $this->Photo->Category->recursive = 1;
             $archiveVars['categories'] = $this->Photo->Category->find('all');
 
-			// Month
+            // Month
             $all_month = $this->Photo->query('SELECT DISTINCT DATE_FORMAT(`datecreated`, "%Y-%m") as `month` FROM `photos` WHERE `status` = "Published" ORDER BY `datecreated` DESC;');
             $month_archive = array();
             foreach ($all_month as $key => $month) {
@@ -205,10 +227,10 @@ class PhotosController extends AppController {
                 );
             }
             $archiveVars['month'] = $month_archive;
-			
-			// Tags
-			$archiveVars['tags'] = $this->Photo->Tag->find('all');
-			
+
+            // Tags
+            $archiveVars['tags'] = $this->Photo->Tag->find('all');
+
             Cache::write('archive_vars', $archiveVars, 'longterm');
         }
 

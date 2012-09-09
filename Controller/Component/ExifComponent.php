@@ -1,12 +1,33 @@
 <?php
 /**
- * Component to parse JPG-Files for EXIF data.
+ * photocake - A markdown photo blog based on CakePHP.
+ * Copyright (C) 2012 Willi Thiel <mail@willithiel.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * @copyright     Copyright 2012, Willi Thiel <mail@willithiel.de>
+ * @link          https://github.com/ni-c/photocake
+ * @license       GNU General Public License, version 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 
 App::uses('Component', 'Controller');
 
 App::import('Vendor', 'pel/src/PelJpeg');
-
+/**
+ * Component to parse JPG-Files for EXIF data.
+ */
 class ExifComponent extends Component {
 
     /**
@@ -34,7 +55,7 @@ class ExifComponent extends Component {
             'id' => $this->getDescriptionPart($exif, 'id'),
             'Model' => str_replace('\0', '', $this->getValue($exif[PelIfd::IFD0]->getEntry(PelTag::MODEL))),
             'Flash' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::FLASH)),
-            'LensID' => $this->parseXmpData($filename, 'aux:LensID')!='' ? $this->parseXmpData($filename, 'aux:LensID') : '0',
+            'LensID' => $this->parseXmpData($filename, 'aux:LensID') != '' ? $this->parseXmpData($filename, 'aux:LensID') : '0',
             'Lens' => $this->parseXmpData($filename, 'aux:Lens'),
             'ExposureProgram' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::EXPOSURE_PROGRAM)),
             'MeteringMode' => $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::METERING_MODE)),
@@ -42,7 +63,7 @@ class ExifComponent extends Component {
             'Description' => $this->getDescriptionPart($exif, 'Description'),
             'Category' => $this->getDescriptionPart($exif, 'Category'),
             'Tags' => explode(',', $this->getDescriptionPart($exif, 'Tags')),
-            'DateCreated' => date('Y-m-d H:i:s', $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL))!="" ? $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL)) : $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_DIGITIZED))),
+            'DateCreated' => date('Y-m-d H:i:s', $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL)) != "" ? $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_ORIGINAL)) : $this->getValue($exif[PelIfd::EXIF]->getEntry(PelTag::DATE_TIME_DIGITIZED))),
             'FocalLength' => $this->getFocalLength($exif),
             'FNumber' => $this->getFNumber($exif),
             'ExposureTime' => $this->getExposureTime($exif),
@@ -64,7 +85,7 @@ class ExifComponent extends Component {
      * @param $description The description of the image
      * @param $category The category of the image
      * @param $tags An array of tags of the image
-	 */
+     */
     public function updateDescription($filename, $id, $title, $description, $category, $tags) {
 
         $data = new PelDataWindow(file_get_contents($filename));
@@ -237,10 +258,10 @@ class ExifComponent extends Component {
     private function parseXmpData($filename, $tag) {
         unset($result);
         preg_match('/<' . $tag . '>.+<\/' . $tag . '>/', $this->loadXmpData($filename), $result);
-		if (isset($result[0])) {
-	        return str_replace('<' . $tag . '>', '', str_replace('</' . $tag . '>', '', $result[0]));
-		}
-		return '';
+        if (isset($result[0])) {
+            return str_replace('<' . $tag . '>', '', str_replace('</' . $tag . '>', '', $result[0]));
+        }
+        return '';
     }
 
 }
