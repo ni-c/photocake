@@ -37,7 +37,12 @@ class AppController extends Controller {
 
     public $components = array(
         'Cookie',
-        'Session'
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'photos', 'action' => 'view', 'last'),
+            'logoutRedirect' => array('controller' => 'photos', 'action' => 'view', 'last'),
+            'authorize' => array('Controller')
+        )
     );
 
     public $helpers = array('Html' => array('className' => 'LanguageHtml'));
@@ -92,6 +97,7 @@ class AppController extends Controller {
         $this->_setLanguage();
         $this->keywords = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
         $this->description = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
+        $this->Auth->allow('index', 'view');
     }
 
     /**
@@ -144,5 +150,17 @@ class AppController extends Controller {
         }
         parent::redirect($url, $status, $exit);
     }
-
+	
+	/**
+	 * Check if user is authorized
+	 */
+	public function isAuthorized($user) {
+	    // Admin can access every action
+	    if (isset($user['role']) && $user['role'] === 'Admin') {
+	        return true;
+	    }
+	
+	    // Default deny
+	    return false;
+	}
 }

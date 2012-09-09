@@ -3,7 +3,7 @@ App::uses('AppController', 'Controller');
 /**
  * Robots Controller
  *
- * @property Robots Robots
+ * @property Robots $Robots
  */
 class RobotsController extends AppController {
 

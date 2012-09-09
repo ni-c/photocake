@@ -40,10 +40,12 @@ a:hover,a:active {
 	    box-shadow: 0 0 10px #333333;
 	    color: #FFFFFF;
 }
+#login-container,
 #notes-cmts-container {
 	background-color: #f5f5f5;
 	border: 1px solid #cccccc;
 }
+#login-container,
 #notes-about-container {
 	background-color: #f5f5f5;
 	border: 1px solid #cccccc;
@@ -61,23 +63,23 @@ div.bubble div.tip {
 #img-comments li {
 	border-bottom: 1px solid #cccccc;
 }
-#img-comments fieldset {
+fieldset {
 	border: none;
 }
-#img-comments .button,
-#img-comments input,
-#img-comments label,
-#img-comments select,
-#img-comments textarea {
+.button,
+input,
+label,
+select,
+textarea {
 	color: #333333;
 }
-#img-comments input,
-#img-comments textarea,
-#img-comments select {
+input,
+textarea,
+select {
 	background-color: #ffffff;
 	border: 1px solid #cccccc;
 }
-#img-comments .button {
+.button {
 	background-color: #ffffff;
 	border-width: 3px;
 	border-style: double;
@@ -293,10 +295,12 @@ img {
 	padding: 0px 0px 0px 18px;
 	text-align: right;
 }
+#login-container,
 #notes-cmts-container {
 	margin: 8px;
 	padding: 10px;
 }
+#login-container h4,
 #notes-cmts-container h4 {
 	margin: 10px 0px 12px 0px;
 	padding: 0px;
@@ -362,36 +366,36 @@ div.bubble p {
 	margin: 4px 0px;
 	padding: 4px;
 }
-#img-comments fieldset {
+fieldset {
 	margin: 0px;
 	padding: 0px;
 }
-#img-comments .button,
-#img-comments input,
-#img-comments label,
-#img-comments select,
-#img-comments textarea {
+.button,
+input,
+label,
+select,
+textarea {
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size: 12px;
 	line-height: 16px;
 }
-#img-comments label {
+label {
 	font-size: 11px;
 	font-weight: bold;
 }
-#img-comments input,
-#img-comments textarea,
-#img-comments select {
+input,
+textarea,
+select {
 	margin: 2px 0px;
 	padding: 3px;
 	vertical-align: middle;
 	display: block;
 }
-#img-comments textarea {
+textarea {
 	width: 99%;
 	height: 114px;
 }
-#img-comments .button {
+.button {
 	text-transform: lowercase;
 	padding: 2px;
 	margin: 8px 0px 4px 0px;

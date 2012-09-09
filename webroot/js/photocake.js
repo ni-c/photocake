@@ -389,6 +389,8 @@ function initCommentArea() {
 		if(Cookie.read('notes-cmts-container') != 'show') {
 			slideFx.hide();
 		}
+	} else {
+		slideFx.hide();
 	}
 
 	$('info-toggle').addEvent('click', function() {

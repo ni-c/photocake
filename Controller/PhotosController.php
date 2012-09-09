@@ -7,10 +7,22 @@ App::uses('AppController', 'Controller');
  */
 class PhotosController extends AppController {
 
+	/**
+	 * Pagination settings
+	 */
     public $paginate = array(
         'limit' => 40,
         'conditions' => array('Photo.status' => 'Published')
     );
+
+	/**
+	 * Before filter
+	 */
+    public function beforeFilter() {
+    	parent::beforeFilter();
+        $this->Auth->allow('archive', 'category', 'archivedate', 'tag');
+    }
+
 
     /**
      * view method

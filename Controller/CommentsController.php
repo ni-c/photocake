@@ -9,6 +9,15 @@ class CommentsController extends AppController {
 
     var $components = array('Defensio');
 
+	/**
+	 * Before filter
+	 */
+    public function beforeFilter() {
+    	parent::beforeFilter();
+		// Everybody is allowed to add comments
+        $this->Auth->allow('add');
+    }
+
     /**
      * add method
      *
