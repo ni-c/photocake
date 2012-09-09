@@ -46,7 +46,12 @@
 		<?php
 		foreach ($cloud as $tag => $data):
 		?>
-		<span style="font-size:<?php echo $data['size'];?>px"> <?php echo $this->Html->link($tag, '/browse/tag/' . $data['slug'], array('escape' => false));?></span>
+		<span style="font-size:<?php echo $data['size'];?>px"> <?php echo $this->Html->link($tag, array(
+                'controller' => 'photos',
+                'action' => 'tag',
+                $data['slug'],
+                'full_base' => true
+            ), array('escape' => false));?></span>
 		<?php
         endforeach;
 		?>

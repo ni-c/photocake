@@ -6,12 +6,12 @@
 		<base href="<?php echo $this->Html->url('/', true);?>" />
 		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />
 		<meta name="language" content="<?php
-            if ($lang == 'de') {
-                echo 'German';
-            } else {
-            	echo 'English';
-            }
- ?>" />
+        if ($lang == 'de') {
+            echo 'German';
+        } else {
+            echo 'English';
+        }
+		?>" />
 		<meta name="generator" content="photocake (http://github.com/ni-c/photocake)" />
 		<meta name="copyright" content="<?php echo $copyright?>" />
 		<meta name="author" content="<?php echo $author?>" />
@@ -39,21 +39,16 @@
         echo $this->fetch('css');
         echo $this->fetch('script');
 		?>
-		<meta name="DC.Title" content="<?php echo $title_for_layout; ?>" />
-		<meta name="DC.Subject" content="<?php echo $site_title; ?>" />
+		<meta name="DC.Title" content="<?php echo $title_for_layout;?>" />
+		<meta name="DC.Subject" content="<?php echo $site_title;?>" />
 		<meta name="DC.Creator" content="photocake" />
-		<meta name="DC.Subject" content="<?php echo $site_title; ?>" />
-		<meta name="DC.Publisher" content="<?php echo $author; ?>" />
-		<meta name="DC.Rights" content="<?php echo $author; ?>" />
+		<meta name="DC.Subject" content="<?php echo $site_title;?>" />
+		<meta name="DC.Publisher" content="<?php echo $author;?>" />
+		<meta name="DC.Rights" content="<?php echo $author;?>" />
 		<meta name="DC.Language" content="<?php echo $lang;?>" />
 		<meta name="og:title" content="<?php echo $title_for_layout;?>" />
 		<meta name="og:site_name" content="<?php echo $site_title;?>" />
 		<meta name="og:type" content="blog" />
-		<?php
-        if ($ga_code != '') {
-            echo $this->GoogleAnalytics->trackingCode($ga_code);
-        }
-		?>
 	</head>
 	<body>
 		<div id="wrapper">
@@ -145,6 +140,12 @@
 				</div>
 			</div>
 		</div>
-		<?php echo $this->element('sql_dump'); ?>
+		<?php
+        echo $this->element('sql_dump');
+
+        if ($ga_code != '') {
+            echo $this->GoogleAnalytics->trackingCode($ga_code);
+        }
+		?>
 	</body>
 </html>

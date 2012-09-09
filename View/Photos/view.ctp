@@ -166,7 +166,7 @@
 							</tr>
 							<tr>
 								<td><?php echo __('Aperture') . ':';?></td>
-								<td><?php echo $photo['Photo']['fnumber'] != '' ? h($photo['Photo']['fnumber']) : $na;?></td>
+								<td><?php echo $photo['Photo']['fnumber'] != '' ? h($photo['Photo']['fnumber']) . ((strpos($photo['Photo']['fnumber'], '.')==false) ? '.0' : '') : $na;?></td>
 							</tr>
 							<tr>
 								<td><?php echo __('Exposure') . ':';?></td>
