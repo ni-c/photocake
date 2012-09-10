@@ -42,7 +42,13 @@
 
         echo $this->Html->meta('keywords', $keywords);
         echo $this->Html->meta('description', $description);
-        echo $this->Html->meta('RSS Feed', '/feed', array('type' => 'rss'));
+
+		if (isset($rss_feed)) {
+			echo '<link href="' . $rss_feed . '" type="application/rss+xml" rel="alternate" title="RSS Feed" />';
+		} else {
+	        echo $this->Html->meta('RSS Feed', '/feed.rss', array('type' => 'rss'));
+		}
+        
         /* Google Webfonts */
         echo $this->Html->css('http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300&amp;subset=latin,latin-ext');
 

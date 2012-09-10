@@ -393,6 +393,11 @@ function initCommentArea() {
 		} else {
 			slideFx.hide();
 		}
+	} else {
+		Cookie.write('notes-cmts-container', 'show', {
+			path : '/',
+			duration : 9999
+		});
 	}
 
 	$('info-toggle').addEvent('click', function(e) {

@@ -122,7 +122,7 @@ html {
 	overflow-y: scroll;
 }
 body {
-	font: normal 14px 'Open Sans Condensed', sans-serif;
+	font: normal 14px 'Open Sans Condensed', Helvetica, Verdana, Arial, sans-serif;
 	line-height: 17px;
 	margin: 0px auto;
 	padding: 0px;
@@ -166,6 +166,7 @@ select {
 	margin-bottom: 4px;
 }
 img {
+	outline: none;
 	border: none;
 	margin: 0px;
 	padding: 0px;
@@ -193,7 +194,7 @@ img {
 	float: left;
 	font-weight: normal;
 	font-size: 34px;
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Source Sans Pro', Helvetica, Verdana, Arial, sans-serif;
 	letter-spacing: -1px;
 	padding: 13px 2px 6px 2px;
 	text-transform: lowercase;
@@ -384,7 +385,7 @@ input,
 label,
 select,
 textarea {
-	font-family: 'Open Sans Condensed', sans-serif;
+	font-family: 'Open Sans Condensed', Helvetica, Verdana, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 16px;
 }
@@ -499,14 +500,14 @@ textarea {
 	padding: 2px 4px;
 }
 #img-exif {
-	font: 14px 'Open Sans Condensed', sans-serif;
+	font: 14px 'Open Sans Condensed', Helvetica, Verdana, Arial, sans-serif;
 	margin: 0;
 	padding: 0;
 	border: none; 
 	padding-bottom: 10px;
 }
 #lbTitleTop, #lbTitleBottom {
-	font: 14px 'Open Sans Condensed', sans-serif;
+	font: 14px 'Open Sans Condensed', Helvetica, Verdana, Arial, sans-serif;
 	margin: 0;
 	padding: 0;
 }

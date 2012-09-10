@@ -69,6 +69,11 @@ class AppController extends Controller {
      */
     private $options = null;
 
+	/**
+	 * The folder where the images and markdown files are stored
+	 */
+	protected $parse_dir = 'Files/';
+
     /**
      * Returns the option value of the given key or null if not set
      *
@@ -100,6 +105,11 @@ class AppController extends Controller {
     public function beforeFilter() {
         Configure::write('Config.language', Configure::read('Config.default_language'));
         $this->_setLanguage();
+        $this->parse_dir = $this->isEmpty($this->getOption('parse_dir'), 'Files/');
+        // absolute or relative path
+        if ($this->parse_dir[0] != DS) {
+            $this->parse_dir = ROOT . DS . APP_DIR . DS . $this->parse_dir;
+        }
         $this->keywords = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
         $this->description = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
         $this->Auth->allow('index', 'view');
@@ -119,6 +129,7 @@ class AppController extends Controller {
         $this->set('ga_code', $this->isEmpty($this->getOption('ga_code'), ''));
         $this->set('na', '-');
         $this->set('lang', $this->Session->read('Config.language'));
+		$this->set('rss_feed', $this->isEmpty($this->getOption('rss_feed'), ''));
     }
 
     /**

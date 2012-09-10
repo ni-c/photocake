@@ -266,15 +266,15 @@ class PhotosController extends AppController {
 
         $this->ImageParser = $this->Components->load('ImageParser');
 
-        $photo_dir = $this->getOption('photo_dir');
+        $this->parse_dir = $this->getOption('photo_dir');
 
         // absolute or relative path
-        if ($photo_dir[0] != DS) {
-            $photo_dir = ROOT . DS . APP_DIR . DS . $photo_dir;
+        if ($this->parse_dir[0] != DS) {
+            $this->parse_dir = ROOT . DS . APP_DIR . DS . $this->parse_dir;
         }
         $dest_dir = ROOT . DS . APP_DIR . DS . 'webroot' . DS . 'img' . DS . 'm' . DS;
 
-        $data = $this->ImageParser->parse($photo_dir, $dest_dir, 800, 132);
+        $data = $this->ImageParser->parse($this->parse_dir, $dest_dir, 800, 132);
 
         foreach ($data as $key => $value) {
 

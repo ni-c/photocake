@@ -337,7 +337,7 @@ if ($comment['website']!=''):
 					?>
 				</div>
 			</div>
+			<br class="clear" />
 		</div>
-		<!--[if IE 8]><br class="clear" /><![endif]-->
 	</div>
 </div>

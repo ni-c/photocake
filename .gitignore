@@ -3,6 +3,7 @@ tmp/*
 Config/database.php
 Config/email.php
 webroot/img/m/*.jpg
-Images/*.jpg
+Files/*.jpg
+Files/*.md
 webroot/css/*.gz
 webroot/js/*.gz

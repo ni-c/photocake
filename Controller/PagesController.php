@@ -81,29 +81,39 @@ class PagesController extends AppController {
         $this->set(compact('page', 'subpage', 'title_for_layout'));
 
         if ($path[0] == 'about') {
-        	
-			// Check for about image
-			if (!file_exists(ROOT . DS . APP_DIR . DS . 'webroot' . DS . 'img' . DS . 'm' . DS . 'about.jpg')) {
-				$this->set('missing_image', 1);
-			}
-
-	        $photo_dir = $this->getOption('photo_dir');
-	        // absolute or relative path
-	        if ($photo_dir[0] != DS) {
-	            $photo_dir = ROOT . DS . APP_DIR . DS . $photo_dir;
-	        }
-			
-			// Check for about markdown file
-			if (file_exists($photo_dir . DS . 'about.md')) {
-				$about = implode("\n",file($photo_dir . DS . 'about.md'));
-				$this->set('about', $about);
-			}
-
-            $this->TagCloud = $this->Components->load('TagCloud');
-            $this->set('cloud', $this->TagCloud->generateCloud());
+        	$this->about();
         }
 
         $this->render(implode('/', $path));
+    }
+
+    private function about() {
+        // Check for about image
+        if (!file_exists(ROOT . DS . APP_DIR . DS . 'webroot' . DS . 'img' . DS . 'm' . DS . 'about.jpg')) {
+            $this->set('missing_image', 1);
+        }
+
+        // Check for about markdown file in current language
+        $about = $this->loadfile($this->parse_dir . 'about.' . $this->params['language'] . '.md');
+        if ($about === false) {
+            // Check for general about markdown file
+            $about = $this->loadfile($this->parse_dir . 'about.md');
+        }
+        if ($about !== false) {
+            $this->set('about', $about);
+        }
+
+        $this->TagCloud = $this->Components->load('TagCloud');
+        $this->set('cloud', $this->TagCloud->generateCloud());
+    }
+
+    private function loadfile($file) {
+        if (file_exists($file)) {
+            $content = implode("\n", file($file));
+            return $content;
+        } else {
+        	return false;
+        }
     }
 
 }

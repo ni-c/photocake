@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `options` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 INSERT IGNORE INTO `options` (`id`, `key`, `value`, `created`, `modified`) VALUES
-(1, 'photo_dir', 'Images/', 2012, 2012);
+(1, 'parse_dir', 'Files/', now(), now());
 
 DROP TABLE IF EXISTS `photos`;
 CREATE TABLE `photos` (
