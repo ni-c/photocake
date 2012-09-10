@@ -23,12 +23,19 @@
  */
 ?>
 <?php
-	$this->set('title_for_layout', __('About'));
+$this->set('title_for_layout', __('About'));
 ?>
-<div id="img-nav-links">
-</div>
+<div id="img-nav-links"></div>
+<?php
+if (isset($missing_image)):
+?>
+<p>
+	No <strong>about.jpg</strong> in your images folder found.
+</p>
+<?php else:?>
 <div id="img-border" class="border-frame">
-	<?php echo $this->Html->image('m/about.jpg', array(
+	<?php
+    echo $this->Html->image('m/about.jpg', array(
         'id' => 'img-photo',
         'class' => 'border-matte',
         'alt' => __('About'),
@@ -36,46 +43,38 @@
     ));
 	?>
 </div>
+<?php
+endif;
+?>
 <div id="notes-about-container">
 	<h3><?php echo __('About');?></h3>
+	<?php
+if (isset($about)):
+	$html = $this->Markdown->transform($about);
+	for ($i=6; $i > 0 ; $i--) {
+		$html = preg_replace('/<h' . $i . '>(.*?)<\/h' . $i . '>/', '<h' . (($i + 3) > 6 ? 6 : ($i + 3)) . '>$1</h' . (($i + 3) > 6 ? 6 : ($i + 3)) . '>', $html);
+	}
+	echo $html;
+else:
+	?>
+
 	<p>
-		<?php echo $about;?>
+		Please create a file named <strong>about.md</strong> in your images folder containing your markdown formatted about page.
 	</p>
-	<h3>Kontakt</h3>
-	<p>
-		<div>
-			<?php
-	        if ($email != '') {
-	            echo 'eMail: <a href="mailto:' . $email . '">' . $email . '</a>';
-	        }
-			?>
-		</div>
-		<div>
-			<?php
-	        if ($twitter != '') {
-	            echo 'Twitter: <a href="http://twitter.com/' . $twitter . '">' . $twitter . '</a>';
-	        }
-			?>
-		</div>
-		<div>
-			<?php
-	        if ($facebook != '') {
-	            echo 'Facebook: <a href="http://facebook.com/' . $facebook . '">' . $facebook . '</a>';
-	        }
-			?>
-		</div>
-	</p>
+	<?php endif;?>
+
 	<h3><?php echo __('Tag Cloud');?></h3>
 	<div id="tag_cloud">
 		<?php
-		foreach ($cloud as $tag => $data):
+foreach ($cloud as $tag => $data):
 		?>
 		<span style="font-size:<?php echo $data['size'];?>px"> <?php echo $this->Html->link($tag, array(
                 'controller' => 'photos',
                 'action' => 'tag',
                 $data['slug'],
                 'full_base' => true
-            ), array('escape' => false));?></span>
+            ), array('escape' => false));
+			?></span>
 		<?php
         endforeach;
 		?>

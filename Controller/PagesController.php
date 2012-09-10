@@ -81,10 +81,23 @@ class PagesController extends AppController {
         $this->set(compact('page', 'subpage', 'title_for_layout'));
 
         if ($path[0] == 'about') {
-            $this->set('about', $this->getOption('about'));
-            $this->set('email', $this->getOption('email'));
-            $this->set('twitter', $this->getOption('twitter'));
-            $this->set('facebook', $this->getOption('facebook'));
+        	
+			// Check for about image
+			if (!file_exists(ROOT . DS . APP_DIR . DS . 'webroot' . DS . 'img' . DS . 'm' . DS . 'about.jpg')) {
+				$this->set('missing_image', 1);
+			}
+
+	        $photo_dir = $this->getOption('photo_dir');
+	        // absolute or relative path
+	        if ($photo_dir[0] != DS) {
+	            $photo_dir = ROOT . DS . APP_DIR . DS . $photo_dir;
+	        }
+			
+			// Check for about markdown file
+			if (file_exists($photo_dir . DS . 'about.md')) {
+				$about = implode("\n",file($photo_dir . DS . 'about.md'));
+				$this->set('about', $about);
+			}
 
             $this->TagCloud = $this->Components->load('TagCloud');
             $this->set('cloud', $this->TagCloud->generateCloud());

@@ -1,5 +1,7 @@
 # photocake
 
+## About
+
 *photocake* is a markdown photoblog based on [CakePHP](http://cakephp.org/). It is able to parse Jpeg-files and create blog posts using the EXIF data of the images.
 
 You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de).
@@ -63,6 +65,11 @@ The URL **http://[photocake-url]/photos/refresh** will parse the images in the I
 
 Depending on your webservers speed and the size and number of JPGs you put in the Images/ folder, it may be a good idea to increase your *max_execution_time* in php.ini (Parsing 40 jpg-images (23 MB) took six minutes on my webserver).
 
+## References
+
+Inspired by the [pixelpost](http://www.pixelpost.org/) photoblog app and the [The World in 35mm](http://www.pixelpost.org/extend/templates/the-world-in-35mm/) template.
+
 ## License
 
-The license under which *photocake* is released is the [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) (or later) from the Free Software Foundation. 
+The license under which *photocake* is released is the [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) (or later) from the Free Software Foundation.
+ 

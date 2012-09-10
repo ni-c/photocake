@@ -308,6 +308,8 @@ class MarkdownHelper extends AppHelper {
 		//   DOS to Unix and Mac to Unix
 		$text = preg_replace('{\r\n?}', "\n", $text);
 
+		$text = preg_replace('{  \n?}', "<br />", $text);
+
 		// Make sure $text ends with a couple of newlines:
 		$text .= "\n\n";
 
