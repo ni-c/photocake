@@ -202,3 +202,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
+-- Uncomment to create a user admin with the password "photocake" in the users table
+-- INSERT INTO `users` (`id`, `username`, `password`, `role`, `created`, `modified`) VALUES
+-- (1, 'admin', '99c92346afaf5c2a1fed1d1398aff0a614bcb35b', 'Admin', now(), now());
+

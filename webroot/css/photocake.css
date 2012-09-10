@@ -305,11 +305,13 @@ img {
 	padding: 0px 0px 0px 18px;
 	text-align: right;
 }
+#admin-container,
 #login-container,
 #notes-cmts-container {
 	margin: 8px;
 	padding: 10px;
 }
+#admin-container h4,
 #login-container h4,
 #notes-cmts-container h4 {
 	margin: 10px 0px 12px 0px;

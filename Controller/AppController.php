@@ -69,10 +69,10 @@ class AppController extends Controller {
      */
     private $options = null;
 
-	/**
-	 * The folder where the images and markdown files are stored
-	 */
-	protected $parse_dir = 'Files/';
+    /**
+     * The folder where the images and markdown files are stored
+     */
+    protected $parse_dir = 'Files/';
 
     /**
      * Returns the option value of the given key or null if not set
@@ -81,7 +81,17 @@ class AppController extends Controller {
      * @return The option value of the given key or null if not set
      */
     public function getOption($key) {
+        $options = $this->getOptions();
+        if (isset($options[$key])) {
+            return $options[$key];
+        }
+        return '';
+    }
 
+    /**
+     * Returns all Options
+     */
+    public function getOptions() {
         if ($this->options == null) {
             $tmp = Cache::read('options', 'longterm');
             if (!$tmp) {
@@ -93,10 +103,7 @@ class AppController extends Controller {
                 $this->options[$value['Options']['key']] = $value['Options']['value'];
             }
         }
-        if (isset($this->options[$key])) {
-            return $this->options[$key];
-        }
-        return '';
+        return $this->options;
     }
 
     /**
@@ -129,7 +136,8 @@ class AppController extends Controller {
         $this->set('ga_code', $this->isEmpty($this->getOption('ga_code'), ''));
         $this->set('na', '-');
         $this->set('lang', $this->Session->read('Config.language'));
-		$this->set('rss_feed', $this->isEmpty($this->getOption('rss_feed'), ''));
+        $this->set('rss_feed', $this->isEmpty($this->getOption('rss_feed'), ''));
+        $this->set('logged_in', $this->Auth->loggedIn());
     }
 
     /**
@@ -172,7 +180,7 @@ class AppController extends Controller {
      */
     public function isAuthorized($user) {
         // Admin can access every action
-        if (isset($user['role']) && $user['role'] === 'Admin') {
+        if (isset($user['role']) && (($user['role'] === 'Admin') || ($user['role'] === 'Author') || ($user['role'] === 'Editor'))) {
             return true;
         }
 

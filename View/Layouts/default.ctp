@@ -122,6 +122,30 @@
                                 ), array('title' => __('About')));
 								?>
 							</li>
+							<?php if ($logged_in): ?>
+							<li>
+								&#183;
+							</li>
+							<li>
+								<?php echo $this->Html->link(__('Admin'), array(
+                                    'controller' => 'admins',
+                                    'action' => 'index',
+                                    'full_base' => true
+                                ), array('title' => __('Admin')));
+								?>
+							</li>
+							<li>
+								&#183;
+							</li>
+							<li>
+								<?php echo $this->Html->link(__('Logout'), array(
+                                    'controller' => 'users',
+                                    'action' => 'logout',
+                                    'full_base' => true
+                                ), array('title' => __('Logout')));
+								?>
+							</li>
+							<?php endif; ?>
 							<li>
 								<?php
                                 if ($lang != 'en') {
