@@ -15,7 +15,7 @@ You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de)
 
 ### CakePHP
 
-*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. Version 2.3 of CakePHP can be found on [GitHub](https://github.com/cakephp/cakephp/tree/2.3). You should read the (CakePHP Cookbook)[http://book.cakephp.org/2.0/en/index.html] for a detailed installation guide.
+*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. Version 2.3 of CakePHP can be found on [GitHub](https://github.com/cakephp/cakephp/tree/2.3). You should read the [CakePHP Cookbook](http://book.cakephp.org/2.0/en/index.html) for a detailed installation guide.
 
 ### Database
 
