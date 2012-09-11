@@ -21,30 +21,30 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+ 	/* Parse file extensions */
  	Router::parseExtensions('rss','xml','txt'); 
 
- 	/* Language routes */
- 	Router::connect('/:language', array('controller' => 'photos', 'action' => 'view', 'last'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/photo/*', array('controller' => 'photos', 'action' => 'view'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/archive/category/*', array('controller' => 'photos', 'action' => 'category'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/archive/date/*', array('controller' => 'photos', 'action' => 'archivedate'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/archive/tag/*', array('controller' => 'photos', 'action' => 'tag'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/archive/*', array('controller' => 'photos', 'action' => 'archive'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/about', array('controller' => 'pages', 'action' => 'display', 'about'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/login', array('controller' => 'users', 'action' => 'login'), array('language' => '[a-z]{2}'));
-	Router::connect('/:language/logout', array('controller' => 'users', 'action' => 'logout'), array('language' => '[a-z]{2}'));
-		
-	/* Default routes */
-	Router::connect('/', array('controller' => 'photos', 'action' => 'view', 'last'));
-	Router::connect('/photo/*', array('controller' => 'photos', 'action' => 'view'));
-	Router::connect('/archive/category/*', array('controller' => 'photos', 'action' => 'category'));
-	Router::connect('/archive/date/*', array('controller' => 'photos', 'action' => 'archivedate'));
-	Router::connect('/archive/tag/*', array('controller' => 'photos', 'action' => 'tag'));
-	Router::connect('/archive/*', array('controller' => 'photos', 'action' => 'archive'));
-	Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about'));
-	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
-	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
-	
+ 	/* Create routes array */
+	$routes = array(
+		array('', array('controller' => 'photos', 'action' => 'view', 'last')),
+		array('photo/*', array('controller' => 'photos', 'action' => 'view')),
+		array('archive/category/*', array('controller' => 'photos', 'action' => 'category')),
+		array('archive/date/*', array('controller' => 'photos', 'action' => 'archivedate')),
+		array('archive/tag/*', array('controller' => 'photos', 'action' => 'tag')),
+		array('archive/*', array('controller' => 'photos', 'action' => 'archive')),
+		array('about', array('controller' => 'pages', 'action' => 'display', 'about')),
+		array('login', array('controller' => 'users', 'action' => 'login')),
+		array('logout', array('controller' => 'users', 'action' => 'logout')),
+		array('admin', array('controller' => 'admins', 'action' => 'index')),
+		array('admin/:action/*', array('controller' => 'admins')),
+	);
+
+	/* Parse route array and connect language routes */
+	foreach ($routes as $key => $route) {
+		Router::connect("/" . $route[0], $route[1]);
+		Router::connect("/:language/" . $route[0], $route[1], array('language' => '[a-z]{2}'));
+	}
+ 			
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.

@@ -40,11 +40,25 @@ a:hover,a:active {
 	    box-shadow: 0 0 10px #333333;
 	    color: #FFFFFF;
 }
+#admin-container .input {
+	margin: 8px 0 4px;
+}
+#admin-container .input input {
+	width: 770px;
+}
+#admin-container .submit {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30px;
+   	margin-top: 20px;
+}
+#admin-container,
 #login-container,
 #notes-cmts-container {
 	background-color: #f5f5f5;
 	border: 1px solid #cccccc;
 }
+#admin-container,
 #login-container,
 #notes-about-container {
 	background-color: #f5f5f5;
@@ -93,6 +107,10 @@ select {
 }
 .border-frame {
 	background: url(../img/loader-32x32.gif) no-repeat 50% 50%;
+}
+.loading {
+	background: url(../img/loader-16x16.gif) no-repeat 50% 50%;
+	width: 20px;
 }
 .thumbnail-border-frame {
 	background: #f5f5f5 no-repeat 50% 50%;
@@ -207,6 +225,14 @@ img {
 	outline: none;
 	text-decoration: none;
 }
+#admin-menu {
+	margin-left: 10px;
+	padding: 4px 2px;
+}
+#admin-menu li {
+	display: inline;
+	padding-left: 4px;
+}
 #menu {
 	float: right;
 	padding: 4px 2px;
@@ -284,6 +310,26 @@ img {
 	line-height: 0px;
 	outline: none;
 }
+.image-description {
+	margin-left: 10px;
+	width: 600px;	
+}
+.image-description td {
+	vertical-align: top;	
+}
+.image-description p {
+	margin: 0 0 0 0;
+}
+.publish-table {
+	width: 100%;
+}
+.parse-result {
+	margin-left: 30px;
+}
+.error {
+	font-weight: bold;
+	color: #ff0000;
+}
 #img-title-date-comments {
 	margin: 0px;
 	padding: 12px 4px 8px;
@@ -316,6 +362,9 @@ img {
 #notes-cmts-container h4 {
 	margin: 10px 0px 12px 0px;
 	padding: 0px;
+}
+#admin-container h5 {
+	margin: 25px 0px 5px 0px;
 }
 #notes-about-container {
 	margin: 8px;

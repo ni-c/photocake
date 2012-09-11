@@ -61,9 +61,9 @@ class PhotosController extends AppController {
             $id = $photo['Photo']['id'];
         } else {
             $photo = $this->Photo->findBySlug($slug);
-            if ($photo == false) {
-                throw new NotFoundException(__('Invalid photo'));
-            }
+        }
+        if ($photo == false) {
+            throw new NotFoundException(__('Invalid photo'));
         }
 
         // Get prev and next photo
@@ -248,64 +248,6 @@ class PhotosController extends AppController {
 
         // by Tag
         $this->set('tags', $archiveVars['tags']);
-    }
-
-    /**
-     * Refreshes the photo tables with the files in the image folder
-     *
-     * @return void
-     */
-    public function refresh() {
-
-        // Truncate database
-        $this->Photo->query('TRUNCATE `photos`;');
-        $this->Photo->query('TRUNCATE `cameramodelnames`;');
-        $this->Photo->query('TRUNCATE `categories`;');
-        $this->Photo->query('TRUNCATE `photos_tags`;');
-        $this->Photo->query('TRUNCATE `tags`;');
-
-        $this->ImageParser = $this->Components->load('ImageParser');
-
-        $this->parse_dir = $this->getOption('photo_dir');
-
-        // absolute or relative path
-        if ($this->parse_dir[0] != DS) {
-            $this->parse_dir = ROOT . DS . APP_DIR . DS . $this->parse_dir;
-        }
-        $dest_dir = ROOT . DS . APP_DIR . DS . 'webroot' . DS . 'img' . DS . 'm' . DS;
-
-        $data = $this->ImageParser->parse($this->parse_dir, $dest_dir, 800, 132);
-
-        foreach ($data as $key => $value) {
-
-            if ($this->getOption('publish_immediately') == '1') {
-                $value['Photo']['status'] = 'Published';
-            }
-
-            // Save Photo
-            if ($this->Photo->saveAll($value)) {
-
-                // Save Tags
-                $tagdata = array();
-                foreach ($value['Tag'] as $key => $tag) {
-                    $tagdata[] = array(
-                        'Tag' => $tag,
-                        'Photo' => array('id' => $this->Photo->id)
-                    );
-                }
-                $this->Photo->Tag->saveAll($tagdata);
-
-                // Check for validation errors
-                if (count($this->Photo->Tag->validationErrors) > 0) {
-                    debug($this->Photo->Tag->validationErrors);
-                }
-
-            }
-            // Check for validation errors
-            if (count($this->Photo->validationErrors) > 0) {
-                debug($this->Photo->validationErrors);
-            }
-        }
     }
 
 }

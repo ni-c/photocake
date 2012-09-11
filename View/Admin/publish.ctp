@@ -21,40 +21,38 @@
  * @link          https://github.com/ni-c/photocake
  * @license       GNU General Public License, version 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  */
+
+echo $this->element('adminmenu'); 
+echo $this->Html->script('admin', false);
 ?>
-<ul id="admin-menu">
-	<li>
-<?php
-echo $this->Html->link(__('Status'), array(
-    'controller' => 'admins',
-    'action' => 'index',
-    'full_base' => true
-), array('title' => __('Status')));
-?>
-	</li>
-	<li>
-		&#183;
-	</li>
-	<li>
-<?php
-echo $this->Html->link(__('Publish'), array(
-    'controller' => 'admins',
-    'action' => 'publish',
-    'full_base' => true
-), array('title' => __('Publish')));
-?>
-	</li>
-	<li>
-		&#183;
-	</li>
-	<li>
-<?php
-echo $this->Html->link(__('Settings'), array(
-    'controller' => 'admins',
-    'action' => 'settings',
-    'full_base' => true
-), array('title' => __('Settings')));
-?>
-	</li>
-</ul>
-<div class="clear"></div>
+<input type="hidden" id="parse_url" value="<?php echo $this->Html->url(array('controller' => 'admin', 'action' => 'parse'), true); ?>/"/>
+
+<div id="admin-container">
+
+<h4>Publish</h4>
+
+<h5>New Files</h5>
+
+<table id="publish-table">
+	<tbody>
+<?php foreach ($files as $key => $file): ?>
+		<tr id="file-<?php echo $key; ?>">
+			<td id="loading-<?php echo $key; ?>" class="loading hidden">
+			</td>
+			<td>
+				<input type="hidden" id="filename-<?php echo $key; ?>" class="filename" value="<?php echo $file['filename'] . '.' . $file['extension']; ?>" />
+				<?php echo $file['filename']; ?>
+			</td>
+			<td id="modified-<?php echo $key; ?>">
+				<?php echo $this->Time->format(__('Y-m-d H:i:s'), $file['modified']);?>
+			</td>
+		</tr>
+		<tr id="infocontainer-<?php echo $key; ?>" class="hidden">
+			<td colspan="3" id ="info-<?php echo $key; ?>">
+			</td>
+		</tr>
+<?php endforeach; ?>
+	</tbody>
+</table>
+
+</div>

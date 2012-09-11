@@ -163,7 +163,7 @@ $i = 0;
 			<?php if ($pages>1):
 			?>
 			<div class="paginator">
-				<?php echo $this->Html->Link('&larr;&nbsp;' . __('First') . '&nbsp;', $cururl . '1', array(
+				<?php echo $this->Html->link('&larr;&nbsp;' . __('First') . '&nbsp;', $cururl . '1', array(
                     'class' => 'page',
                     'title' => __('Go To First Page'),
                     'escape' => false
@@ -171,7 +171,7 @@ $i = 0;
 				?>
 				<?php if ($pages>2):
 				?>
-				<?php echo $this->Html->Link('&lsaquo;&nbsp;' . __('Previous') . '&nbsp;', $cururl . ($curpage - 1 < 1 ? 1 : $curpage), array(
+				<?php echo $this->Html->link('&lsaquo;&nbsp;' . __('Previous') . '&nbsp;', $cururl . ($curpage - 1 < 1 ? 1 : $curpage), array(
                         'class' => 'page',
                         'title' => __('Go To Previous Page'),
                         'escape' => false
@@ -181,7 +181,7 @@ $i = 0;
 
 				<?php
                 for ($i = 1; $i < $pages + 1; $i++) {
-                    echo $this->Html->Link($i, $cururl . $i, array(
+                    echo $this->Html->link($i, $cururl . $i, array(
                         'class' => 'page',
                         'title' => __('Go To Page') . ' ' . $i,
                         'escape' => false
@@ -191,14 +191,14 @@ $i = 0;
 
 				<?php if ($pages>2):
 				?>
-				<?php echo $this->Html->Link('&nbsp;' . __('Next') . '&nbsp;&rsaquo;', $cururl . ($curpage + 1 > $pages ? $pages : $curpage + 1), array(
+				<?php echo $this->Html->link('&nbsp;' . __('Next') . '&nbsp;&rsaquo;', $cururl . ($curpage + 1 > $pages ? $pages : $curpage + 1), array(
                         'class' => 'page',
                         'title' => __('Go To Next Page'),
                         'escape' => false
                     ));
 				?>
 				<?php endif;?>
-				<?php echo $this->Html->Link('&nbsp;' . __('Last') . '&nbsp;&rarr;', $cururl . $pages, array(
+				<?php echo $this->Html->link('&nbsp;' . __('Last') . '&nbsp;&rarr;', $cururl . $pages, array(
                         'class' => 'page',
                         'title' => __('Go to Last Page'),
                         'escape' => false

@@ -51,6 +51,27 @@ class UsersController extends AppController {
         }
     }
 
+	/**
+	 * Change password
+	 */
+	public function changepassword() {
+
+		if ($this->request->data['User']['password'] == $this->request->data['User']['passwordrepeat']) {
+			$user = $this->Auth->user();
+			$User = array();
+			$User = $this->User->findById($user[id]);
+			$User['User']['password'] = $this->request->data['User']['password'];
+            if ($this->User->save($User)) {
+                $this->Session->setFlash(__('Your password has been changed'));
+            } else {
+                $this->Session->setFlash(__('Your password could not be saved. Please, try again.'));
+            }
+		} else {
+	        $this->Session->setFlash(__('Passwords didn\'t match.'));
+		}
+        $this->redirect($this->referer());
+	}
+
     /**
      * User logout
      */
