@@ -30,6 +30,7 @@ CREATE TABLE `comments` (
   `email` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The email of the commenter',
   `website` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'The website of the commenter',
   `comment` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'The comment',
+  `spam` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'The comment',
   `created` datetime NOT NULL COMMENT 'Created timestamp',
   `modified` datetime NOT NULL COMMENT 'Modified timestamp',
   PRIMARY KEY (`id`)
@@ -201,7 +202,4 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
-INSERT INTO `users` (`id`, `username`, `password`, `role`, `created`, `modified`) VALUES
- (1, 'admin', '99c92346afaf5c2a1fed1d1398aff0a614bcb35b', 'Admin', now(), now());
 

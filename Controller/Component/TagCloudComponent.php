@@ -257,7 +257,7 @@ class TagCloudComponent extends Component {
      */
     private function _shuffleCloud($array) {
         $temp = array();
-        while (count($array)) {
+        while ($array) {
             $element = array_rand($array);
             $temp[$element] = $array[$element];
             unset($array[$element]);

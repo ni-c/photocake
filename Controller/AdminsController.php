@@ -61,17 +61,19 @@ class AdminsController extends AppController {
      * Publish new images
      */
     public function publish() {
-        $parse_dir = $this->get_parse_dir();
         $this->Directory = $this->Components->load('Directory');
 
         $last = $this->Photo->find('first', array('order' => array('Photo.created DESC')));
         $last_import = strtotime($last['Photo']['created']);
-        $files = $this->Directory->ls($parse_dir, 'image/jpeg');
+        $files = $this->Directory->ls($this->parse_dir, 'image/jpeg');
 
         foreach ($files as $key => $file) {
             if ($file['modified'] < $last_import) {
                 unset($files[$key]);
             }
+			if ($file['filename']=='about') {
+                unset($files[$key]);
+			}
         }
 
         $this->set('files', $files);
@@ -85,9 +87,8 @@ class AdminsController extends AppController {
     public function parse($filename) {
         $this->layout = 'ajax';
 
-        str_replace("..", "", $filename);
+        str_replace(array("..", " ", '"', "'", "&", "/", "\\", "?", "#"), '', $filename);
 
-        $parse_dir = $this->get_parse_dir();
         $dest_dir = ROOT . DS . APP_DIR . DS . 'webroot' . DS . 'img' . DS . 'm' . DS;
 
         $thumbnail_width = 132;
@@ -99,10 +100,10 @@ class AdminsController extends AppController {
         $this->Image = $this->Components->load('Image');
 
         // Generate thumbnail
-        $this->Image->resize($parse_dir . $filename, $thumb_file, $thumbnail_width);
-        $this->Image->resize($parse_dir . $filename, $img_file, $width);
+        $this->Image->resize($this->parse_dir . $filename, $thumb_file, $thumbnail_width);
+        $this->Image->resize($this->parse_dir . $filename, $img_file, $width);
 
-        $value = $this->Image->parse($parse_dir . $filename);
+        $value = $this->Image->parse($this->parse_dir . $filename);
 
         if ($this->getOption('publish_immediately') == '1') {
             $value['Photo']['status'] = 'Published';
@@ -171,21 +172,6 @@ class AdminsController extends AppController {
             }
         }
         $this->set('options', $this->getOptions());
-    }
-
-    /**
-     * Get the directory parse dir
-     */
-    private function get_parse_dir() {
-        $parse_dir = $this->getOption('parse_dir');
-        // absolute or relative path
-        if ($parse_dir[0] != DS) {
-            $parse_dir = ROOT . DS . APP_DIR . DS . $parse_dir;
-        }
-        if ($parse_dir[strlen($parse_dir) - 1] != DS) {
-            $parse_dir = $parse_dir . DS;
-        }
-        return $parse_dir;
     }
 
 }

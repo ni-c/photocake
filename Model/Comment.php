@@ -26,7 +26,7 @@ App::uses('AppModel', 'Model');
 /**
  * Comment Model
  *
- * @property Photo $Photo
+ * @property Comment $Comment
  */
 class Comment extends AppModel {
 
@@ -36,7 +36,8 @@ class Comment extends AppModel {
      * @var array
      */
     public $validate = array(
-        'photo_id' => array('numeric' => array('rule' => array('numeric'),
+        'photo_id' => array('numeric' => array(
+                'rule' => array('numeric'),
                 'message' => 'Your custom message here',
                 'allowEmpty' => false,
                 'required' => true,

@@ -17,21 +17,17 @@ You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de)
 
 ### CakePHP
 
-*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. Version 2.3 of CakePHP can be found on [GitHub](https://github.com/cakephp/cakephp/tree/2.3). You should read the [CakePHP Cookbook](http://book.cakephp.org/2.0/en/index.html) for a detailed installation guide.
+*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. Version 2.3 of CakePHP can be found on [GitHub](https://github.com/cakephp/cakephp/tree/2.3). You should read the [CakePHP Cookbook](http://book.cakephp.org/2.0/en/index.html) for a detailed installation guide. 
 
-### Database
+### photocake
 
-You can find a script to create the *photocake* database in **Config/Schema/database.sql**.
-
-### Files
-
-Configure the database in **Config/database.php**. You can use the example file (**Config/database.example.php**) as template.
+**photocake** comes with an install script that asks for your database credentials when you visit your fresh blog the first time. 
 
 Optional: Run **./compress.sh** in the **Config** directory to gzip the .css and .js files (and enable gzip in your webserver).
 
 ## Creating Posts
 
-You can add a post to your *photocake* blog by copying a JPG-Image into a directory. *photocake* will extract the EXIF data from the image and create a new blog post.
+You can add a post to your *photocake* blog by copying a JPG-Image into a directory (Default: Files/). *photocake* will extract the EXIF data from the image and create a new blog post.
 
 For title, description, categories and tags of the new post, a JSON-String is expected in the EXIF data for 'ImageDescription':
 
@@ -42,11 +38,13 @@ For title, description, categories and tags of the new post, a JSON-String is ex
         "Tags":"some,comma,separated,tags"
     }
 
-The URL **http://[photocake-url]/admin/publish** will import the files in this folder 
+You can use [exiftool](http://owl.phy.queensu.ca/~phil/exiftool/) to view and edit the EXIF data of your images. To set the 'ImageDescription' with exiftool type:
+
+    exiftool -ImageDescription='{"Title":"foo","Description":"bar","Category":"foobar","Tags":"foo,bar"} [filename].jpg
 
 ## References
 
-Inspired by the [pixelpost](http://www.pixelpost.org/) photoblog app and the [The World in 35mm](http://www.pixelpost.org/extend/templates/the-world-in-35mm/) template.
+Build upon the [CakePHP](http://cakephp.org/) PHP Framework. Inspired by the [pixelpost](http://www.pixelpost.org/) photoblog app and the [The World in 35mm](http://www.pixelpost.org/extend/templates/the-world-in-35mm/) template.
 
 ## License
 

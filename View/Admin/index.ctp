@@ -25,6 +25,23 @@
 <?php echo $this->element('adminmenu');?>
 
 <div id="admin-container">
+	<h4>Status</h4>
+	<table>
+		<tbody>
+			<tr>
+				<td> Published Photos: </td>
+				<td><?php echo $photo_count;?></td>
+			</tr>
+			<tr>
+				<td> Comments: </td>
+				<td><?php echo $comment_count;?></td>
+			</tr>
+			<tr>
+				<td> Last scan: </td>
+				<td><?php echo $photo_last['Photo']['created'];?></td>
+			</tr>
+		</tbody>
+	</table>
 	<h4>Change Password</h4>
 	<?php
     echo $this->Form->create('User', array('action' => 'changepassword'));
@@ -44,22 +61,4 @@
     ));
     echo $this->Form->end(__('submit'));
 	?>
-
-	<h4>Status</h4>
-	<table>
-		<tbody>
-			<tr>
-				<td> Published Photos: </td>
-				<td><?php echo $photo_count;?></td>
-			</tr>
-			<tr>
-				<td> Comments: </td>
-				<td><?php echo $comment_count;?></td>
-			</tr>
-			<tr>
-				<td> Last scan: </td>
-				<td><?php echo $photo_last['Photo']['created'];?></td>
-			</tr>
-		</tbody>
-	</table>
 </div>

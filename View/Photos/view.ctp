@@ -148,7 +148,7 @@
                     $photo['Photo']['slug'],
                     "#" => "comments"
                 ), true);
-            ?>" title="<?php echo __('Comments &amp; EXIF for ') . $photo['Photo']['title'];?>"> <?php
+				?>" title="<?php echo __('Comments &amp; EXIF for ') . $photo['Photo']['title'];?>"> <?php
                 echo count($photo['Comment']) . '&nbsp;';
                 if (count($photo['Comment']) != 1) {
                     echo __('Comments');
@@ -282,6 +282,7 @@ if (count($photo['Comment'])==0):
 echo __('No comments.');
 else:
 foreach ($photo['Comment'] as $key => $comment):
+if ($comment['spam']=='0'):
 							?>
 							<div class="bubble">
 								<blockquote>
@@ -302,7 +303,7 @@ if ($comment['website']!=''):
 									<?php echo __('on') . ' ' . $this->Time->format(__('Y-m-d H:i:s'), $comment['created']);?>
 								</p>
 							</div>
-							<?php endforeach; endif;?>
+							<?php endif; endforeach; endif;?>
 						</div>
 					</div>
 					<h4><?php echo __('Leave a Comment');?></h4>

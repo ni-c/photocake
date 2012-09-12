@@ -35,7 +35,7 @@ class UsersController extends AppController {
      */
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('login', 'logout');
+        $this->Auth->allow('login', 'logout', 'add');
     }
 
     /**
@@ -49,7 +49,20 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('Invalid username or password, try again'));
             }
         }
+    	if ($this->User->find('count')==0) {
+    		$this->redirect(array('controller' => 'users', 'action' => 'add'));
+    	}
     }
+
+	/**
+	 * Create 
+	 */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->User->save($this->request->data);
+			$this->redirect(array('controller' => 'users', 'action' => 'login'));
+		}
+	}
 
 	/**
 	 * Change password

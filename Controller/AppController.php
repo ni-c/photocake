@@ -110,6 +110,10 @@ class AppController extends Controller {
      * Set the language
      */
     public function beforeFilter() {
+    	if (!file_exists(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'database.php')) {
+    		$this->redirect('/install.php');
+    	}
+		
         Configure::write('Config.language', Configure::read('Config.default_language'));
         $this->_setLanguage();
         $this->parse_dir = $this->isEmpty($this->getOption('parse_dir'), 'Files/');
@@ -126,8 +130,8 @@ class AppController extends Controller {
      * Set the default vars
      */
     public function beforeRender() {
-        $this->set('keywords', $this->keywords);
-        $this->set('description', $this->description);
+        $this->set('keywords', $this->isEmpty($this->keywords, 'photocake,photoblog,fotoblog,pictureblog,photo,foto,image,picture,blog,cms'));
+        $this->set('description', $this->isEmpty($this->description, 'Photocake photo blog system.'));
         $this->set('site_title', $this->isEmpty($this->getOption('site_title'), 'Photocake'));
         $this->set('site_subtitle', $this->isEmpty($this->getOption('site_subtitle'), 'Markdown Photo Blog'));
         $this->set('copyright', $this->isEmpty($this->getOption('copyright'), '&copy; 2011-2012 Willi Thiel'));
@@ -135,7 +139,7 @@ class AppController extends Controller {
         $this->set('license', $this->isEmpty($this->getOption('license'), 'MIT License'));
         $this->set('ga_code', $this->isEmpty($this->getOption('ga_code'), ''));
         $this->set('na', '-');
-        $this->set('lang', $this->Session->read('Config.language'));
+        $this->set('lang', $this->isEmpty($this->Session->read('Config.language'), 'en'));
         $this->set('rss_feed', $this->isEmpty($this->getOption('rss_feed'), ''));
         $this->set('logged_in', $this->Auth->loggedIn());
     }

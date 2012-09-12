@@ -58,6 +58,10 @@ class PhotosController extends AppController {
         // Get first photo if no id is given
         if (($slug == null) || ($slug == 'last')) {
             $photo = $this->Photo->find('first');
+	        if ($photo == false) {
+	        	$this->render('empty');
+				return;
+			}
             $id = $photo['Photo']['id'];
         } else {
             $photo = $this->Photo->findBySlug($slug);
@@ -143,16 +147,18 @@ class PhotosController extends AppController {
         $date_end = $date . "-31 23:59:59";
 
         $this->Photo->recursive = 0;
-        $this->paginate['page'] = $page;
-        $this->set('photos', $this->paginate(array(
-            'Photo.datecreated >=' => $date_start,
-            'Photo.datecreated <=' => $date_end,
-        )));
+
         $photocount = $this->Photo->find('count', array('conditions' => array(
                 'Photo.status' => 'Published',
                 'Photo.datecreated >=' => $date_start,
                 'Photo.datecreated <=' => $date_end,
             )));
+
+        $this->paginate['page'] = $page;
+        $this->set('photos', $this->paginate(array(
+            'Photo.datecreated >=' => $date_start,
+            'Photo.datecreated <=' => $date_end,
+        )));
         $this->set('photocount', $photocount);
         $this->set('pages', ceil($photocount / $this->paginate['limit']));
         $this->set('current', 'archivedate');

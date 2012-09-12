@@ -36,13 +36,51 @@ class User extends AppModel {
      * @var array
      */
     public $validate = array(
-        'username' => array('required' => array(
+        'username' => array(
+            'notEmpty' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A username is required'
-            )),
-        'password' => array('required' => array(
+                'message' => 'A username is required',
+                'required' => true,
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' => 'This username has already been taken.',
+            ),
+            'between' => array(
+                'rule' => array(
+                    'between',
+                    3,
+                    15
+                ),
+                'required' => true,
+                'message' => 'Username must be between 5 and 15 characters long.',
+            ),
+            'alphaNumeric' => array(
+                'rule' => 'alphaNumeric',
+                'message' => 'Alphabets and numbers only'
+            ),
+        ),
+        'password' => array(
+            'notEmpty' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A password is required'
+                'message' => 'A password is required',
+                'required' => true,
+            ),
+            'between' => array(
+                'rule' => array(
+                    'between',
+                    5,
+                    64
+                ),
+                'message' => 'Password must be between 5 and 64 characters long.',
+            )
+        ),
+        'passwordcheck' => array('identical' => array(
+                'rule' => array(
+                    'identical',
+                    'password'
+                ),
+                'message' => 'Passwords do not match',
             )),
         'role' => array('valid' => array(
                 'rule' => array(
@@ -59,9 +97,12 @@ class User extends AppModel {
     );
 
     public function beforeSave($options = array()) {
-		// Password hashing
+        // Password hashing
         if (isset($this->data[$this->alias]['password'])) {
             $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
+        }
+        if (isset($this->data[$this->alias]['passwordcheck'])) {
+            $this->data[$this->alias]['passwordcheck'] = AuthComponent::password($this->data[$this->alias]['passwordcheck']);
         }
         return true;
     }
