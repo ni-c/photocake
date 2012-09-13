@@ -85,9 +85,17 @@
 		<meta name="DC.Publisher" content="<?php echo $author;?>" />
 		<meta name="DC.Rights" content="<?php echo $author;?>" />
 		<meta name="DC.Language" content="<?php echo $lang;?>" />
-		<meta name="og:title" content="<?php echo $title_for_layout;?>" />
-		<meta name="og:site_name" content="<?php echo $site_title;?>" />
-		<meta name="og:type" content="blog" />
+		<meta property="og:title" content="<?php echo $title_for_layout;?>" />
+		<meta property="og:site_name" content="<?php echo $site_title;?>" />
+		<meta property="og:type" content="blog" />
+		<meta property="og:url" content="<?php echo $this->Html->url($this->params['pass'], true); ?>" />
+<?php if (isset($photo['Photo'])): ?>
+		<meta property="og:image" content="<?php echo $this->Html->url('img/m/' . $photo['Photo']['filename'], true); ?>" />
+		<meta property="og:image:type" content="image/jpg" />
+		<meta property="og:image:width" content="800" />
+		<meta property="og:image:height" content="533" />
+		<meta property="og:description" content="<?php echo $photo['Photo']['description']; ?>" />
+<?php endif; ?>
 		<?php 
 		if (isset($prefetch)):
 			foreach ($prefetch as $key => $value):
