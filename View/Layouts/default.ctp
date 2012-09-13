@@ -28,7 +28,7 @@
 		<?php if ($ga_code != ''): ?>
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', '<?php echo $ga_code; ?>');
+			_gaq.push(['_setAccount', '<?php echo $ga_code; ?>']);
 			_gaq.push (['_gat._anonymizeIp']);
 			_gaq.push(['_trackPageview']);
 			(function() {
@@ -39,18 +39,14 @@
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(ga, s);
 			})();
-		</sript>
+		</script>
         <?php endif; ?>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
 		<title><?php echo $title_for_layout . ' | ' . $site_title;?></title>
 		<base href="<?php echo $this->Html->url('/', true);?>" />
 		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />
 		<meta name="language" content="<?php
-        if ($lang == 'de') {
-            echo 'German';
-        } else {
-            echo 'English';
-        }
+			echo $available_languages[$lang]['english_name']; 
 		?>" />
 		<?php
         echo $this->Html->charset();
@@ -164,24 +160,17 @@
 							<?php endif; ?>
 							<li>
 								<?php
-                                if ($lang != 'en') {
-                                    echo $this->Html->link($this->Html->image('flag/en.png', array(
-                                        'alt' => 'Switch to english',
+								foreach ($available_languages as $key => $language) {
+									if ($key != $lang) {
+                                    echo $this->Html->link($this->Html->image('flag/' . $key . '.png', array(
+                                        'alt' => $language['alt'],
                                         'class' => 'flag'
-                                    )), array_merge(array('language' => 'en'), $this->params['pass']), array(
-                                        'title' => 'Switch to english',
+                                    )), array_merge(array('language' => $key), $this->params['pass']), array(
+                                        'title' => $language['alt'],
                                         'escape' => false
                                     ));
-                                }
-                                if ($lang != 'de') {
-                                    echo $this->Html->link($this->Html->image('flag/de.png', array(
-                                        'alt' => 'Webseite auf Deutsch umschalten',
-                                        'class' => 'flag'
-                                    )), array_merge(array('language' => 'de'), $this->params['pass']), array(
-                                        'title' => 'Webseite auf Deutsch umschalten',
-                                        'escape' => false
-                                    ));
-                                }
+									}
+								}
 								?>
 							</li>
 						</ul>

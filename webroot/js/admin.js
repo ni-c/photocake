@@ -11,7 +11,7 @@ function parse() {
 		var id = element.get('id').replace('filename-', '');
 		$('loading-' + id).removeClass('hidden');
 		new Request.HTML({
-			url : parse_url + filename,
+			url : parse_url,
 			method : 'post',
 			update : 'info-' + id,
 			onComplete : function() {
@@ -20,7 +20,7 @@ function parse() {
 				element.removeClass('filename');
 				parse();
 			}
-		}).send();
+		}).send('filename='+filename);
 	}
 }
 

@@ -32,9 +32,11 @@ class SitemapController extends AppController {
 
     public $name = 'Sitemap';
 
-    public $uses = array('Photo', );
+    public $uses = array('Photo');
 
-    public $helpers = array('Time');
+    public $helpers = array(
+        'Time'
+    );
 
     public $components = array('RequestHandler');
 

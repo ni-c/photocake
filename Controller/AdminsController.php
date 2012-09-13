@@ -71,9 +71,6 @@ class AdminsController extends AppController {
             if ($file['modified'] < $last_import) {
                 unset($files[$key]);
             }
-			if ($file['filename']=='about') {
-                unset($files[$key]);
-			}
         }
 
         $this->set('files', $files);
@@ -84,7 +81,13 @@ class AdminsController extends AppController {
      *
      * @param filename The image filename to parse
      */
-    public function parse($filename) {
+    public function parse() {
+    		
+    	if (!$this->request->is('post') || (!isset($this->request->data['filename']))) {
+    		return;
+		}
+    	$filename = $this->request->data['filename'];
+    		
         $this->layout = 'ajax';
 
         str_replace(array("..", " ", '"', "'", "&", "/", "\\", "?", "#"), '', $filename);
@@ -103,37 +106,47 @@ class AdminsController extends AppController {
         $this->Image->resize($this->parse_dir . $filename, $thumb_file, $thumbnail_width);
         $this->Image->resize($this->parse_dir . $filename, $img_file, $width);
 
-        $value = $this->Image->parse($this->parse_dir . $filename);
+		// about.jpg is only used for the about page and should not be parsed
+		if ($filename!='about.jpg') {
 
-        if ($this->getOption('publish_immediately') == '1') {
-            $value['Photo']['status'] = 'Published';
-        }
-
-        // Save Photo
-        if ($this->Photo->saveAll($value)) {
-
-            // Save Tags
-            $tagdata = array();
-            foreach ($value['Tag'] as $key => $tag) {
-                $tagdata[] = array(
-                    'Tag' => $tag,
-                    'Photo' => array('id' => $this->Photo->id)
-                );
-            }
-            $this->Photo->Tag->saveAll($tagdata);
-
-            // Check for validation errors
-            if (count($this->Photo->Tag->validationErrors) > 0) {
-                $tag_errors = $this->Photo->Tag->validationErrors;
-            }
-
-        }
-        // Check for validation errors
-        if (count($this->Photo->validationErrors) > 0) {
-            $this->set('errors', $this->Photo->validationErrors);
-        }
+	        $value = $this->Image->parse($this->parse_dir . $filename);
 	
-		$photo = $this->Photo->findById($this->Photo->id);
+	        if ($this->getOption('publish_immediately') == '1') {
+	            $value['Photo']['status'] = 'Published';
+	        }
+	
+	        // Save Photo
+	        if ($this->Photo->saveAll($value)) {
+	
+	            // Save Tags
+	            $tagdata = array();
+	            foreach ($value['Tag'] as $key => $tag) {
+	                $tagdata[] = array(
+	                    'Tag' => $tag,
+	                    'Photo' => array('id' => $this->Photo->id)
+	                );
+	            }
+	            $this->Photo->Tag->saveAll($tagdata);
+	
+	            // Check for validation errors
+	            if (count($this->Photo->Tag->validationErrors) > 0) {
+	                $tag_errors = $this->Photo->Tag->validationErrors;
+	            }
+	
+	        }
+	        // Check for validation errors
+	        if (count($this->Photo->validationErrors) > 0) {
+	            $this->set('errors', $this->Photo->validationErrors);
+	        }
+		
+			$photo = $this->Photo->findById($this->Photo->id);
+			
+		} else {
+			$photo['Photo']['title'] = 'none';
+			$photo['Photo']['description'] = '[This image is only used for the about page.]';
+			$photo['Photo']['tags'] = array();
+			$photo['Category'] = array('name' => '');
+		}
 		
         $this->set('thumb', str_replace('.jpg', '_thumb.jpg', $filename));
         $this->set('photo', $photo);
@@ -153,7 +166,7 @@ class AdminsController extends AppController {
     /**
      * Manipulate the options table
      */
-    public function settings() {
+    public function options() {
         if ($this->request->is('post')) {
             foreach ($this->request->data['Admin'] as $key => $value) {
                 $option = $this->Option->findByKey($key);
