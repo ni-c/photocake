@@ -171,11 +171,9 @@
 								<?php
 								foreach ($available_languages as $key => $language) {
 									if ($key != $lang) {
-                                    echo $this->Html->link($this->Html->image('flag/' . $key . '.png', array(
-                                        'alt' => $language['alt'],
-                                        'class' => 'flag'
-                                    )), array_merge(array('language' => $key), $this->params['pass']), array(
+                                    echo $this->Html->link('&nbsp;', array_merge(array('language' => $key), $this->params['pass']), array(
                                         'title' => $language['alt'],
+                                        'id' => 'lang-' . $key,
                                         'escape' => false
                                     ));
 									}

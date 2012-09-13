@@ -63,10 +63,8 @@
 		<div id="img-wrapper">
 			<?php
             if (isset($prev_photo)) {
-                echo $this->Html->link($this->Html->image('prev.gif', array(
-                    'id' => 'img-nav-prevarrow',
-                    'alt' => _('Previous Photo'),
-                )), array(
+                echo $this->Html->link(
+					'<span id="img-nav-prevarrow" alt="' . _('Previous Photo') . '"><span id="prev-arrow"></span></span>', array(
                     'controller' => 'photos',
                     'action' => 'view',
                     $prev_photo['Photo']['slug'],
@@ -77,10 +75,8 @@
                 ));
             }
             if (isset($next_photo)) {
-                echo $this->Html->link($this->Html->image('next.gif', array(
-                    'id' => 'img-nav-nextarrow',
-                    'alt' => _('Next Photo'),
-                )), array(
+                echo $this->Html->link(
+                	'<span id="img-nav-nextarrow" alt="' . _('Next Photo') . '"><span id="next-arrow"></span></span>', array(
                     'controller' => 'photos',
                     'action' => 'view',
                     $next_photo['Photo']['slug'],
