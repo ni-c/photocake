@@ -52,6 +52,24 @@ class AppController extends Controller {
 
     public $helpers = array('Html' => array('className' => 'LanguageHtml'));
 
+    public $available_languages = array(
+        'en' => array(
+            'name' => 'English',
+            'english_name' => 'English',
+            'alt' => 'Switch to english',
+            'default' => false
+        ),
+        'de' => array(
+            'name' => 'Deutsch',
+            'english_name' => 'German',
+            'alt' => 'Webseite auf Deutsch umschalten',
+            'default' => false
+        ),
+    );
+
+    /**
+     * Caching enabled
+     */
     public $cacheAction = true;
 
     /**
@@ -110,12 +128,10 @@ class AppController extends Controller {
      * Set the language
      */
     public function beforeFilter() {
-    	if (!file_exists(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'database.php')) {
-    		$this->redirect('/install.php');
-    	}
-		
-        Configure::write('Config.language', Configure::read('Config.default_language'));
-        $this->_setLanguage();
+        if (!file_exists(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'database.php')) {
+            $this->redirect('/install.php');
+        }
+        $this->setLanguage();
         $this->parse_dir = $this->isEmpty($this->getOption('parse_dir'), 'Files/');
         // absolute or relative path
         if ($this->parse_dir[0] != DS) {
@@ -142,6 +158,7 @@ class AppController extends Controller {
         $this->set('lang', $this->isEmpty($this->Session->read('Config.language'), 'en'));
         $this->set('rss_feed', $this->isEmpty($this->getOption('rss_feed'), ''));
         $this->set('logged_in', $this->Auth->loggedIn());
+		$this->set('available_languages', $this->available_languages);
     }
 
     /**
@@ -161,12 +178,15 @@ class AppController extends Controller {
     /**
      * Set the language
      */
-    private function _setLanguage() {
+    private function setLanguage() {
+    	
         if (isset($this->params['language'])) {
-            $this->Session->write('Config.language', $this->params['language']);
+        	$language = $this->params['language'];
         } else {
-            $this->Session->write('Config.language', Configure::read('Config.default_language'));
+            $language = Configure::read('Config.default_language');
         }
+        $this->Session->write('Config.language', $language);
+		$this->available_languages[Configure::read('Config.default_language')]['default'] = true;
     }
 
     /*

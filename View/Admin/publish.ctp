@@ -44,7 +44,7 @@ echo $this->Html->script('admin', false);
 				<td id="loading-<?php echo $key;?>" class="loading hidden"></td>
 				<td>
 				<input type="hidden" id="filename-<?php echo $key;?>" class="filename" value="<?php echo $file['filename'] . '.' . $file['extension'];?>" />
-				<?php echo $file['filename'];?></td>
+				<?php echo $file['filename'] . '.' . $file['extension'];?></td>
 				<td id="modified-<?php echo $key;?>"><?php echo $this->Time->format(__('Y-m-d H:i:s'), $file['modified']);?></td>
 			</tr>
 			<tr id="infocontainer-<?php echo $key;?>" class="hidden">

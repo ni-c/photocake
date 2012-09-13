@@ -43,6 +43,8 @@ class RobotsController extends AppController {
         $lines = array(
             'User-agent: *',
             'Disallow: /' . Configure::read('Config.default_language') . '/',
+            'Disallow: /feed.rss',
+            'Disallow: /archive/',
             'Sitemap: [URL]sitemap.xml'
         );
         $this->set('lines', $lines);

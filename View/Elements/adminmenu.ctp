@@ -51,7 +51,7 @@ echo $this->Html->link(__('Publish'), array(
 <?php
 echo $this->Html->link(__('Settings'), array(
     'controller' => 'admins',
-    'action' => 'settings',
+    'action' => 'options',
     'full_base' => true
 ), array('title' => __('Settings')));
 ?>

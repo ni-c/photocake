@@ -21,9 +21,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
- 	/* Parse file extensions */
- 	Router::parseExtensions('rss','xml','txt'); 
-
  	/* Create routes array */
 	$routes = array(
 		array('', array('controller' => 'photos', 'action' => 'view', 'last')),
@@ -41,10 +38,13 @@
 
 	/* Parse route array and connect language routes */
 	foreach ($routes as $key => $route) {
+		Router::connect("/:language" . (($route[0]!='') ? ('/' . $route[0]) : '') , $route[1], array('language' => '[a-z]{2}'));
 		Router::connect("/" . $route[0], $route[1]);
-		Router::connect("/:language/" . $route[0], $route[1], array('language' => '[a-z]{2}'));
 	}
- 			
+ 	
+ 	/* Parse file extensions */
+ 	Router::parseExtensions('rss','xml','txt'); 
+			
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.
