@@ -112,7 +112,7 @@
                                     'action' => 'view',
                                     'last',
                                     'full_base' => true
-                                ), array('title' => __('Latest Photo')));
+                                ), array('title' => __('Latest Photo'), 'id' => 'latest_link'));
 								?>
 							</li>
 							<li>
@@ -123,7 +123,7 @@
                                     'controller' => 'photos',
                                     'action' => 'archive',
                                     'full_base' => true
-                                ), array('title' => __('Show photo archive')));
+                                ), array('title' => __('Show photo archive'), 'id' => 'archive_link'));
 								?>
 							</li>
 							<li>
@@ -135,7 +135,7 @@
                                     'action' => 'display',
                                     'about',
                                     'full_base' => true
-                                ), array('title' => __('About')));
+                                ), array('title' => __('About'), 'id' => 'about_link'));
 								?>
 							</li>
 							<?php if ($logged_in): ?>
@@ -147,7 +147,7 @@
                                     'controller' => 'admins',
                                     'action' => 'index',
                                     'full_base' => true
-                                ), array('title' => __('Admin')));
+                                ), array('title' => __('Admin'), 'id' => 'admin_link'));
 								?>
 							</li>
 							<li>
@@ -158,7 +158,7 @@
                                     'controller' => 'users',
                                     'action' => 'logout',
                                     'full_base' => true
-                                ), array('title' => __('Logout')));
+                                ), array('title' => __('Logout'), 'id' => 'logout_link'));
 								?>
 							</li>
 							<?php endif; ?>

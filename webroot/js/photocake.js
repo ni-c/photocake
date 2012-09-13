@@ -27,10 +27,10 @@ MooTools.More = {
 		initialize : function(c, b) {
 			this.element = this.subject = document.id(c);
 			this.parent(b);
-			if (typeOf(this.element) != "element") {
+			if(typeOf(this.element) != "element") {
 				this.element = document.id(this.element.getDocument().body);
 			}
-			if (this.options.wheelStops) {
+			if(this.options.wheelStops) {
 				var d = this.element, e = this.cancel.pass(false, this);
 				this.addEvent("start", function() {
 					d.addEvent("mousewheel", e);
@@ -42,7 +42,7 @@ MooTools.More = {
 		},
 		set : function() {
 			var b = Array.flatten(arguments);
-			if (Browser.firefox) {
+			if(Browser.firefox) {
 				b = [Math.round(b[0]), Math.round(b[1])];
 			}
 			this.element.scrollTo(b[0], b[1]);
@@ -54,7 +54,7 @@ MooTools.More = {
 			});
 		},
 		start : function(c, d) {
-			if (!this.check(c, d)) {
+			if(!this.check(c, d)) {
 				return this;
 			}
 			var b = this.element.getScroll();
@@ -65,11 +65,11 @@ MooTools.More = {
 				x : g,
 				y : f
 			};
-			for (var e in i) {
-				if (!i[e] && i[e] !== 0) {
+			for(var e in i) {
+				if(!i[e] && i[e] !== 0) {
 					i[e] = h[e];
 				}
-				if (typeOf(i[e]) != "number") {
+				if(typeOf(i[e]) != "number") {
 					i[e] = b[e] - j[e];
 				}
 				i[e] += c[e];
@@ -107,22 +107,22 @@ MooTools.More = {
 				y : f.y + j.y
 			};
 			["x", "y"].each(function(k) {
-				if (g.contains(k)) {
-					if (c[k] > h[k] + b[k]) {
+				if(g.contains(k)) {
+					if(c[k] > h[k] + b[k]) {
 						i[k] = c[k] - b[k];
 					}
-					if (f[k] < h[k]) {
+					if(f[k] < h[k]) {
 						i[k] = f[k];
 					}
 				}
-				if (i[k] == null) {
+				if(i[k] == null) {
 					i[k] = h[k];
 				}
-				if (e && e[k]) {
+				if(e && e[k]) {
 					i[k] = i[k] + e[k];
 				}
 			}, this);
-			if (i.x != h.x || i.y != h.y) {
+			if(i.x != h.x || i.y != h.y) {
 				this.start(i.x, i.y);
 			}
 			return this;
@@ -132,17 +132,17 @@ MooTools.More = {
 			e = document.id(e);
 			var i = {}, c = e.getPosition(this.element), d = e.getSize(), b = this.element.getScroll(), g = this.element.getSize();
 			["x", "y"].each(function(j) {
-				if (f.contains(j)) {
+				if(f.contains(j)) {
 					i[j] = c[j] - (g[j] - d[j]) / 2;
 				}
-				if (i[j] == null) {
+				if(i[j] == null) {
 					i[j] = b[j];
 				}
-				if (h && h[j]) {
+				if(h && h[j]) {
 					i[j] = i[j] + h[j];
 				}
 			}, this);
-			if (i.x != b.x || i.y != b.y) {
+			if(i.x != b.x || i.y != b.y) {
 				this.start(i.x, i.y);
 			}
 			return this;
@@ -166,21 +166,21 @@ Fx.Slide = new Class({
 		this.parent(a);
 		a = this.options;
 		var d = b.retrieve("wrapper"), c = b.getStyles("margin", "position", "overflow");
-		if (a.hideOverflow) {
+		if(a.hideOverflow) {
 			c = Object.append(c, {
 				overflow : "hidden"
 			});
 		}
-		if (a.wrapper) {
+		if(a.wrapper) {
 			d = document.id(a.wrapper).setStyles(c);
 		}
-		if (!d) {
+		if(!d) {
 			d = new Element("div", {
 				styles : c
 			}).wraps(b);
 		}
 		b.store("wrapper", d).setStyle("margin", 0);
-		if (b.getStyle("overflow") == "visible") {
+		if(b.getStyle("overflow") == "visible") {
 			b.setStyle("overflow", "hidden");
 		}
 		this.now = [];
@@ -188,7 +188,7 @@ Fx.Slide = new Class({
 		this.wrapper = d;
 		this.addEvent("complete", function() {
 			this.open = (d["offset" + this.layout.capitalize()] != 0);
-			if (this.open && this.options.resetHeight) {
+			if(this.open && this.options.resetHeight) {
 				d.setStyle("height", "");
 			}
 		}, true);
@@ -214,7 +214,7 @@ Fx.Slide = new Class({
 		});
 	},
 	start : function(b, e) {
-		if (!this.check(b, e)) {
+		if(!this.check(b, e)) {
 			return this;
 		}
 		this[e||this.options.mode]();
@@ -258,7 +258,7 @@ Element.Properties.slide = {
 	},
 	get : function() {
 		var a = this.retrieve("slide");
-		if (!a) {
+		if(!a) {
 			a = new Fx.Slide(this, {
 				link : "cancel"
 			});
@@ -287,7 +287,7 @@ Element.implement({
 			default:
 				b.start(d, e);
 		}
-		if (!a) {
+		if(!a) {
 			this.eliminate("slide:flag");
 		}
 		return this;
@@ -304,7 +304,7 @@ Element.implement({
 function initImage() {
 
 	$('img-photo').setStyle('opacity', 0);
-	if ($('img-nav-links') != null) {
+	if($('img-nav-links') != null) {
 		$('img-nav-links').addClass('hidden');
 	}
 
@@ -325,7 +325,7 @@ function fadeImage() {
 	});
 
 	fadeFx.start(0, 1).chain(function() {
-		if ($('img-nav-links') != null) {
+		if($('img-nav-links') != null) {
 			$('img-nav-links').removeClass('hidden');
 		}
 	});
@@ -337,7 +337,7 @@ function fadeImage() {
  * Initizialize navigation arrows
  */
 function initNavigationArrows() {
-	if ($('img-nav-nextarrow') != null) {
+	if($('img-nav-nextarrow') != null) {
 		$('img-nav-nextarrow').addClass('hidden');
 		$('img-map-next').addEvent('mouseover', function() {
 			$('img-nav-nextarrow').removeClass('hidden');
@@ -352,7 +352,7 @@ function initNavigationArrows() {
 			$('img-nav-nextarrow').addClass('hidden');
 		});
 	}
-	if ($('img-nav-prevarrow') != null) {
+	if($('img-nav-prevarrow') != null) {
 		$('img-nav-prevarrow').addClass('hidden');
 		$('img-map-prev').addEvent('mouseover', function() {
 			$('img-nav-prevarrow').removeClass('hidden');
@@ -385,9 +385,9 @@ function initCommentArea() {
 		transition : Fx.Transitions.Expo.easeInOut
 	});
 
-	if ((window.location.hash == '') || (window.location.hash == '#')) {
-		if (Cookie.read('notes-cmts-container') != null) {
-			if (Cookie.read('notes-cmts-container') != 'show') {
+	if((window.location.hash == '') || (window.location.hash == '#')) {
+		if(Cookie.read('notes-cmts-container') != null) {
+			if(Cookie.read('notes-cmts-container') != 'show') {
 				slideFx.hide();
 			}
 		} else {
@@ -401,10 +401,10 @@ function initCommentArea() {
 	}
 
 	$('info-toggle').addEvent('click', function(e) {
-		if (e) {
+		if(e) {
 			e.stop();
 		}
-		if (slideFx.open == false) {
+		if(slideFx.open == false) {
 			Cookie.write('notes-cmts-container', 'show', {
 				path : '/',
 				duration : 9999
@@ -443,9 +443,55 @@ function initThumbnails() {
 	});
 }
 
+function isFormTag(tagName) {
+	tagName = tagName.toUpperCase();
+	if(tagName == "INPUT" || tagName == "TEXTAREA" || tagName == "SELECT" || tagName == "OPTION" || tagName == "BUTTON") {
+		return true;
+	}
+	return false;
+}
+
+function initKeyNavigation() {
+	document.addEvent('keydown', function(event) {
+		if(!isFormTag(event.target.tagName)) {
+			switch(event.code) {
+				// right
+				case 39:
+					new Event(event).stop();
+					if($('img-map-next') != null) {
+						window.location = $('img-map-next').get('href');
+					}
+					break;
+				// left
+				case 37:
+					new Event(event).stop();
+					if($('img-map-prev') != null) {
+						window.location = $('img-map-prev').get('href');
+					}
+					break;
+				// c & k & e
+				case 67:
+				case 69:
+				case 75:
+					new Event(event).stop();
+					if($('info-toggle') != null) {
+						$('info-toggle').fireEvent('click');
+					}
+					break;
+				// a & b
+				case 65:
+				case 66:
+					new Event(event).stop();
+					window.location = $('archive_link').get('href');
+					break;
+			}
+		}
+	});
+}
+
 /* Load Events */
 window.addEvent('load', function() {
-	if ($('img-photo') != null) {
+	if($('img-photo') != null) {
 		fadeImage();
 	}
 });
@@ -453,18 +499,19 @@ window.addEvent('load', function() {
 
 /* DomReady Events */
 window.addEvent('domready', function() {
-	if ($('img-photo') != null) {
+	if($('img-photo') != null) {
 		initImage();
 	}
 
-	if ($('info-toggle') != null) {
+	if($('info-toggle') != null) {
 		initNavigationArrows();
+		initKeyNavigation();
 	}
 
-	if ($('notes-cmts-container') != null) {
+	if($('notes-cmts-container') != null) {
 		initCommentArea();
 	}
 
-	initThumbnails();	
+	initThumbnails();
 });
 /* DomReady Events END*/
