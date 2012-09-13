@@ -84,8 +84,17 @@ class PhotosController extends AppController {
         }
         $this->description = $this->description . ': ' . $photo['Photo']['description'];
 
+		$prefetch = array();
+		if (isset($neighbors['prev'])) {
+			$prefetch[] = 'img/m/' . $neighbors['prev']['Photo']['filename'];
+		}
+		if (isset($neighbors['prev'])) {
+			$prefetch[] = 'img/m/' . $neighbors['next']['Photo']['filename'];
+		}
+
         $this->set('title_for_layout', $photo['Photo']['title']);
         $this->set('photo', $photo);
+		$this->set('prefetch', $prefetch);
         $this->set('next_photo', $neighbors['prev']);
         $this->set('prev_photo', $neighbors['next']);
     }

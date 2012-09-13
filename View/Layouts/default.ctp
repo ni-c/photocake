@@ -88,6 +88,15 @@
 		<meta name="og:title" content="<?php echo $title_for_layout;?>" />
 		<meta name="og:site_name" content="<?php echo $site_title;?>" />
 		<meta name="og:type" content="blog" />
+		<?php 
+		if (isset($prefetch)):
+			foreach ($prefetch as $key => $value):
+		?>
+		<link rel="prefetch" href="<?php echo $this->Html->url($value, true); ?>" />
+		<?php	
+			endforeach;
+		endif;
+		?>
 	</head>
 	<body>
 		<div id="wrapper">
