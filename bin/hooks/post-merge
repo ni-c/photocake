@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CACHE_FILES="tmp/cache/models/photocake_* tmp/cache/persistent/photocake_* tmp/cache/views/photocake_* tmp/cache/cake_*"
+CACHE_FILES="tmp/cache/models/photocake_* tmp/cache/persistent/photocake_* tmp/cache/views/*.php tmp/cache/cake_*"
 STATIC_FILES="webroot/css/photocake.css webroot/js/photocake.js webroot/js/admin.js"
 
 # Go to project root level

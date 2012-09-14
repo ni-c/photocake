@@ -23,7 +23,9 @@ You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de)
 
 **photocake** comes with an install script that asks for your database credentials when you visit your fresh blog the first time. 
 
-You should
+To register the git hooks that clear the photocake cache and generate static files you should run the following command after cloning:
+
+    bin/create-hook-symlinks
 
 ## Creating Posts
 
