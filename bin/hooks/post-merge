@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CACHE_FILES="tmp/cache/models/photocake_* tmp/cache/persistent/photocake_* tmp/cache/view/photocake_* tmp/cache/cake_*"
+CACHE_FILES="tmp/cache/models/photocake_* tmp/cache/persistent/photocake_* tmp/cache/views/photocake_* tmp/cache/cake_*"
 STATIC_FILES="webroot/css/photocake.css webroot/js/photocake.js webroot/js/admin.js"
 
 # Go to project root level
@@ -15,8 +15,8 @@ for f in $CACHE_FILES; do
 	echo "  rm $f"
 done
 
-echo "creating gzip version of static files..."
 # Create gzip versions of static files for nginx
+echo "creating gzip version of static files..."
 for f in $STATIC_FILES; do
 	gzip -9 -c "$f" > "$f.gz";
 	echo "  gzip -9 -c $f > $f.gz"

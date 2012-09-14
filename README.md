@@ -23,7 +23,7 @@ You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de)
 
 **photocake** comes with an install script that asks for your database credentials when you visit your fresh blog the first time. 
 
-Optional: Run **./compress.sh** in the **Config** directory to gzip the .css and .js files (and enable gzip in your webserver).
+You should
 
 ## Creating Posts
 
