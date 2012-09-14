@@ -47,10 +47,14 @@ class AppController extends Controller {
                 'last'
             ),
             'authorize' => array('Controller')
-        )
+        ),
+        'RequestHandler' => array('checkHttpCache' => true)
     );
 
-    public $helpers = array('Html' => array('className' => 'LanguageHtml'));
+    public $helpers = array(
+        'Cache',
+        'Html' => array('className' => 'LanguageHtml')
+    );
 
     public $available_languages = array(
         'en' => array(
@@ -66,11 +70,6 @@ class AppController extends Controller {
             'default' => false
         ),
     );
-
-    /**
-     * Caching enabled
-     */
-    public $cacheAction = true;
 
     /**
      * The keywords for the meta description
@@ -111,13 +110,13 @@ class AppController extends Controller {
      */
     public function getOptions() {
         if ($this->options == null) {
-            $tmp = Cache::read('options', 'longterm');
-            if (!$tmp) {
-                $tmp = $this->Options->find('all');
-                Cache::write('options', $tmp, 'longterm');
+            $options = Cache::read('options');
+            if (!$options) {
+                $options = $this->Options->find('all');
+                Cache::write('options', $options);
             }
             $this->options = array();
-            foreach ($tmp as $key => $value) {
+            foreach ($options as $key => $value) {
                 $this->options[$value['Options']['key']] = $value['Options']['value'];
             }
         }
@@ -128,18 +127,31 @@ class AppController extends Controller {
      * Set the language
      */
     public function beforeFilter() {
-        if (!file_exists(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'database.php')) {
+    	
+       if (!file_exists(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'database.php')) {
             $this->redirect('/install.php');
         }
         $this->setLanguage();
-        $this->parse_dir = $this->isEmpty($this->getOption('parse_dir'), 'Files/');
-        // absolute or relative path
-        if ($this->parse_dir[0] != DS) {
-            $this->parse_dir = ROOT . DS . APP_DIR . DS . $this->parse_dir;
-        }
-        $this->keywords = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
-        $this->description = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
+		
+		$settings = Cache::read('settings');
+		if (!$settings) {
+			$settings = array();
+	        $settings['parse_dir'] = $this->isEmpty($this->getOption('parse_dir'), 'Files/');
+	        // absolute or relative path
+	        if ($settings['parse_dir'][0] != DS) {
+	            $settings['parse_dir'] = ROOT . DS . APP_DIR . DS . $settings['parse_dir'];
+	        }
+	        $settings['keywords'] = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
+    	    $settings['description'] = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
+		}
+		
+		$this->parse_dir = $settings['parse_dir'];
+		$this->keywords = $settings['keywords'];
+		$this->description = $settings['description'];
+		
         $this->Auth->allow('index', 'view');
+        $this->set('logged_in', $this->Auth->loggedIn());
+        $this->set('lang', $this->isEmpty($this->Session->read('Config.language'), 'en'));
     }
 
     /**
@@ -155,10 +167,8 @@ class AppController extends Controller {
         $this->set('license', $this->isEmpty($this->getOption('license'), 'MIT License'));
         $this->set('ga_code', $this->isEmpty($this->getOption('ga_code'), ''));
         $this->set('na', '-');
-        $this->set('lang', $this->isEmpty($this->Session->read('Config.language'), 'en'));
         $this->set('rss_feed', $this->isEmpty($this->getOption('rss_feed'), ''));
-        $this->set('logged_in', $this->Auth->loggedIn());
-		$this->set('available_languages', $this->available_languages);
+        $this->set('available_languages', $this->available_languages);
     }
 
     /**
@@ -179,14 +189,14 @@ class AppController extends Controller {
      * Set the language
      */
     private function setLanguage() {
-    	
+
         if (isset($this->params['language'])) {
-        	$language = $this->params['language'];
+            $language = $this->params['language'];
         } else {
             $language = Configure::read('Config.default_language');
         }
         $this->Session->write('Config.language', $language);
-		$this->available_languages[Configure::read('Config.default_language')]['default'] = true;
+        $this->available_languages[Configure::read('Config.default_language')]['default'] = true;
     }
 
     /*

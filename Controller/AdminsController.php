@@ -152,17 +152,6 @@ class AdminsController extends AppController {
         $this->set('photo', $photo);
     }
 
-	public function truncate() {
-		$this->autoRender = false;
-        // Truncate database
-        $this->Photo->query('TRUNCATE `photos`;');
-        $this->Photo->query('TRUNCATE `cameramodelnames`;');
-        $this->Photo->query('TRUNCATE `categories`;');
-        $this->Photo->query('TRUNCATE `photos_tags`;');
-        $this->Photo->query('TRUNCATE `tags`;');
-		die();
-	}
-
     /**
      * Manipulate the options table
      */
@@ -187,4 +176,10 @@ class AdminsController extends AppController {
         $this->set('options', $this->getOptions());
     }
 
+	public function clearcache() {
+		$this->autoRender = false;
+		Cache::clear();
+		clearCache('*');
+		$this->redirect('/');
+	}
 }

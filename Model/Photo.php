@@ -234,4 +234,11 @@ class Photo extends AppModel {
             'insertQuery' => ''
         ));
 
+	/**
+	 * afterSave callback
+	 */
+    function afterSave($created) {
+        clearCache('*');
+    }
+
 }

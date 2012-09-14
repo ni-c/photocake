@@ -103,4 +103,15 @@ class Comment extends AppModel {
             'fields' => '',
             'order' => ''
         ));
+
+	/**
+	 * afterSave callback
+	 */
+    function afterSave($created) {
+   		if (($this->data['Comment']['spam']) == 0) {
+	        clearCache('*');
+   		}
+    }
+
 }
+

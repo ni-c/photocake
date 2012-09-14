@@ -56,5 +56,17 @@ echo $this->Html->link(__('Settings'), array(
 ), array('title' => __('Settings')));
 ?>
 	</li>
+	<li>
+		&#183;
+	</li>
+	<li>
+<?php
+echo $this->Html->link(__('Clear Cache'), array(
+    'controller' => 'admins',
+    'action' => 'clearCache',
+    'full_base' => true
+), array('title' => __('Clear Cache')));
+?>
+	</li>
 </ul>
 <div class="clear"></div>

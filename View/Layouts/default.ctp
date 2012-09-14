@@ -87,7 +87,9 @@
 		<meta name="DC.Language" content="<?php echo $lang;?>" />
 		<meta property="og:title" content="<?php echo $title_for_layout;?>" />
 		<meta property="og:site_name" content="<?php echo $site_title;?>" />
-		<meta property="og:type" content="blog" />
+		<meta property="og:type" content="article" />
+		<meta property="og:article:author" content="<?php echo $author;?>" />
+		<meta property="og:article:tag" content="<?php echo $keywords;?>" />
 		<meta property="og:url" content="<?php echo $this->Html->url($this->params['pass'], true); ?>" />
 <?php if (isset($photo['Photo'])): ?>
 		<meta property="og:image" content="<?php echo $this->Html->url('img/m/' . $photo['Photo']['filename'], true); ?>" />
@@ -151,7 +153,7 @@
                                 ), array('title' => __('About'), 'id' => 'about_link'));
 								?>
 							</li>
-							<?php if ($logged_in): ?>
+							<!--nocache--><?php if ($logged_in): ?>
 							<li>
 								&#183;
 							</li>
@@ -174,7 +176,8 @@
                                 ), array('title' => __('Logout'), 'id' => 'logout_link'));
 								?>
 							</li>
-							<?php endif; ?>
+							<?php endif; ?><!--/nocache-->
+
 							<li>
 								<?php
 								foreach ($available_languages as $key => $language) {

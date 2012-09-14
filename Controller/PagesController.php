@@ -55,6 +55,13 @@ class PagesController extends AppController {
     }
 
     /**
+     * Caching enabled
+     */
+    public $cacheAction = array(
+        'display' => array('callbacks' => true, 'duration' => '1 day'),
+    );
+
+    /**
      * Displays a view
      *
      * @param mixed What page to display

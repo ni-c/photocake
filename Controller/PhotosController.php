@@ -47,6 +47,17 @@ class PhotosController extends AppController {
     }
 
     /**
+     * Caching enabled
+     */
+    public $cacheAction = array(
+        'view' => array('callbacks' => true, 'duration' => '1 week'),
+        'archive' => array('callbacks' => true, 'duration' => '1 week'),
+        'category' => array('callbacks' => true, 'duration' => '1 week'),
+        'archivedate' => array('callbacks' => true, 'duration' => '1 week'),
+        'tag' => array('callbacks' => true, 'duration' => '1 week'),
+    );
+
+    /**
      * view method
      *
      * @throws NotFoundException
@@ -220,7 +231,7 @@ class PhotosController extends AppController {
      */
     private function setArchiveVars() {
 
-        $archiveVars = Cache::read('archive_vars', 'longterm');
+        $archiveVars = Cache::read('archive_vars');
         if (!$archiveVars) {
             $archiveVars = array();
 
@@ -246,7 +257,7 @@ class PhotosController extends AppController {
             // Tags
             $archiveVars['tags'] = $this->Photo->Tag->find('all');
 
-            Cache::write('archive_vars', $archiveVars, 'longterm');
+            Cache::write('archive_vars', $archiveVars);
         }
 
         // photo count
