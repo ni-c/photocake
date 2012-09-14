@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Go to project root level
+cd $(git rev-parse --show-toplevel)
+
+# Delete cache
+rm -f tmp/cache/models/photocake_*
+rm -f tmp/cache/persistent/photocake_*
+rm -f tmp/cache/view/photocake_*
+rm -f tmp/cache/cake_*
+
+# Create gzip versions of static files for nginx
+files=('webroot/css/photocake.css' 'webroot/js/photocake.js' 'webroot/js/admin.js')
+for f in "${files[@]}"; do
+	gzip -9 -c "$f" > "$f.gz";
+done
