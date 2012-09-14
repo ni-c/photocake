@@ -1,16 +1,25 @@
 #!/bin/bash
 
+CACHE_FILES="tmp/cache/models/photocake_* tmp/cache/persistent/photocake_* tmp/cache/view/photocake_* tmp/cache/cake_*"
+STATIC_FILES="webroot/css/photocake.css webroot/js/photocake.js webroot/js/admin.js"
+
 # Go to project root level
+echo "changing directory..."
 cd $(git rev-parse --show-toplevel)
+echo "  cd $(git rev-parse --show-toplevel)"
 
 # Delete cache
-rm -f tmp/cache/models/photocake_*
-rm -f tmp/cache/persistent/photocake_*
-rm -f tmp/cache/view/photocake_*
-rm -f tmp/cache/cake_*
-
-# Create gzip versions of static files for nginx
-files=('webroot/css/photocake.css' 'webroot/js/photocake.js' 'webroot/js/admin.js')
-for f in "${files[@]}"; do
-	gzip -9 -c "$f" > "$f.gz";
+echo "deleting photocake cache..."
+for f in $CACHE_FILES; do
+	rm -f "$f"
+	echo "  rm $f"
 done
+
+echo "creating gzip version of static files..."
+# Create gzip versions of static files for nginx
+for f in $STATIC_FILES; do
+	gzip -9 -c "$f" > "$f.gz";
+	echo "  gzip -9 -c $f > $f.gz"
+done
+
+exit 0
