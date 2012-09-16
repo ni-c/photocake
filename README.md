@@ -47,6 +47,55 @@ To register the git hooks that clear the photocake cache and generate static fil
 
     bin/create-hook-symlinks
 
+### nginx
+
+If you are using Apache as webserver, then the included .htaccess files will do the URL rewriting. If you are using nginx, then you have to do some configuration. Here is an example configuration file for nginx:
+
+    server {
+      listen   80;
+      server_name YOURDOMAIN.COM;
+
+      # Serve static content directly with some caching goodness
+      location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|mp3|ogg|html|htm)$ {
+        root /var/www/$host;
+        access_log        off;
+        expires           1d;
+        break;
+      }
+
+      # Deny .ht files
+      location ~ /\.ht {
+        access_log        off;
+        deny              all;
+        break;
+      }
+
+      # CakePHP rewrite rules
+      location / {
+        access_log        off;
+        root              ~/photocake;  # Project directory
+        index             index.php;
+
+        # Serve static pages immediately
+        if (-f $request_filename) {
+          break;
+        }
+
+        if (!-e $request_filename) {
+          rewrite ^/(.+)$ /index.php?url=$1 last;
+          break;
+          }
+        }
+
+      # FastCGI
+      location ~ .php$ {
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /~/photocake/$fastcgi_script_name;  # Project directory
+        include        fastcgi_params;
+      }
+}
+
 ## Creating Posts
 
 You can add a post to your *photocake* blog by copying a JPG-Image into a directory (Default: Files/). *photocake* will extract the EXIF data from the image and create a new blog post. To parse all new images in the folder open /admin/publish.
