@@ -32,7 +32,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 2);
+	Configure::write('debug', 0);
 
 /**
  * Configure default language
@@ -132,7 +132,7 @@
  * or in each action using $this->cacheAction = true.
  *
  */
-	Configure::write('Cache.check', false);
+	Configure::write('Cache.check', true);
 
 /**
  * Defines the default error type when using the log() function. Used for
@@ -251,6 +251,7 @@ $engine = 'File';
 // In development mode, caches should expire quickly.
 $duration = '+999 days';
 if (Configure::read('debug') >= 1) {
+	Configure::write('Cache.check', false);
 	$duration = '+10 seconds';
 }
 
