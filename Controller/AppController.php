@@ -141,6 +141,7 @@ class AppController extends Controller {
 	        if ($settings['parse_dir'][0] != DS) {
 	            $settings['parse_dir'] = ROOT . DS . APP_DIR . DS . $settings['parse_dir'];
 	        }
+	        $settings['theme'] = $this->isEmpty($this->getOption('theme'), null);
 	        $settings['keywords'] = $this->isEmpty($this->getOption('keywords'), 'photocake,foto,photo,blog,photographics,fotografie,images,bilder');
     	    $settings['description'] = $this->getOption('site_title') . ' - ' . $this->getOption('site_subtitle');
 		}
@@ -148,7 +149,8 @@ class AppController extends Controller {
 		$this->parse_dir = $settings['parse_dir'];
 		$this->keywords = $settings['keywords'];
 		$this->description = $settings['description'];
-		
+		$this->theme = $settings['theme'];
+				
         $this->Auth->allow('index', 'view');
         $this->set('logged_in', $this->Auth->loggedIn());
         $this->set('lang', $this->isEmpty($this->Session->read('Config.language'), 'en'));
