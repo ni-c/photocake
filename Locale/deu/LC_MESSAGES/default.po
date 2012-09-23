@@ -3606,9 +3606,17 @@ msgstr "Aus, nicht ausgel&ouml;st"
 msgid "Aperture priority"
 msgstr "Zeitautomatik"
 
+#: View/Photos/view.ctp:137
+msgid "Manual"
+msgstr "Manuell"
+
 #: View/Photos/view.ctp:161
 msgid "Center-weighted average"
 msgstr "Mittenbetonte Integralmessung"
+
+#: View/Photos/view.ctp:161
+msgid "Pattern"
+msgstr "Mehrfeldmessung"
 
 msgid "Please enter an email address"
 msgstr "Bitte gebe eine Email-Adresse an"
