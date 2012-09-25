@@ -72,6 +72,12 @@ if (isset($_POST['dbconnect'])) {
                 $templine = '';
             }
         }
+		
+		$core_php = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'core.php';
+		$core_php_default = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'core.php.default';
+		if (!file_exists($core_php)) {
+			copy($core_php_default, $core_php);
+		}
         header('Location: ' . str_replace('install.php', 'admin', curPageURL()));
         die();
     } else {
