@@ -3621,9 +3621,6 @@ msgstr "Mehrfeldmessung"
 msgid "Please enter an email address"
 msgstr "Bitte gebe eine Email-Adresse an"
 
-msgid "Pattern"
-msgstr "Mehrfeldmessung"
-
 msgid "Login"
 msgstr "Einloggen"
 
