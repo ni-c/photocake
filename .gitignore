@@ -1,9 +1,18 @@
+# Do not ignore files named 'empty' (to preverse directory structure)
 !empty
+
+# Temp files
 tmp/*
+
+# Configuration files
+Config/core.php
 Config/database.php
 Config/email.php
-webroot/img/m/*.jpg
-Files/*.jpg
-Files/*.md
+
+# Original and resized photos
+webroot/img/m/*
+Files/*
+
+# Zipped stylesheets and javascripts
 webroot/css/*.gz
 webroot/js/*.gz
