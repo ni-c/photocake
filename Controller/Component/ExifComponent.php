@@ -194,9 +194,12 @@ class ExifComponent extends Component {
         $exposure_time = $exif[PelIfd::EXIF]->getEntry(PelTag::EXPOSURE_TIME)->getValue();
         // 1/x sec.
         if ($exposure_time[0] == 1) {
+        	if ($exposure_time[1] == 1) {
+        		return '1s';
+        	}
             return '1/' . $exposure_time[1] . 's';
         }
-        return $exposure_time[0];
+		return $exposure_time[0] / $exposure_time[1] . 's';
     }
 
     /**
