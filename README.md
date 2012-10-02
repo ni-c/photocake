@@ -125,7 +125,7 @@ For title, description, categories and tags of the new post, a JSON-String is ex
 You can use [exiftool](http://owl.phy.queensu.ca/~phil/exiftool/) to view and edit the EXIF data of your images. To set the 'ImageDescription' with exiftool type:
 
 ```bash
-exiftool -ImageDescription='{"Title":"foo","Description":"bar","Category":"foobar","Tags":"foo,bar"} [filename].jpg
+exiftool -ImageDescription='{"Title":"foo","Description":"bar","Category":"foobar","Tags":"foo,bar"}' [filename].jpg
 ```
 
 ## References
