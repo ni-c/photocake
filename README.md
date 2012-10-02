@@ -38,7 +38,6 @@ sudo /etc/init.d/php5 restart
 git clone git://github.com/ni-c/photocake.git ~/photocake
 git submodule init
 git submodule update
-
 ```
 
 Make ~/photocake accessible from your webserver.
