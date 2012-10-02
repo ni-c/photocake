@@ -17,23 +17,31 @@ You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de)
 
 ### Step by step
     
-    # Clone the CakePHP framework
-    git clone git://github.com/cakephp/cakephp.git ~/cakephp
+#### Clone the CakePHP framework
+```bash
+git clone git://github.com/cakephp/cakephp.git ~/cakephp
+```
 
-    # Update your PHP include path to the cakephp lib path
-    vi /etc/php5/cgi/php.ini
-      # search for 'include_path' and add "~/cakephp/lib"
-      # include_path = "~/cakephp/lib"
+#### Update your PHP include path to the cakephp lib path
+```bash
+vi /etc/php5/cgi/php.ini
+```
+search for 'include_path' and add "~/cakephp/lib" (`include_path = "~/cakephp/lib"`)
       
-    # Restart PHP
-    sudo /etc/init.d/php5 restart
+#### Restart PHP
+```bash
+sudo /etc/init.d/php5 restart
+```
     
-    # Clone photocake
-    git clone git://github.com/ni-c/photocake.git ~/photocake
-    git submodule init
-    git submodule update
+# Clone photocake
+```bash
+git clone git://github.com/ni-c/photocake.git ~/photocake
+git submodule init
+git submodule update
 
-Make ~/photocake accessible for your webserver.
+```
+
+Make ~/photocake accessible from your webserver.
 
 #### CakePHP
 
@@ -45,56 +53,60 @@ Make ~/photocake accessible for your webserver.
 
 To register the git hooks that clear the photocake cache and generate static files you should run the following command after cloning:
 
-    bin/create-hook-symlinks
+```bash
+bin/create-hook-symlinks
+```
 
 ### nginx
 
 If you are using Apache as webserver, then the included .htaccess files will do the URL rewriting. If you are using nginx, then you have to do some configuration. Here is an example configuration file for nginx:
 
-    server {
-      listen   80;
-      server_name YOURDOMAIN.COM;
+```bash
+server {
+  listen   80;
+  server_name YOURDOMAIN.COM;
 
-      # Serve static content directly with some caching goodness
-      location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|mp3|ogg|html|htm)$ {
-        root /var/www/$host;
-        access_log        off;
-        expires           1d;
-        break;
+  # Serve static content directly with some caching goodness
+  location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|mp3|ogg|html|htm)$ {
+    root /var/www/$host;
+    access_log        off;
+    expires           1d;
+    break;
+  }
+
+  # Deny .ht files
+  location ~ /\.ht {
+    access_log        off;
+    deny              all;
+    break;
+  }
+
+  # CakePHP rewrite rules
+  location / {
+    access_log        off;
+    root              ~/photocake;  # Project directory
+    index             index.php;
+
+    # Serve static pages immediately
+    if (-f $request_filename) {
+      break;
+    }
+
+    if (!-e $request_filename) {
+      rewrite ^/(.+)$ /index.php?url=$1 last;
+      break;
       }
+    }
 
-      # Deny .ht files
-      location ~ /\.ht {
-        access_log        off;
-        deny              all;
-        break;
-      }
-
-      # CakePHP rewrite rules
-      location / {
-        access_log        off;
-        root              ~/photocake;  # Project directory
-        index             index.php;
-
-        # Serve static pages immediately
-        if (-f $request_filename) {
-          break;
-        }
-
-        if (!-e $request_filename) {
-          rewrite ^/(.+)$ /index.php?url=$1 last;
-          break;
-          }
-        }
-
-      # FastCGI
-      location ~ .php$ {
-        fastcgi_pass   127.0.0.1:9000;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  /~/photocake/$fastcgi_script_name;  # Project directory
-        include        fastcgi_params;
-      }
+  # FastCGI
+  location ~ .php$ {
+    fastcgi_pass   127.0.0.1:9000;
+    fastcgi_index  index.php;
+    fastcgi_param  SCRIPT_FILENAME  /~/photocake/$fastcgi_script_name;  # Project directory
+    include        fastcgi_params;
+  }
 }
+```
 
 ## Creating Posts
 
@@ -102,16 +114,20 @@ You can add a post to your *photocake* blog by copying a JPG-Image into a direct
 
 For title, description, categories and tags of the new post, a JSON-String is expected in the EXIF data for 'ImageDescription':
 
-    {
-        "Title":"A Title",
-        "Description":"Some *markdown* discription",
-        "Category":"Nice images",
-        "Tags":"some,comma,separated,tags"
-    }
+```json
+{
+  "Title":"A Title",
+  "Description":"Some *markdown* discription",
+  "Category":"Nice images",
+  "Tags":"some,comma,separated,tags"
+}
+```
 
 You can use [exiftool](http://owl.phy.queensu.ca/~phil/exiftool/) to view and edit the EXIF data of your images. To set the 'ImageDescription' with exiftool type:
 
-    exiftool -ImageDescription='{"Title":"foo","Description":"bar","Category":"foobar","Tags":"foo,bar"} [filename].jpg
+```bash
+exiftool -ImageDescription='{"Title":"foo","Description":"bar","Category":"foobar","Tags":"foo,bar"} [filename].jpg
+```
 
 ## References
 

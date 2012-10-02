@@ -102,12 +102,20 @@ class AdminsController extends AppController {
 
         $this->Image = $this->Components->load('Image');
 
-        // Generate thumbnail
+		$resize_error = false;
+		
+        // Generate thumbnails
         $this->Image->resize($this->parse_dir . $filename, $thumb_file, $thumbnail_width);
         $this->Image->resize($this->parse_dir . $filename, $img_file, $width);
+		
+		// Check if resizing was successful
+		if (!file_exists($img_file) || !file_exists($thumb_file)) {
+			$this->set('errors', array('Image resize' => 'Error writing file "' . $img_file .'"'));
+			$resize_error = true;
+		}
 
 		// about.jpg is only used for the about page and should not be parsed
-		if ($filename!='about.jpg') {
+		if ((!$resize_error) && ($filename!='about.jpg')) {
 
 	        $value = $this->Image->parse($this->parse_dir . $filename);
 	
@@ -142,10 +150,19 @@ class AdminsController extends AppController {
 			$photo = $this->Photo->findById($this->Photo->id);
 			
 		} else {
-			$photo['Photo']['title'] = 'none';
-			$photo['Photo']['description'] = '[This image is only used for the about page.]';
-			$photo['Photo']['tags'] = array();
-			$photo['Category'] = array('name' => '');
+			$photo = array(
+				'Photo' => array(
+					'title' => 'none',
+					'tags' => array(),
+					'description' => ''
+				),
+				'Category' => array(
+					'name' => ''
+				)
+			);
+			if ($filename=='about.jpg') {
+				$photo['Photo']['description'] = '[This image is only used for the about page.]';
+			}
 		}
 		
         $this->set('thumb', str_replace('.jpg', '_thumb.jpg', $filename));

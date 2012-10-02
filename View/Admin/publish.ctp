@@ -56,7 +56,7 @@ echo $this->Html->script('admin', false);
 	<?php else:?>
 
 	<p>
-		No new images found, everything up to date.
+		No new images found in the files folder.
 	</p>
 	<?php endif;?>
 </div>
