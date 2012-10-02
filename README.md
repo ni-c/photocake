@@ -15,6 +15,10 @@ You can find a live demo of *photocake* at [willithiel.de](http://willithiel.de)
 
 ## Installation
 
+### Requirements
+
+*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. Version 2.3 of CakePHP can be found on [GitHub](https://github.com/cakephp/cakephp/tree/2.3). You should read the [CakePHP Cookbook](http://book.cakephp.org/2.0/en/index.html) for a detailed installation guide. 
+
 ### Step by step
     
 #### Clone the CakePHP framework
@@ -33,29 +37,24 @@ search for 'include_path' and add "~/cakephp/lib" (`include_path = "~/cakephp/li
 sudo /etc/init.d/php5 restart
 ```
     
-# Clone photocake
+#### Clone photocake
 ```bash
 git clone git://github.com/ni-c/photocake.git ~/photocake
 git submodule init
 git submodule update
-
 ```
 
-Make ~/photocake accessible from your webserver.
-
-#### CakePHP
-
-*photocake* needs the [CakePHP](http://cakephp.org/) framework to run. Version 2.3 of CakePHP can be found on [GitHub](https://github.com/cakephp/cakephp/tree/2.3). You should read the [CakePHP Cookbook](http://book.cakephp.org/2.0/en/index.html) for a detailed installation guide. 
-
-#### photocake
-
-**photocake** comes with an install script that asks for your database credentials when you visit your fresh blog the first time. 
+#### Git hooks (optional)
 
 To register the git hooks that clear the photocake cache and generate static files you should run the following command after cloning:
 
 ```bash
 bin/create-hook-symlinks
 ```
+
+Make ~/photocake accessible from your webserver.
+
+**photocake** comes with an install script that asks for your database credentials when you visit your fresh blog the first time. 
 
 ### nginx
 
@@ -126,7 +125,7 @@ For title, description, categories and tags of the new post, a JSON-String is ex
 You can use [exiftool](http://owl.phy.queensu.ca/~phil/exiftool/) to view and edit the EXIF data of your images. To set the 'ImageDescription' with exiftool type:
 
 ```bash
-exiftool -ImageDescription='{"Title":"foo","Description":"bar","Category":"foobar","Tags":"foo,bar"} [filename].jpg
+exiftool -ImageDescription='{"Title":"foo","Description":"bar","Category":"foobar","Tags":"foo,bar"}' [filename].jpg
 ```
 
 ## References
