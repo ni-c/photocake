@@ -161,17 +161,36 @@ $i = 0;
 	<div id="paging-nav-container">
 		<div class="results">
 			<?php if ($pages>1):
+				$subaction = ($this->action!='archive') && (isset($this->request->params['pass'][0])) ? $this->request->params['pass'][0] : null;
 			?>
 			<div class="paginator">
-				<?php echo $this->Html->link('&larr;&nbsp;' . __('First') . '&nbsp;', $cururl . '1', array(
-                    'class' => 'page',
-                    'title' => __('Go To First Page'),
-                    'escape' => false
+				<?php echo $this->Html->link(
+					'&larr;&nbsp;' . __('First') . '&nbsp;', 
+					array(
+                		'controller' => 'photos',
+                		'action' => $this->action,
+                		$subaction,
+                		'1',
+                		'full_base' => true
+            		), 
+            		array(
+                    	'class' => 'page',
+                    	'title' => __('Go To First Page'),
+                    	'escape' => false
                 ));
 				?>
 				<?php if ($pages>2):
 				?>
-				<?php echo $this->Html->link('&lsaquo;&nbsp;' . __('Previous') . '&nbsp;', $cururl . ($curpage - 1 < 1 ? 1 : $curpage), array(
+				<?php echo $this->Html->link(
+					'&lsaquo;&nbsp;' . __('Previous') . '&nbsp;', 
+					array(
+                		'controller' => 'photos',
+                		'action' => $this->action,
+                		$subaction,
+                		($curpage - 1 < 1 ? 1 : $curpage),
+                		'full_base' => true
+            		),
+					array(
                         'class' => 'page',
                         'title' => __('Go To Previous Page'),
                         'escape' => false
@@ -181,24 +200,51 @@ $i = 0;
 
 				<?php
                 for ($i = 1; $i < $pages + 1; $i++) {
-                    echo $this->Html->link($i, $cururl . $i, array(
-                        'class' => 'page',
-                        'title' => __('Go To Page') . ' ' . $i,
-                        'escape' => false
-                    ));
+                    echo $this->Html->link(
+	                    $i, 
+                        array(
+                			'controller' => 'photos',
+	                		'action' => $this->action,
+	                		$subaction,
+                			$i,
+                			'full_base' => true
+            			),
+            			array(
+	                        'class' => 'page',
+                        	'title' => __('Go To Page') . ' ' . $i,
+                        	'escape' => false
+                    	));
                 }
 				?>
 
 				<?php if ($pages>2):
 				?>
-				<?php echo $this->Html->link('&nbsp;' . __('Next') . '&nbsp;&rsaquo;', $cururl . ($curpage + 1 > $pages ? $pages : $curpage + 1), array(
+				<?php echo $this->Html->link(
+					'&nbsp;' . __('Next') . '&nbsp;&rsaquo;',
+					array(
+                		'controller' => 'photos',
+	                	'action' => $this->action,
+                		$subaction,
+                		($curpage + 1 > $pages ? $pages : $curpage + 1),
+                		'full_base' => true
+            		), 
+            		array(
                         'class' => 'page',
                         'title' => __('Go To Next Page'),
                         'escape' => false
                     ));
 				?>
 				<?php endif;?>
-				<?php echo $this->Html->link('&nbsp;' . __('Last') . '&nbsp;&rarr;', $cururl . $pages, array(
+				<?php echo $this->Html->link(
+					'&nbsp;' . __('Last') . '&nbsp;&rarr;',
+					array(
+                		'controller' => 'photos',
+	                	'action' => $this->action,
+                		$subaction,
+                		$pages,
+                		'full_base' => true
+            		), 
+					array(
                         'class' => 'page',
                         'title' => __('Go to Last Page'),
                         'escape' => false
@@ -211,3 +257,6 @@ $i = 0;
 	</div>
 </div>
 <div class="clear"></div>
+<pre>
+<?php print_r(); ?>
+</pre>

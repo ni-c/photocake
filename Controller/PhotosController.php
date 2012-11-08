@@ -34,7 +34,7 @@ class PhotosController extends AppController {
      * Pagination settings
      */
     public $paginate = array(
-        'limit' => 40,
+        'limit' => 10,
         'conditions' => array('Photo.status' => 'Published')
     );
 
@@ -124,7 +124,6 @@ class PhotosController extends AppController {
         $this->set('photocount', $photocount);
         $this->set('pages', ceil($photocount / $this->paginate['limit']));
         $this->set('current', __('all'));
-        $this->set('cururl', '/browse/');
         $this->set('title_for_layout', __('Archive'));
         $this->keywords = $this->keywords . ',archiv,archive';
         $this->setArchiveVars();
@@ -152,7 +151,6 @@ class PhotosController extends AppController {
         $this->set('pages', ceil($photocount / $this->paginate['limit']));
         $this->set('current', $C['Category']['name']);
         $this->setArchiveVars();
-        $this->set('cururl', '/browse/category/' . $category . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . $C['Category']['name']);
         $this->keywords = $this->keywords . ',archiv,archive,' . $C['Category']['name'];
         $this->render('archive');
@@ -184,7 +182,6 @@ class PhotosController extends AppController {
         $this->set('current', 'archivedate');
         $this->set('archivedate', $date);
         $this->setArchiveVars();
-        $this->set('cururl', '/browse/archivedate/' . $date . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . __(date('F', strtotime($date_start))) . date(', Y', strtotime($date_start)));
         $this->keywords = $this->keywords . ',archiv,archive';
         $this->render('archive');
@@ -220,7 +217,6 @@ class PhotosController extends AppController {
         $this->set('pages', ceil($photocount / $this->paginate['limit']));
         $this->set('current', $T['Tag']['name']);
         $this->setArchiveVars();
-        $this->set('cururl', '/browse/tag/' . $tag . '/');
         $this->set('title_for_layout', __('Archive') . ': ' . $T['Tag']['name']);
         $this->keywords = $this->keywords . ',archiv,archive,' . $T['Tag']['name'];
         $this->render('archive');
