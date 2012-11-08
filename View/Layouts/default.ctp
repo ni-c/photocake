@@ -208,7 +208,7 @@
 							All photos on <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type"><?php echo __($site_title);?></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="<?php echo $this->Html->url('/', true);?>" property="cc:attributionName" rel="cc:attributionURL"><?php echo __($author);?></a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
 						</li>
 						<li>
-							Powered by <a href="http://github.com/ni-c/photocake">photocake</a>.
+							Powered by <a href="http://photocake.info">photocake</a>.
 						</li>
 					</ul>
 				</div>
