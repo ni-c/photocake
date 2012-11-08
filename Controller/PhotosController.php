@@ -34,7 +34,7 @@ class PhotosController extends AppController {
      * Pagination settings
      */
     public $paginate = array(
-        'limit' => 10,
+        'limit' => 80,
         'conditions' => array('Photo.status' => 'Published')
     );
 
