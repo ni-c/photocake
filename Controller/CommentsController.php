@@ -57,7 +57,6 @@ class CommentsController extends AppController {
 				} else {
 					$this->request->data['Comment']['spam'] = '1';
 				}
-				echo 'defensio running;';
 			} else {
 				$this->request->data['Comment']['spam'] = '0';
 			}
