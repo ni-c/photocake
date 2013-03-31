@@ -42,6 +42,7 @@
 		</script>
         <?php endif; ?>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+		<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
 		<title><?php echo $title_for_layout . ' | ' . $site_title;?></title>
 		<base href="<?php echo $this->Html->url('/', true);?>" />
 		<meta http-equiv="Content-language" content="<?php echo $lang;?>" />

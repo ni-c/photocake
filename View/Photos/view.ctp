@@ -339,6 +339,24 @@ if ($comment['website']!=''):
 				</div>
 			</div>
 			<br class="clear" />
+			<?php 
+				if (($photo['Photo']['gpslatituderef'] != '') && ($photo['Photo']['gpslatitude'] != '') && ($photo['Photo']['gpslongituderef'] != '') && ($photo['Photo']['gpslongitude'] != '')):
+					$lat = str_replace('N', '', str_replace('S', '-', $photo['Photo']['gpslatituderef'] . $photo['Photo']['gpslatitude']));
+					$lon = str_replace('E', '', str_replace('W', '-', $photo['Photo']['gpslongituderef'] . $photo['Photo']['gpslongitude']));
+			?>
+				<div class="map">
+					<div class="notes-cmts-inner-wrapper">
+						<h4><?php echo __('Map');?></h4>
+						<div id="openstreetmap"></div>
+							<script>
+							  var lon = parseFloat(<?php echo $lon; ?>);
+							  var lat = parseFloat(<?php echo $lat; ?>);
+	  						</script>
+					</div>
+				</div>
+			<?php
+				endif;
+			?>
 		</div>
 	</div>
 </div>

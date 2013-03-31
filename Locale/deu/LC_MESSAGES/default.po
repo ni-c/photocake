@@ -197,7 +197,7 @@ msgstr "Belichtungsmessung"
 
 #: View/Photos/view.ctp:166
 msgid "Category"
-msgstr "Kategory"
+msgstr "Kategorie"
 
 #: View/Photos/view.ctp:170
 msgid "Tags"
@@ -3617,6 +3617,11 @@ msgstr "Mittenbetonte Integralmessung"
 #: View/Photos/view.ctp:161
 msgid "Pattern"
 msgstr "Mehrfeldmessung"
+
+#: View/Photos/view.ctp:349
+msgid "Map"
+msgstr "Karte"
+
 
 msgid "Please enter an email address"
 msgstr "Bitte gebe eine Email-Adresse an"

@@ -593,3 +593,11 @@ textarea {
     margin: 0;
     padding: 0;
 }
+.map {
+	margin-bottom: 5px;
+}
+#openstreetmap {
+	width:760px; 
+	height:360px;
+	border: 1px solid #CCCCCC;	
+}
