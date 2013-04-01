@@ -257,6 +257,3 @@ $i = 0;
 	</div>
 </div>
 <div class="clear"></div>
-<pre>
-<?php print_r(); ?>
-</pre>
