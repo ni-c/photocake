@@ -33,10 +33,6 @@
 				<td><?php echo $photo_count;?></td>
 			</tr>
 			<tr>
-				<td> Comments: </td>
-				<td><?php echo $comment_count;?></td>
-			</tr>
-			<tr>
 				<td> Last scan: </td>
 				<td><?php echo $photo_last['Photo']['created'];?></td>
 			</tr>

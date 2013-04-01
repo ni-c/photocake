@@ -34,8 +34,7 @@ class AdminsController extends AppController {
 
     public $uses = array(
         'Option',
-        'Photo',
-        'Comment'
+        'Photo'
     );
 
     /**
@@ -51,9 +50,7 @@ class AdminsController extends AppController {
      */
     public function index() {
         $this->Photo->recursive = -1;
-        $this->Comment->recursive = -1;
         $this->set('photo_count', $this->Photo->find('count', array('conditions' => array('Photo.status' => 'published'))));
-        $this->set('comment_count', $this->Comment->find('count'));
         $this->set('photo_last', $this->Photo->find('first', array('order' => array('Photo.created DESC'))));
     }
 
