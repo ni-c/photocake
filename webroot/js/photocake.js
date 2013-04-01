@@ -295,10 +295,6 @@ Element.implement({
 });
 
 /**
- * PHOTOCAKE scripts start here
- */
-
-/**
  * Initialize img-photo for fade in
  */
 function initImage() {
@@ -370,11 +366,11 @@ function initNavigationArrows() {
 }
 
 /**
- * Initizialize transition of the comment area
+ * Initizialize transition of the metadata
  */
-function initCommentArea() {
+function initMetadataArea() {
 
-  var slideFx = new Fx.Slide('notes-cmts-container', {
+  var slideFx = new Fx.Slide('notes-meta-container', {
     duration: 400,
     link: 'chain',
     transition: Fx.Transitions.Sine.easeInOut
@@ -385,16 +381,25 @@ function initCommentArea() {
     transition: Fx.Transitions.Expo.easeInOut
   });
 
+  var hide_text = $('info-toggle').get('data-alt');
+  var show_text = $('info-toggle').get('text');
+
   if ((window.location.hash == '') || (window.location.hash == '#')) {
-    if (Cookie.read('notes-cmts-container') != null) {
-      if (Cookie.read('notes-cmts-container') != 'show') {
+    if (Cookie.read('notes-meta-container') != null) {
+      if (Cookie.read('notes-meta-container') != 'show') {
+        $('info-toggle').set('text', show_text);
         slideFx.hide();
+      } else {
+        $('info-toggle').set('text', hide_text);
       }
     } else {
+      $('info-toggle').set('text', show_text);
       slideFx.hide();
     }
   } else {
-    Cookie.write('notes-cmts-container', 'show', {
+    $('info-toggle').set('text', hide_text);
+    scrollFx.toElement('img-title-date-meta');
+    Cookie.write('notes-meta-container', 'show', {
       path: '/',
       duration: 9999
     });
@@ -405,18 +410,19 @@ function initCommentArea() {
       e.stop();
     }
     if (slideFx.open == false) {
-      Cookie.write('notes-cmts-container', 'show', {
+      $('info-toggle').set('text', hide_text);
+      Cookie.write('notes-meta-container', 'show', {
         path: '/',
         duration: 9999
       });
       slideFx.slideIn().chain(function() {
-        scrollFx.toElement('notes-cmts-container');
+        scrollFx.toElement('img-title-date-meta');
         $('info-toggle').removeProperty('name');
-        window.location.hash = '#comments';
+        window.location.hash = '#metadata';
       });
-      $('CommentName').focus();
     } else {
-      Cookie.write('notes-cmts-container', 'hide', {
+      $('info-toggle').set('text', show_text);
+      Cookie.write('notes-meta-container', 'hide', {
         path: '/',
         duration: 9999
       });
@@ -453,34 +459,34 @@ function isFormTag(tagName) {
 
 function initKeyNavigation() {
   document.addEvent('keydown', function(event) {
+    console.log(event.code);
     if (!isFormTag(event.target.tagName)) {
       switch (event.code) {
-      // right
+      // right & k
       case 39:
+      case 75:
         new Event(event).stop();
         if ($('img-map-next') != null) {
           window.location = $('img-map-next').get('href');
         }
         break;
-      // left
+      // left & j
       case 37:
+      case 74:
         new Event(event).stop();
         if ($('img-map-prev') != null) {
           window.location = $('img-map-prev').get('href');
         }
         break;
-      // c & k & e
-      case 67:
-      case 69:
-      case 75:
+      // m
+      case 77:
         new Event(event).stop();
         if ($('info-toggle') != null) {
           $('info-toggle').fireEvent('click');
         }
         break;
-      // a & b
+      // a
       case 65:
-      case 66:
         new Event(event).stop();
         window.location = $('archive_link').get('href');
         break;
@@ -528,8 +534,8 @@ window.addEvent('domready', function() {
     initKeyNavigation();
   }
 
-  if ($('notes-cmts-container') != null) {
-    initCommentArea();
+  if ($('notes-meta-container') != null) {
+    initMetadataArea();
   }
   
   if ($('openstreetmap') != null) {

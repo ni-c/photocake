@@ -125,7 +125,7 @@
 				</map>
 			</div>
 		</div>
-		<div id="img-title-date-comments">
+		<div id="img-title-date-meta">
 			<h3 id="img-title" class="entry-title"><?php echo $this->Html->link('<span itemprop="name">' . $photo['Photo']['title'] . '</span>', array(
                 'controller' => 'photos',
                 'action' => 'view',
@@ -137,26 +137,16 @@
                 'escape' => false
             ));
 			?></h3>
-			<div id="img-info-comment">
-				<a name="comments" id="info-toggle" href="<?php echo $this->Html->url(array(
+			<div id="img-info-meta">
+				<a name="metadata" id="info-toggle" href="<?php echo $this->Html->url(array(
                     'controller' => 'photos',
                     'action' => 'view',
                     $photo['Photo']['slug'],
-                    "#" => "comments"
+                    "#" => "metadata"
                 ), true);
-				?>" title="<?php echo __('Comments &amp; EXIF for ') . $photo['Photo']['title'];?>"> <?php
-foreach ($photo['Comment'] as $key => $comment) {
-    if ($comment['spam'] == 1) {
-        unset($photo['Comment'][$key]);
-    }
-}
-                echo count($photo['Comment']) . '&nbsp;';
-                if (count($photo['Comment']) != 1) {
-                    echo __('Comments');
-                } else {
-                    echo __('Comment');
-                }
-				?></a>
+				?>" title="<?php echo __('Metadata for ') . $photo['Photo']['title'];?>" data-alt="<?php echo __('Hide Metadata'); ?>"> 
+				<?php echo __('Show Metadata'); ?>
+				</a>
 			</div>
 			<div class="clear"></div>
 			<div id="img-date">
@@ -165,81 +155,13 @@ foreach ($photo['Comment'] as $key => $comment) {
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>
-		<div id="notes-cmts-container">
+		<div id="notes-meta-container">
 			<div id="img-notes">
-				<div class="notes-cmts-inner-wrapper">
-					<h4 id="description"><?php echo __('Description');?></h4>
+				<div class="notes-meta-inner-wrapper">
+					<h4 id="description"><?php echo __('Description') . ':';?></h4>
 					<div class="description entry-content">
 						<?php echo $this->Markdown->transform($photo['Photo']['description']);?>
 					</div>
-					<?php echo $this->Html->link(__('Permalink'), array(
-                            'controller' => 'photos',
-                            'action' => 'view',
-                            $photo['Photo']['slug'],
-                            'full_base' => true
-                        ), array(
-                            'title' => __('Permalink for ') . $photo['Photo']['title'],
-                            'escape' => false
-                        ));
-					?>
-					<h4 id="exif"><?php echo __('EXIF Data');?></h4>
-					<table id="img-exif">
-						<tbody>
-							<tr>
-								<td><?php echo __('Camera') . ':';?></td>
-								<td><?php echo $photo['Cameramodelname']['name'] != '' ? h($photo['Cameramodelname']['name']) : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('Focal Length') . ':';?></td>
-								<td><?php echo $photo['Photo']['focallength'] != '' ? h($photo['Photo']['focallength']) . 'mm' : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('Aperture') . ':';?></td>
-								<td><?php echo $photo['Photo']['fnumber'] != '' ? h($photo['Photo']['fnumber']) . ((strpos($photo['Photo']['fnumber'], '.') == false) ? '.0' : '') : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('Exposure') . ':';?></td>
-								<td><?php echo $photo['Photo']['exposuretime'] != '' ? h($photo['Photo']['exposuretime']) : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('ISO Speed') . ':';?></td>
-								<td><?php echo $photo['Photo']['iso'] != '' ? h($photo['Photo']['iso']) : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('Exposure Program') . ':';?></td>
-								<td><?php echo $photo['Exposureprogram']['name'] != '' ? __(trim($photo['Exposureprogram']['name'])) : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('Flash') . ':';?></td>
-								<td><?php echo $photo['Flash']['name'] != '' ? __($photo['Flash']['name']) : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('Lens') . ':';?></td>
-								<td><?php echo $photo['Lens']['name'] != '' ? h($photo['Lens']['name']) : $na;?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('GPS') . ':';?></td>
-								<td><?php
-                                if (($photo['Photo']['gpslatituderef'] != '') && ($photo['Photo']['gpslatitude'] != '') && ($photo['Photo']['gpslongituderef'] != '') && ($photo['Photo']['gpslongitude'] != '')) {
-                                    $geo = str_replace('N', '', str_replace('S', '-', str_replace('E', '', str_replace('W', '-', $photo['Photo']['gpslatituderef'] . $photo['Photo']['gpslatitude'] . ';' . $photo['Photo']['gpslongituderef'] . $photo['Photo']['gpslongitude']))));
-                                    echo '<abbr class="geo" title="' . $geo . '">';
-                                    echo h($photo['Photo']['gpslatituderef']) . ' ' . substr(h($photo['Photo']['gpslatitude']), 0, 8) . '&deg;, ' . h($photo['Photo']['gpslongituderef']) . ' ' . substr(h($photo['Photo']['gpslongitude']), 0, 8) . '&deg;';
-                                    echo '</abbr>';
-                                    $this->Html->meta(array(
-                                        'name' => 'geo.position',
-                                        'content' => $geo
-                                    ), false, array('inline' => false));
-                                } else {
-                                    echo $na;
-                                }
-								?></td>
-							</tr>
-							<tr>
-								<td><?php echo __('Metering Mode') . ':';?></td>
-								<td><?php echo $photo['Meteringmode']['name'] != '' ? __($photo['Meteringmode']['name']) : $na;?></td>
-							</tr>
-						</tbody>
-					</table>
 					<p>
 						<h4 class="inline"><?php echo __('Category') . ':';?></h4>&nbsp;<?php echo $this->Html->link(__($photo['Category']['name']), array(
                                 'controller' => 'photos',
@@ -270,73 +192,87 @@ foreach ($photo['Comment'] as $key => $comment) {
                                 }
                             }
 							?>
-						</ul> </span>
+						</ul> 
+					</span>
+					<p>
+						<h4 class="inline"><?php echo __('Link') . ':';?></h4>&nbsp;
+						<?php echo $this->Html->link(
+									$this->Html->url(array('controller' => 'photos',
+	                            	'action' => 'view',
+	                            	$photo['Photo']['slug'],
+	                            	'full_base' => true)), 
+	                            array(
+	                            'controller' => 'photos',
+	                            'action' => 'view',
+	                            $photo['Photo']['slug'],
+	                            'full_base' => true
+	                        ), array(
+	                            'title' => __('Permalink for ') . $photo['Photo']['title'],
+	                            'escape' => false
+	                        ));
+						?>
+					</p>
 				</div>
 			</div>
-			<div id="img-comments">
-				<div class="notes-cmts-inner-wrapper">
-					<h4><?php echo __('Comments');?></h4>
-					<div class="bubbles">
-						<div>
-							<?php
-if (count($photo['Comment'])==0):
-echo __('No comments.');
-else:
-foreach ($photo['Comment'] as $key => $comment):
-							?>
-							<div class="bubble">
-								<blockquote>
-									<p>
-										<?php echo h($comment['comment']);?>
-									</p>
-								</blockquote>
-								<div class="tip"></div>
-								<p>
-									<strong> <?php
-if ($comment['website']!=''):
-									?>
-									<a rel="nofollow" title="Visit Homepage" href="<?php echo h($comment['website']);?>"> <?php echo h($comment['name']);?></a> <?php
-                                    else:
-                                    echo h($comment['name']);
-                                    endif;
-									?></strong>
-									<?php echo __('on') . ' ' . $this->Time->format(__('Y-m-d H:i:s'), $comment['created']);?>
-								</p>
-							</div>
-							<?php endforeach; endif;?>
-						</div>
-					</div>
-					<h4><?php echo __('Leave a Comment');?></h4>
-					<?php
-                    echo $this->Form->create('Comment', array('action' => 'add'));
-                    echo $this->Form->hidden('Comment.photo_id', array('value' => $photo['Photo']['id']));
-                    echo $this->Form->input('name', array(
-                        'label' => __('Name (required)'),
-                        'size' => '40',
-                        'maxLength' => '32',
-                        'required' => true,
-                    ));
-                    echo $this->Form->input('email', array(
-                        'label' => __('Email (required, not shown)'),
-                        'size' => '40',
-                        'maxLength' => '32',
-                        'type' => 'email',
-                        'required' => true,
-                    ));
-                    echo $this->Form->input('website', array(
-                        'label' => __('Website (optional)'),
-                        'size' => '40',
-                        'maxLength' => '255',
-                        'type' => 'url',
-                    ));
-                    echo $this->Form->input('comment', array(
-                        'label' => __('Comment (required)'),
-                        'size' => '40',
-                        'required' => true,
-                    ));
-                    echo $this->Form->end(__('submit'));
-					?>
-				</div>
+			<div id="img-meta">
+				<h4 id="exif"><?php echo __('EXIF Data');?></h4>
+				<table id="img-exif">
+					<tbody>
+						<tr>
+							<td><?php echo __('Camera') . ':';?></td>
+							<td><?php echo $photo['Cameramodelname']['name'] != '' ? h($photo['Cameramodelname']['name']) : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('Focal Length') . ':';?></td>
+							<td><?php echo $photo['Photo']['focallength'] != '' ? h($photo['Photo']['focallength']) . 'mm' : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('Aperture') . ':';?></td>
+							<td><?php echo $photo['Photo']['fnumber'] != '' ? h($photo['Photo']['fnumber']) . ((strpos($photo['Photo']['fnumber'], '.') == false) ? '.0' : '') : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('Exposure') . ':';?></td>
+							<td><?php echo $photo['Photo']['exposuretime'] != '' ? h($photo['Photo']['exposuretime']) : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('ISO Speed') . ':';?></td>
+							<td><?php echo $photo['Photo']['iso'] != '' ? h($photo['Photo']['iso']) : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('Exposure Program') . ':';?></td>
+							<td><?php echo $photo['Exposureprogram']['name'] != '' ? __(trim($photo['Exposureprogram']['name'])) : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('Flash') . ':';?></td>
+							<td><?php echo $photo['Flash']['name'] != '' ? __($photo['Flash']['name']) : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('Lens') . ':';?></td>
+							<td><?php echo $photo['Lens']['name'] != '' ? h($photo['Lens']['name']) : $na;?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('GPS') . ':';?></td>
+							<td><?php
+	                        if (($photo['Photo']['gpslatituderef'] != '') && ($photo['Photo']['gpslatitude'] != '') && ($photo['Photo']['gpslongituderef'] != '') && ($photo['Photo']['gpslongitude'] != '')) {
+	                            $geo = str_replace('N', '', str_replace('S', '-', str_replace('E', '', str_replace('W', '-', $photo['Photo']['gpslatituderef'] . $photo['Photo']['gpslatitude'] . ';' . $photo['Photo']['gpslongituderef'] . $photo['Photo']['gpslongitude']))));
+	                            echo '<abbr class="geo" title="' . $geo . '">';
+	                            echo h($photo['Photo']['gpslatituderef']) . ' ' . substr(h($photo['Photo']['gpslatitude']), 0, 8) . '&deg;, ' . h($photo['Photo']['gpslongituderef']) . ' ' . substr(h($photo['Photo']['gpslongitude']), 0, 8) . '&deg;';
+	                            echo '</abbr>';
+	                            $this->Html->meta(array(
+	                                'name' => 'geo.position',
+	                                'content' => $geo
+	                            ), false, array('inline' => false));
+	                        } else {
+	                            echo $na;
+	                        }
+							?></td>
+						</tr>
+						<tr>
+							<td><?php echo __('Metering Mode') . ':';?></td>
+							<td><?php echo $photo['Meteringmode']['name'] != '' ? __($photo['Meteringmode']['name']) : $na;?></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<br class="clear" />
 			<?php 
@@ -345,8 +281,7 @@ if ($comment['website']!=''):
 					$lon = str_replace('E', '', str_replace('W', '-', $photo['Photo']['gpslongituderef'] . $photo['Photo']['gpslongitude']));
 			?>
 				<div class="map">
-					<div class="notes-cmts-inner-wrapper">
-						<h4><?php echo __('Map');?></h4>
+					<div class="notes-meta-inner-wrapper">
 						<div id="openstreetmap"></div>
 							<script>
 							  var lon = parseFloat(<?php echo $lon; ?>);

@@ -47,7 +47,7 @@ a:hover,a:active {
 	background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8%2F9hAAABFElEQVR42qXTMVLDMBCF4V%2BxGAoXgXSUVPgYnMInofIBUnEKylyCliOYE8QznlGId23FYFkUEEIpgpqt9tOsVs8Ahn8cC2S%2FaioWgQBMFsirqno75%2Fb1en1lgdU4jpRl%2BafmzWYDsLJA7r1HRKjrOqm5KAq89wC5BTJVxTlH3%2FdJgHMOVQXILGAeRbhuW%2BJ%2BnwSYtuVehCcwFmAQYdk0ROfSgCxjEPlZI0PXMTcNcbdLA0Jg6LoToA%2FCVGyJk6YB9oDWAuURUCEcGuJ8SAMmRfU0QuxVmcaWOH%2BkAYsL%2Bq8tRAuEwXueXwIwJ36jBfP8DhAMcAvcATfAZUIeIjACW%2BDVAEtgBeSJgToGqQec%2BX6Hs9P4CewAh%2B%2BjxjaoAAAAAElFTkSuQmCC) no-repeat;
 	padding: 0 0 0 15px;
 }
-#img-info-comment {
+#img-info-meta {
 	background: transparent url(data:image/gif;base64,R0lGODlhDQAOAIABAMzMzP%2F%2F%2FyH5BAEAAAEALAAAAAANAA4AAAIgDI4JFu1vFoSnqRonlZdLbXlKCDpYuSBm8mDfVL3w2RQAOw%3D%3D) no-repeat 0% 50%;
 }
 #img-photo {
@@ -70,7 +70,7 @@ a:hover,a:active {
 }
 #admin-container,
 #login-container,
-#notes-cmts-container {
+#notes-meta-container {
 	background-color: #f5f5f5;
 	border: 1px solid #cccccc;
 }
@@ -89,9 +89,6 @@ div.owner blockquote {
 }
 div.bubble div.tip {
 	background: transparent url(data:image/gif;base64,R0lGODlhCQAGAJEAAAAAAP///8zMzP///yH5BAEAAAMALAAAAAAJAAYAAAIOjH+COYoyogswSmpzjQUAOw==) no-repeat 0% 0%;
-}
-#img-comments li {
-	border-bottom: 1px solid #cccccc;
 }
 fieldset {
 	border: none;
@@ -346,7 +343,7 @@ img {
 	font-weight: bold;
 	color: #ff0000;
 }
-#img-title-date-comments {
+#img-title-date-meta {
 	margin: 0px;
 	padding: 12px 4px 8px;
 	text-transform: uppercase;
@@ -360,7 +357,7 @@ img {
 	float: left;
 	line-height: 14px;
 }
-#img-info-comment {
+#img-info-meta {
 	float: right;
 	height: 14px;
 	line-height: 14px;
@@ -369,13 +366,13 @@ img {
 }
 #admin-container,
 #login-container,
-#notes-cmts-container {
+#notes-meta-container {
 	margin: 8px;
 	padding: 10px;
 }
 #admin-container h4,
 #login-container h4,
-#notes-cmts-container h4 {
+#notes-meta-container h4 {
 	margin: 10px 0px 12px 0px;
 	padding: 0px;
 }
@@ -390,7 +387,7 @@ img {
 	margin: 6px 0px 12px 0px;
 	padding: 0px;
 }
-.notes-cmts-inner-wrapper {
+.notes-meta-inner-wrapper {
 	margin: 0px;
 	padding: 2px 10px;
 }
@@ -400,7 +397,7 @@ img {
 	padding: 0px;
 	width: 49%;
 }
-#img-comments {
+#img-meta {
 	float: right;
 	margin: 0px 4px;
 	padding: 0px;
@@ -434,14 +431,6 @@ div.bubble blockquote p {
 div.bubble p {
 	margin: 0px;
 	padding: 0px;
-}
-#img-comments ul {
-	margin: 0px;
-	padding: 0px;
-}
-#img-comments li {
-	margin: 4px 0px;
-	padding: 4px;
 }
 fieldset {
 	margin: 0px;
@@ -595,6 +584,7 @@ textarea {
 }
 .map {
 	margin-bottom: 5px;
+	margin-top: 10px;
 }
 #openstreetmap {
 	width:760px; 

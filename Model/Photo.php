@@ -195,25 +195,6 @@ class Photo extends AppModel {
     );
 
     /**
-     * hasMany associations
-     *
-     * @var array
-     */
-    public $hasMany = array('Comment' => array(
-            'className' => 'Comment',
-            'foreignKey' => 'photo_id',
-            'dependent' => false,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
-        ));
-
-    /**
      * hasAndBelongsToMany associations
      *
      * @var array

@@ -22,20 +22,6 @@ CREATE TABLE `categories` (
   UNIQUE KEY `name` (`name`,`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `comments`;
-CREATE TABLE `comments` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The primary key',
-  `photo_id` int(10) unsigned NOT NULL COMMENT 'Foreign key to posts',
-  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The name of the commenter',
-  `email` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'The email of the commenter',
-  `website` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'The website of the commenter',
-  `comment` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'The comment',
-  `spam` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'The comment',
-  `created` datetime NOT NULL COMMENT 'Created timestamp',
-  `modified` datetime NOT NULL COMMENT 'Modified timestamp',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
 DROP TABLE IF EXISTS `exposureprograms`;
 CREATE TABLE `exposureprograms` (
   `id` int(11) NOT NULL COMMENT 'The primary key',

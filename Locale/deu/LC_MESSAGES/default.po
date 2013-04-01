@@ -127,18 +127,6 @@ msgstr "Vorheriges Foto"
 msgid "Permalink for "
 msgstr "Permalink f&uuml;r "
 
-#: View/Photos/view.ctp:88
-msgid "Comments &amp; EXIF for "
-msgstr "Kommentare &amp; EXIF f&uuml;r "
-
-#: View/Photos/view.ctp:91;185
-msgid "Comments"
-msgstr "Kommentare"
-
-#: View/Photos/view.ctp:93
-msgid "Comment"
-msgstr "Kommentar"
-
 #: View/Photos/view.ctp:99;210
 msgid "Y-m-d H:i:s"
 msgstr "d.m.Y H:i:s"
@@ -203,37 +191,9 @@ msgstr "Kategorie"
 msgid "Tags"
 msgstr "Tags"
 
-#: View/Photos/view.ctp:190
-msgid "No comments."
-msgstr "Keine Kommentare."
-
 #: View/Photos/view.ctp:210
 msgid "on"
 msgstr "am"
-
-#: View/Photos/view.ctp:216
-msgid "Leave a Comment"
-msgstr "Hinterlasse einen Kommentar"
-
-#: View/Photos/view.ctp:221
-msgid "Name (required)"
-msgstr "Name (erforderlich)"
-
-#: View/Photos/view.ctp:227
-msgid "Email (required, not shown)"
-msgstr "Email (erforderlich, nicht angezeigt)"
-
-#: View/Photos/view.ctp:234
-msgid "Website (optional)"
-msgstr "Webseite (optional)"
-
-#: View/Photos/view.ctp:240
-msgid "Comment (required)"
-msgstr "Kommentar (erforderlich)"
-
-#: View/Photos/view.ctp:244
-msgid "submit"
-msgstr "abschicken"
 
 #: View/Helper/FormHelper.php:1326
 msgid "empty"
@@ -3622,6 +3582,11 @@ msgstr "Mehrfeldmessung"
 msgid "Map"
 msgstr "Karte"
 
+msgid "Show Metadata"
+msgstr "Metadaten anzeigen"
+
+msgid "Hide Metadata"
+msgstr "Metadaten verbergen"
 
 msgid "Please enter an email address"
 msgstr "Bitte gebe eine Email-Adresse an"
